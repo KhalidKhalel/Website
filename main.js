@@ -3,72 +3,8 @@
 Dynamic URL ⇆ Section Sync  (click + scroll)
 =======================================================
 */
-(() => {
-    const navLinks = document.querySelectorAll('.nav-links a:not(.resume-link)');
-    const sections = [...document.querySelectorAll('main > section[id]')];
-    if (!navLinks.length || !sections.length) return;
-  
-    /* helper – change the path without re-loading the page */
-    const setPath = (id, push = false) => {
-      const path = `/${id}`;                       //  ←  always “/home”, “/about”… 
-      (push ? history.pushState : history.replaceState)(null, '', path);
-    };
-  
-    /* CLICK: smooth-scroll + pushState */
-    navLinks.forEach(link => {
-      const id =
-        link.dataset.target ||
-        link.getAttribute('href').replace(/^\/+/,'') || 'home';
-  
-      link.addEventListener('click', e => {
-        // skip external links
-        if (link.classList.contains('resume-link') || link.host !== location.host)
-          return;
-  
-        e.preventDefault();
-        const section = document.getElementById(id);
-        if (!section) return;
-  
-        section.scrollIntoView({ behavior:'smooth' });
-        setPath(id, true);                         // pushState
-  
-        // use your existing highlight helper if available
-        if (typeof setActive === 'function') setActive(link);
-        else
-          navLinks.forEach(a =>
-            a.classList.toggle('active', a === link)
-          );
-      });
-    });
-  
-    /* SCROLL: replaceState when the section crosses mid-viewport */
-    const io = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const id = entry.target.id;
-            setPath(id);                           // replaceState (no history spam)
-            navLinks.forEach(a =>
-              a.classList.toggle(
-                'active',
-                (a.dataset.target || a.getAttribute('href').replace(/^\/+/,'') )
-                === id
-              )
-            );
-          }
-        });
-      },
-      { rootMargin:'-50% 0px -50% 0px' }
-    );
-    sections.forEach(sec => io.observe(sec));
-  
-    /* Arrive directly on /about, /projects… */
-    const startID = location.pathname.replace(/^\/+|\/+$/g,'') || 'home';
-    if (startID !== 'home') {
-      document.getElementById(startID)?.scrollIntoView();
-    }
-  })();
-  
+
+
 /* 
 =======================================================
 Menu-toggle (mobile nav)
