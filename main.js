@@ -1,56 +1,53 @@
 /* 
 =======================================================
-Dynamic URL ⇆ Section Sync  (click + scroll)
+Dynamic URL/Section Sync
 =======================================================
 */
+
 (() => {
-    const navLinks = document.querySelectorAll('.nav-links a[data-target]');
+    const links    = document.querySelectorAll('a[data-target]');
     const sections = [...document.querySelectorAll('main > section[id]')];
-    if (!navLinks.length || !sections.length) return;
+    if (!links.length || !sections.length) return;
   
-    /* helper – change address bar without a page reload */
-    const setPath = (id, push = false) => {
+    /* helper – add “/home”, “/about”… without re-loading */
+    const updatePath = (id, push = false) => {
       const path = id === 'home' ? '/' : `/${id}`;
       (push ? history.pushState : history.replaceState)(null, '', path);
     };
   
-    /* ------- CLICK: scroll + pushState + active class ------- */
-    navLinks.forEach(link => {
+    /* click → smooth-scroll and push clean path */
+    links.forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
         const id = link.dataset.target;
-        const sec = document.getElementById(id);
-        if (!sec) return;
-  
-        sec.scrollIntoView({ behavior: 'smooth' });
-        setPath(id, true);
-  
-        // highlight current nav item (re-uses your existing helper)
-        if (typeof setActive === 'function') setActive(link);
-        else navLinks.forEach(a => a.classList.toggle('active', a === link));
+        const section = document.getElementById(id);
+        if (!section) return;
+        section.scrollIntoView({ behavior: 'smooth' });
+        updatePath(id, true);
+        setActive(link);                 // reuse your existing highlight fn
       });
     });
   
-    /* ------- SCROLL: replaceState when section is centred ------- */
+    /* scroll → replace path with section in view (50% viewport) */
     const io = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const id = entry.target.id;
-          setPath(id);                                       // replaceState
-          navLinks.forEach(a =>
-            a.classList.toggle('active', a.dataset.target === id)
-          );
+          updatePath(id);                // replace, don’t push
+          // highlight current nav link
+          links.forEach(a => {
+            a.classList.toggle('active', a.dataset.target === id);
+          });
         }
       });
     }, { rootMargin: '-50% 0px -50% 0px' });
-  
     sections.forEach(sec => io.observe(sec));
   
-    /* ------- Landing on e.g. /about – jump to that section ------- */
-    const initialID = location.pathname.replace(/^\/+|\/+$/g, '') || 'home';
-    if (initialID !== 'home') {
-      const startSec = document.getElementById(initialID);
-      startSec && startSec.scrollIntoView();
+    /* land on /about, /projects … → scroll there on load */
+    const startID = location.pathname.replace(/^\/+|\/+$/g, '') || 'home';
+    if (startID !== 'home') {
+      const startSection = document.getElementById(startID);
+      startSection && startSection.scrollIntoView();
     }
   })();
 
