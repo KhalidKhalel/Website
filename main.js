@@ -1,58 +1,5 @@
 /* 
 =======================================================
-Dynamic URL/Section Sync
-=======================================================
-*/
-
-(() => {
-    const links    = document.querySelectorAll('a[data-target]');
-    const sections = [...document.querySelectorAll('main > section[id]')];
-    if (!links.length || !sections.length) return;
-  
-    /* helper – add “/home”, “/about”… without re-loading */
-    const updatePath = (id, push = false) => {
-      const path = id === 'home' ? '/' : `/${id}`;
-      (push ? history.pushState : history.replaceState)(null, '', path);
-    };
-  
-    /* click → smooth-scroll and push clean path */
-    links.forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const id = link.dataset.target;
-        const section = document.getElementById(id);
-        if (!section) return;
-        section.scrollIntoView({ behavior: 'smooth' });
-        updatePath(id, true);
-        setActive(link);                 // reuse your existing highlight fn
-      });
-    });
-  
-    /* scroll → replace path with section in view (50% viewport) */
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          updatePath(id);                // replace, don’t push
-          // highlight current nav link
-          links.forEach(a => {
-            a.classList.toggle('active', a.dataset.target === id);
-          });
-        }
-      });
-    }, { rootMargin: '-50% 0px -50% 0px' });
-    sections.forEach(sec => io.observe(sec));
-  
-    /* land on /about, /projects … → scroll there on load */
-    const startID = location.pathname.replace(/^\/+|\/+$/g, '') || 'home';
-    if (startID !== 'home') {
-      const startSection = document.getElementById(startID);
-      startSection && startSection.scrollIntoView();
-    }
-  })();
-
-/* 
-=======================================================
 Menu-toggle (mobile nav)
 ======================================================= 
 */
