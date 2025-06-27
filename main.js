@@ -1,5 +1,50 @@
 /* 
 =======================================================
+Dynamic URL/Section Sync
+=======================================================
+*/
+(() => {
+    // map each section to the path you’d like to show
+    const SECTIONS = [
+      { id:'home',    path:'/' },
+      { id:'about',   path:'/about' },
+      { id:'projects',path:'/projects' },
+      { id:'contact', path:'/contact' }
+    ];
+  
+    const io = new IntersectionObserver(entries => {
+      // find the entry that is now MOST in view
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+  
+      if (visible) {
+        const match = SECTIONS.find(s => s.id === visible.target.id);
+        if (match && match.path !== window.location.pathname) {
+          history.replaceState({}, '', match.path);   // no page reload
+        }
+      }
+    }, { threshold:0.6 });   // 60 % in view counts as “current”
+  
+    // observe each section element
+    SECTIONS.forEach(s => {
+      const el = document.getElementById(s.id);
+      if (el) io.observe(el);
+    });
+  
+    /* optional: on first load, if someone landed directly on
+       /about, /projects, … scroll to that section immediately */
+    window.addEventListener('DOMContentLoaded', () => {
+      const current = SECTIONS.find(s => s.path === window.location.pathname);
+      if (current && current.id !== 'home') {
+        document.getElementById(current.id)
+                ?.scrollIntoView({behavior:'instant'});
+      }
+    });
+  })();
+
+/* 
+=======================================================
 Menu-toggle (mobile nav)
 ======================================================= 
 */
