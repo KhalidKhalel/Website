@@ -8,9 +8,9 @@ Dynamic URL ⇆ Section Sync  (click + scroll)
     const sections = [...document.querySelectorAll('main > section[id]')];
     if (!navLinks.length || !sections.length) return;
   
-    /* helper – change address bar without reload */
+    /* helper – change the path without re-loading the page */
     const setPath = (id, push = false) => {
-      const path = id === 'home' ? '/' : `/${id}`;
+      const path = `/${id}`;                       //  ←  always “/home”, “/about”… 
       (push ? history.pushState : history.replaceState)(null, '', path);
     };
   
@@ -18,10 +18,10 @@ Dynamic URL ⇆ Section Sync  (click + scroll)
     navLinks.forEach(link => {
       const id =
         link.dataset.target ||
-        link.getAttribute('href').replace(/^\/|#/g, '') || 'home';
+        link.getAttribute('href').replace(/^\/+/,'') || 'home';
   
       link.addEventListener('click', e => {
-        // only intercept internal links (no 'resume-link', no http://…)
+        // skip external links
         if (link.classList.contains('resume-link') || link.host !== location.host)
           return;
   
@@ -29,43 +29,43 @@ Dynamic URL ⇆ Section Sync  (click + scroll)
         const section = document.getElementById(id);
         if (!section) return;
   
-        section.scrollIntoView({ behavior: 'smooth' });
-        setPath(id, true);
+        section.scrollIntoView({ behavior:'smooth' });
+        setPath(id, true);                         // pushState
   
-        // reuse your existing highlight helper if present
+        // use your existing highlight helper if available
         if (typeof setActive === 'function') setActive(link);
-        else navLinks.forEach(a => a.classList.toggle('active', a === link));
+        else
+          navLinks.forEach(a =>
+            a.classList.toggle('active', a === link)
+          );
       });
     });
   
-    /* SCROLL: replaceState when section midpoint crosses viewport */
+    /* SCROLL: replaceState when the section crosses mid-viewport */
     const io = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const id = entry.target.id;
-            setPath(id); // replaceState (no history spam)
+            setPath(id);                           // replaceState (no history spam)
             navLinks.forEach(a =>
               a.classList.toggle(
                 'active',
-                (a.dataset.target ||
-                  a.getAttribute('href').replace(/^\/|#/g, '') ||
-                  'home') === id
+                (a.dataset.target || a.getAttribute('href').replace(/^\/+/,'') )
+                === id
               )
             );
           }
         });
       },
-      { rootMargin: '-50% 0px -50% 0px' }
+      { rootMargin:'-50% 0px -50% 0px' }
     );
+    sections.forEach(sec => io.observe(sec));
   
-    sections.forEach(s => io.observe(s));
-  
-    /* If you land directly on /about, /projects, … */
-    const bootID = location.pathname.replace(/^\/+|\/+$/g, '') || 'home';
-    if (bootID !== 'home') {
-      const startSection = document.getElementById(bootID);
-      startSection && startSection.scrollIntoView();
+    /* Arrive directly on /about, /projects… */
+    const startID = location.pathname.replace(/^\/+|\/+$/g,'') || 'home';
+    if (startID !== 'home') {
+      document.getElementById(startID)?.scrollIntoView();
     }
   })();
   
