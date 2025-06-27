@@ -1,235 +1,226 @@
 /* 
 =======================================================
-Menu Toggle Functionality
-=======================================================
+Menu-toggle (mobile nav)
+======================================================= 
 */
-
-// Grab elements from the DOM
 const hamburgerMenu = document.getElementById('hamburger-menu');
 const navLinks      = document.getElementById('nav-links');
-const mainContent   = document.querySelector('main');           // For toggling visibility on mobile menu
+const mainContent   = document.querySelector('main');
 
-// Hide/show main content based on nav-menu state
 function toggleMainVisibility () {
+  if (!mainContent || !navLinks) return;
   mainContent.style.visibility =
     navLinks.classList.contains('nav-active') ? 'hidden' : 'visible';
 }
 
-// Hamburger click ⇒ open/close nav + lock body scroll
-hamburgerMenu.addEventListener('click', () => {
-  navLinks.classList.toggle('nav-active');
-  hamburgerMenu.classList.toggle('toggle');
-  document.body.classList.toggle('nav-open');
-  toggleMainVisibility();
-});
+if (hamburgerMenu && navLinks) {
+  hamburgerMenu.addEventListener('click', () => {
+    navLinks.classList.toggle('nav-active');
+    hamburgerMenu.classList.toggle('toggle');
+    document.body.classList.toggle('nav-open');
+    toggleMainVisibility();
+  });
 
-
-/* 
-=======================================================
-Window Resize Event for Mobile Menu
-=======================================================
-*/
-
-window.addEventListener('resize', () => {
-  // If window is resized above mobile width (880px) and menu is open ⇒ close it
-  if (window.innerWidth > 880 && navLinks.classList.contains('nav-active')) {
-    navLinks.classList.remove('nav-active');
-    hamburgerMenu.classList.remove('toggle');
-    document.body.classList.remove('nav-open');
-    mainContent.style.visibility = 'visible';
-  }
-});
-
-
-/* 
-=======================================================
-Active Link Functionality (Home, Projects, Contact)
-=======================================================
-*/
-
-const navItems = document.querySelectorAll('.nav-links a:not(.resume-link)');
-
-// Set active class on whichever link is clicked
-function setActiveLink (targetLink) {
-  navItems.forEach(link => link.classList.remove('active'));
-  targetLink.classList.add('active');
-}
-
-navItems.forEach(item => {
-  item.addEventListener('click', function () {
-    setActiveLink(this);
-
-    // On mobile ⇒ close nav after click
-    if (window.innerWidth <= 880) {
+  window.addEventListener('resize', () => {
+    if (innerWidth > 880 && navLinks.classList.contains('nav-active')) {
       navLinks.classList.remove('nav-active');
       hamburgerMenu.classList.remove('toggle');
       document.body.classList.remove('nav-open');
-      mainContent.style.visibility = 'visible';
+      toggleMainVisibility();
     }
   });
-});
-
-// Automatically set “Home” active when the page loads
-document.addEventListener('DOMContentLoaded', () => setActiveLink(navItems[0]));
-
+}
 
 /* 
 =======================================================
-Smooth Scroll for Arrow & About Link
-=======================================================
+Active-link highlight
+======================================================= 
 */
+const navItems = document.querySelectorAll('.nav-links a:not(.resume-link)');
 
+function setActive (el) {
+  navItems.forEach(a => a.classList.remove('active'));
+  el && el.classList.add('active');
+}
+
+navItems.forEach(a =>
+  a.addEventListener('click', function () {
+    setActive(this);
+    if (innerWidth <= 880 && navLinks && hamburgerMenu) {
+      navLinks.classList.remove('nav-active');
+      hamburgerMenu.classList.remove('toggle');
+      document.body.classList.remove('nav-open');
+      toggleMainVisibility();
+    }
+  })
+);
+
+if (navItems.length)
+  document.addEventListener('DOMContentLoaded', () => setActive(navItems[0]));
+
+/* 
+=======================================================
+Smooth-scroll shortcuts
+======================================================= 
+*/
 const scrollArrow  = document.getElementById('scroll-arrow');
 const aboutSection = document.getElementById('about');
 
-if (scrollArrow && aboutSection) {
+if (scrollArrow && aboutSection)
   scrollArrow.addEventListener('click', () =>
-    aboutSection.scrollIntoView({ behavior: 'smooth' })
+    aboutSection.scrollIntoView({ behavior:'smooth' })
   );
-}
 
 const aboutLink = document.querySelector('.nav-links a[href="#about"]');
-if (aboutLink && aboutSection) {
+if (aboutLink && aboutSection)
   aboutLink.addEventListener('click', e => {
     e.preventDefault();
-    aboutSection.scrollIntoView({ behavior: 'smooth' });
+    aboutSection.scrollIntoView({ behavior:'smooth' });
   });
-}
-
 
 /* 
 =======================================================
-Fade-In Scroll Animation
-(Home, About, Projects, Contact)
-=======================================================
+Fade-in IntersectionObservers
+======================================================= 
 */
-
 document.addEventListener('DOMContentLoaded', () => {
-  // Elements to fade-in
-  const avatar          = document.querySelector('.avatar-container');
-  const homeContent     = document.querySelector('.home-content');
-  const arrowContainer  = document.querySelector('.scroll-arrow-container');
-  const aboutContent    = document.querySelector('.about');
-  const projectCards    = document.querySelectorAll('.projects-column');
-  const projectsSection = document.querySelector('.projects');
-  const contactSection  = document.querySelector('.contact');
-
-  // IntersectionObserver for fade-ins
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('fade-in-visible');
-        observer.unobserve(entry.target); // stop observing once visible
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('fade-in-visible');
+        io.unobserve(e.target);
       }
     });
-  }, { threshold: 0.15 });
+  }, { threshold:.15 });
 
-  avatar && observer.observe(avatar);
-  if (homeContent) setTimeout(() => observer.observe(homeContent), 400);
-  arrowContainer && observer.observe(arrowContainer);
-  aboutContent   && observer.observe(aboutContent);
-  projectCards.forEach(card => observer.observe(card));
-  projectsSection && observer.observe(projectsSection);
-  contactSection  && observer.observe(contactSection);
+  [
+    '.avatar-container','.home-content','.scroll-arrow-container',
+    '.about','.projects','.contact','.projects-column'
+  ].forEach(sel => document.querySelectorAll(sel).forEach(t => io.observe(t)));
 });
-
 
 /* 
 =======================================================
-Contact Form (Netlify) Functionality
+Contact form (Netlify)
 =======================================================
 */
 
 document.addEventListener('DOMContentLoaded', () => {
-  const form        = document.querySelector('.contact-form');
-  const statusMsgEl = document.getElementById('form-status');
-
-  if (!form) return;
-
-  // URL-encode helper
-  const encode = data =>
-    Object.keys(data)
-      .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
-      .join('&');
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-
-    // Honeypot check
-    if (form.querySelector('[name="bot-field"]')?.value) return;
-
-    // Gather form inputs
-    const data = { 'form-name': form.getAttribute('name') };
-    form.querySelectorAll('input, textarea').forEach(el => {
-      if (el.name && el.type !== 'submit') data[el.name] = el.value;
-    });
-
-    fetch('/', {
-      method : 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body   : encode(data)
-    })
+    const form        = document.querySelector('.contact-form');
+    const statusEl    = document.getElementById('form-status');
+    if (!form || !statusEl) return;
+  
+    const encode = data =>
+      Object.keys(data)
+        .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
+        .join('&');
+  
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+  
+      /* honeypot check */
+      if (form.querySelector('[name="bot-field"]')?.value) return;
+  
+      /* gather form data */
+      const data = { 'form-name': form.getAttribute('name') };
+      form.querySelectorAll('input, textarea').forEach(el => {
+        if (el.name && el.type !== 'submit') data[el.name] = el.value;
+      });
+  
+      /* POST */
+      fetch('/', {
+        method : 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body   : encode(data)
+      })
       .then(() => {
         form.reset();
-        if (statusMsgEl) {
-          statusMsgEl.textContent = 'Thank you! Your message has been sent.';
-          statusMsgEl.style.color = '#64FFDA';
-        }
+        statusEl.textContent = 'Thank you! Your message has been sent.';
+        statusEl.classList.remove('error');
+        statusEl.classList.add('success');
       })
       .catch(err => {
         console.error(err);
-        if (statusMsgEl) {
-          statusMsgEl.textContent = 'Oops! Something went wrong. Please try again later.';
-          statusMsgEl.style.color = '#ED4502';
-        }
+        statusEl.textContent = 'Oops! Something went wrong. Please try again later.';
+        statusEl.classList.remove('success');
+        statusEl.classList.add('error');
       });
+    });
   });
-});
-
 
 /* 
 =======================================================
-Scroll-Up Button
-=======================================================
+Scroll-up button
+======================================================= 
 */
-
 const scrollBtn = document.getElementById('scroll-up');
-
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 300) scrollBtn.classList.add('show');
-  else                      scrollBtn.classList.remove('show');
-});
-
-scrollBtn.addEventListener('click', () =>
-  window.scrollTo({ top: 0, behavior: 'smooth' })
-);
-
+if (scrollBtn) {
+  window.addEventListener('scroll', () => {
+    window.scrollY > 300 ? scrollBtn.classList.add('show')
+                         : scrollBtn.classList.remove('show');
+  });
+  scrollBtn.addEventListener('click', () =>
+    window.scrollTo({ top:0, behavior:'smooth' })
+  );
+}
 
 /* 
 =======================================================
-Sticky / Auto-Hide / Solid-on-Scroll Navigation Bar
-=======================================================
+Sticky / auto-hide nav bar
+======================================================= 
 */
+const navBar = document.querySelector('nav');
+let prevScrollY = pageYOffset || document.documentElement.scrollTop;
 
-const navBar    = document.querySelector('nav');
-let prevScrollY = window.pageYOffset || document.documentElement.scrollTop;
-
-// On load: if user refreshed mid-page, ensure nav is solid
-if (prevScrollY > 0) navBar.classList.add('fixed');
+if (navBar && prevScrollY > 0) navBar.classList.add('fixed');
 
 window.addEventListener('scroll', () => {
-  const currScrollY = window.pageYOffset || document.documentElement.scrollTop;
-
-  /* 1) Make nav bar solid after leaving the very top */
+  if (!navBar) return;
+  const currScrollY = pageYOffset || document.documentElement.scrollTop;
   if (currScrollY > 0) navBar.classList.add('fixed');
   else                 navBar.classList.remove('fixed');
 
-  /* 2) Auto-hide while scrolling down, show while scrolling up */
-  if (currScrollY > prevScrollY && currScrollY > 120) {
-    navBar.classList.add('nav-hidden');   // scrolling down
-  } else {
-    navBar.classList.remove('nav-hidden'); // scrolling up / near top
-  }
+  if (currScrollY > prevScrollY && currScrollY > 120)
+       navBar.classList.add('nav-hidden');
+  else navBar.classList.remove('nav-hidden');
 
   prevScrollY = currScrollY;
 });
+
+/* 
+=======================================================
+404 typing effect (runs only on 404 page)
+======================================================= 
+*/
+   (() => {
+    const line = document.getElementById('nfLine');   // <div id="nfLine">
+    if (!line) return;                                // quit on non-404 pages
+  
+    const MSG        = "Looks like you got lost. Let's get you back home.";
+    const TYPE_MS    = 45;     // speed per character
+    const LOOP_PAUSE = 5000;   // pause before re-start
+    const CURSOR     = '<span class="type-cursor"></span>';
+  
+    function run () {
+      let i = 0;
+      const step = () => {
+        if (i <= MSG.length) {
+          line.innerHTML = MSG.slice(0, i) + CURSOR;
+          i++;
+          setTimeout(step, TYPE_MS);
+        } else {
+          line.textContent = MSG;                     // leave full message
+          setTimeout(() => {                          // …then erase & repeat
+            line.textContent = '';
+            run();
+          }, LOOP_PAUSE);
+        }
+      };
+      step();
+    }
+  
+    // start immediately if DOM is ready, otherwise wait
+    document.readyState === 'loading'
+      ? document.addEventListener('DOMContentLoaded', run)
+      : run();
+  })();

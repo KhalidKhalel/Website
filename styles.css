@@ -1126,11 +1126,29 @@ CONTACT SECTION STYLES
     color: #b2a8fd;
 }
 
+/* contact-form status message */
+
+   #form-status{
+    margin-top: 1rem;
+    min-height: 1.2rem;
+    font-size: 0.95rem;
+    text-align: center;
+  }
+
+  #form-status.success { 
+    color:#64FFDA; 
+}
+
+  #form-status.error { 
+    color:#ED4502; 
+} 
+
 /* 
 =======================================================
-=====  SCROLL-UP BUTTON  ==============================
+SCROLL-UP BUTTON
 =======================================================
 */
+
 #scroll-up{
     position:fixed;
     bottom:2rem;
@@ -1168,6 +1186,99 @@ CONTACT SECTION STYLES
 #scroll-up i{font-size:1rem;}
 
 
+/* 
+=======================================================
+404 Page
+=======================================================
+*/
+
+/* ---------- 404 layout wrapper ---------- */
+body.page-404{                                   /* renamed */
+    display:flex;flex-direction:column;
+    justify-content:center;align-items:center;
+    min-height:100vh;
+    background:#14111e;
+    color:#fff;
+    text-align:center;
+    margin:0;
+    font-family:"Inter",Arial,sans-serif;
+  }
+  
+  /* ---------- neon panel ---------- */
+  .board-404{
+    display:inline-block;
+    padding:2.4rem 5rem 3.4rem;
+    border:3px solid #64ffda;
+    border-radius:10px;
+    background:#1b1926;
+    box-shadow:0 0 .6rem #64ffda,0 0 1.4rem rgba(100,255,218,.45);
+    animation:boardGlow 3.5s ease-in-out infinite alternate;
+  }
+  @keyframes boardGlow{
+    0%  {box-shadow:0 0 .4rem #64ffda,0 0 1rem rgba(100,255,218,.35);}
+    100%{box-shadow:0 0 1.2rem #64ffda,0 0 2.8rem rgba(100,255,218,.70);}
+  }
+  
+  /* ---------- glowing 4-0-4 digits ---------- */
+  .numbers{display:flex;gap:1rem;justify-content:center;}
+  .number{
+    font-family:"Liberty",cursive;
+    font-size:clamp(4rem,11vw,7rem);
+    font-weight:200;
+    color:#ed4502;
+    text-shadow:0 0 1.4rem #ed4502,0 0 2.8rem rgba(237,69,2,.8);
+    animation:numberGlow 3s ease-in-out infinite alternate,
+             numberFlicker 1.8s infinite;
+  }
+  .number:nth-child(2){animation-delay:.25s,.25s;}
+  .number:nth-child(3){animation-delay:.5s,.5s;}
+  
+  @keyframes numberGlow{
+    0%  {text-shadow:0 0 .9rem #ed4502,0 0 1.9rem rgba(237,69,2,.55);}
+    100%{text-shadow:0 0 1.8rem #ed4502,0 0 3.6rem rgba(237,69,2,.85);}
+  }
+  @keyframes numberFlicker{
+    0%,19%,21%,23%,25%,54%,56%,100%{opacity:1;}
+    20%,24%,55%{opacity:0;}
+  }
+  
+  /* ---------- typing line ---------- */
+  .message-line{
+    margin-top:2.4rem;
+    font-family:"Courier New",monospace;
+    color:#64ffda;
+    text-shadow:0 0 5px #64ffda;
+    font-size:clamp(1rem,2vw,1.3rem);
+    min-height:2.2rem;
+  }
+  .type-cursor{
+    display:inline-block;width:1ch;
+    background:#64ffda;
+    margin-left:2px;
+    animation:cursorBlink 1s steps(2,end) infinite;
+  }
+  @keyframes cursorBlink{0%,50%{opacity:1;}51%,100%{opacity:0;}}
+  
+  /* ---------- round home button ---------- */
+  .home-btn{
+    margin-top:2rem;
+    width:60px;height:60px;
+    border:3px solid #64ffda;
+    border-radius:50%;
+    background:transparent;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    color:#ed4502;
+    font-size:1.4rem;
+    box-shadow:0 0 1rem #64ffda;
+    transition:transform .3s,box-shadow .3s;
+  }
+  .home-btn:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 2rem #64ffda;
+    background:rgba(100,255,218,.08);
+  }
+  
 /* 
 =======================================================
 Responsive 
@@ -1344,3 +1455,17 @@ Responsive
         right:1.5rem;
     }
 }
+
+/* ---------- 404 responsive tweaks ---------- */
+  @media(max-width:600px){
+    .board-404{padding:1.8rem 3.4rem 2.8rem;}
+    .number  {font-size:clamp(3.2rem,14vw,5.8rem);}
+    .home-btn{width:50px;height:50px;font-size:1.2rem;}
+    .message-line{font-size:1rem;padding:0 .25rem;}
+  }
+  @media(max-width:380px){
+    .board-404{padding:1.3rem 2.4rem 2.2rem;}
+    .number   {font-size:clamp(2.6rem,16vw,4.6rem);}
+    .home-btn {width:42px;height:42px;font-size:1rem;}
+    .message-line{font-size:.9rem;}
+  }
