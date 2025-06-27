@@ -200,8 +200,8 @@ window.addEventListener('scroll', () => {
 ======================================================= 
 */
    (() => {
-    const line = document.getElementById('nfLine');   // <div id="nfLine">
-    if (!line) return;                                // quit on non-404 pages
+    const line = document.getElementById('nfLine');
+    if (!line) return;                                
   
     const MSG        = "Looks like you got lost. Let's get you back home.";
     const TYPE_MS    = 45;     // speed per character
@@ -216,8 +216,8 @@ window.addEventListener('scroll', () => {
           i++;
           setTimeout(step, TYPE_MS);
         } else {
-          line.textContent = MSG;                     // leave full message
-          setTimeout(() => {                          // …then erase & repeat
+          line.textContent = MSG;                    
+          setTimeout(() => {                          
             line.textContent = '';
             run();
           }, LOOP_PAUSE);
