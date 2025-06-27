@@ -4,53 +4,68 @@ Dynamic URL ⇆ Section Sync  (click + scroll)
 =======================================================
 */
 (() => {
-    const navLinks = document.querySelectorAll('.nav-links a[data-target]');
+    const navLinks = document.querySelectorAll('.nav-links a:not(.resume-link)');
     const sections = [...document.querySelectorAll('main > section[id]')];
     if (!navLinks.length || !sections.length) return;
   
-    /* helper – change address bar without a page reload */
+    /* helper – change address bar without reload */
     const setPath = (id, push = false) => {
       const path = id === 'home' ? '/' : `/${id}`;
       (push ? history.pushState : history.replaceState)(null, '', path);
     };
   
-    /* ------- CLICK: scroll + pushState + active class ------- */
+    /* CLICK: smooth-scroll + pushState */
     navLinks.forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const id = link.dataset.target;
-        const sec = document.getElementById(id);
-        if (!sec) return;
+      const id =
+        link.dataset.target ||
+        link.getAttribute('href').replace(/^\/|#/g, '') || 'home';
   
-        sec.scrollIntoView({ behavior: 'smooth' });
+      link.addEventListener('click', e => {
+        // only intercept internal links (no 'resume-link', no http://…)
+        if (link.classList.contains('resume-link') || link.host !== location.host)
+          return;
+  
+        e.preventDefault();
+        const section = document.getElementById(id);
+        if (!section) return;
+  
+        section.scrollIntoView({ behavior: 'smooth' });
         setPath(id, true);
   
-        // highlight current nav item (re-uses your existing helper)
+        // reuse your existing highlight helper if present
         if (typeof setActive === 'function') setActive(link);
         else navLinks.forEach(a => a.classList.toggle('active', a === link));
       });
     });
   
-    /* ------- SCROLL: replaceState when section is centred ------- */
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          setPath(id);                                       // replaceState
-          navLinks.forEach(a =>
-            a.classList.toggle('active', a.dataset.target === id)
-          );
-        }
-      });
-    }, { rootMargin: '-50% 0px -50% 0px' });
+    /* SCROLL: replaceState when section midpoint crosses viewport */
+    const io = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            setPath(id); // replaceState (no history spam)
+            navLinks.forEach(a =>
+              a.classList.toggle(
+                'active',
+                (a.dataset.target ||
+                  a.getAttribute('href').replace(/^\/|#/g, '') ||
+                  'home') === id
+              )
+            );
+          }
+        });
+      },
+      { rootMargin: '-50% 0px -50% 0px' }
+    );
   
-    sections.forEach(sec => io.observe(sec));
+    sections.forEach(s => io.observe(s));
   
-    /* ------- Landing on e.g. /about – jump to that section ------- */
-    const initialID = location.pathname.replace(/^\/+|\/+$/g, '') || 'home';
-    if (initialID !== 'home') {
-      const startSec = document.getElementById(initialID);
-      startSec && startSec.scrollIntoView();
+    /* If you land directly on /about, /projects, … */
+    const bootID = location.pathname.replace(/^\/+|\/+$/g, '') || 'home';
+    if (bootID !== 'home') {
+      const startSection = document.getElementById(bootID);
+      startSection && startSection.scrollIntoView();
     }
   })();
   
