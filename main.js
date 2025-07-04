@@ -1,35 +1,33 @@
 /* =======================================================
-   Dynamic URL ⇆ Section Sync (click + scroll)
+   Dynamic URL ⇆ Section Sync  (hash-based: click + scroll)
    =======================================================*/
 (() => {
   const links    = document.querySelectorAll('.nav-links a[href^="#"]');
   const sections = [...document.querySelectorAll('main > section[id]')];
   if (!links.length || !sections.length) return;
 
-  /* helper ─ always “/section” (even home) */
-  const setPath = (id, push = false) => {
-    const path = `/${id}`;                                 // → “/home”, “/about” …
-    (push ? history.pushState : history.replaceState)(null, '', path);
+  /* helper – update hash without jumping */
+  const setHash = id => {
+    const hash = `#${id}`;
+    if (location.hash !== hash) history.replaceState(null, '', hash);
   };
 
-  /* ─── click  ➜ smooth-scroll + pushState ─── */
+  /* ─── click: browser handles scroll, we just highlight ─── */
   links.forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const id = link.getAttribute('href').slice(1);       // “about”
-      const tgt = document.getElementById(id);
-      if (!tgt) return;
-      tgt.scrollIntoView({ behavior: 'smooth' });
-      setPath(id, true);                                   // push so back-button works
+    link.addEventListener('click', () => {
+      const id = link.getAttribute('href').slice(1);
+      links.forEach(a =>
+        a.classList.toggle('active', a.getAttribute('href') === `#${id}`)
+      );
     });
   });
 
-  /* ─── scroll ➜ replaceState when section is centered ─── */
+  /* ─── scroll: when a section is centered, replace hash ─── */
   const io = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const id = entry.target.id;
-        setPath(id);                                       // replace, don’t push
+        setHash(id);
         links.forEach(a =>
           a.classList.toggle('active', a.getAttribute('href') === `#${id}`)
         );
@@ -38,15 +36,11 @@
   }, { rootMargin: '-50% 0px -50% 0px' });
   sections.forEach(sec => io.observe(sec));
 
-  /* ─── on first load (deep-links) ─── */
-  const first = (location.pathname.replace(/^\/+|\/+$/g, '') || 'home');
-  if (first !== 'home') document.getElementById(first)?.scrollIntoView();
-  setPath(first);                                          // normalise URL
-
-  /* ─── back / forward buttons ─── */
-  window.addEventListener('popstate', () => {
-    const id = (location.pathname.replace(/^\/+|\/+$/g, '') || 'home');
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  /* ─── on initial load, highlight based on current hash ─── */
+  window.addEventListener('DOMContentLoaded', () => {
+    const startID = (location.hash || '#home').slice(1);
+    const current = document.querySelector(`a[href="#${startID}"]`);
+    current && current.classList.add('active');
   });
 })();
 
