@@ -1,6 +1,8 @@
-/* =======================================================
+/* 
+=======================================================
    Dynamic URL ⇆ Section Sync  (clean “/” for home)
-   =======================================================*/
+=======================================================
+*/
 (() => {
   const links    = document.querySelectorAll('.nav-links a[href^="#"]');
   const sections = [...document.querySelectorAll('main > section[id]')];
