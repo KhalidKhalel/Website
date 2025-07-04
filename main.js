@@ -1,40 +1,35 @@
-/* 
-=======================================================
-Dynamic URL ⇆ Section Sync  (click + scroll)
-=======================================================
-*/
 /* =======================================================
-   Dynamic URL ⇆ Section Sync  (click + scroll)
+   Dynamic URL ⇆ Section Sync (click + scroll)
    =======================================================*/
 (() => {
   const links    = document.querySelectorAll('.nav-links a[href^="#"]');
   const sections = [...document.querySelectorAll('main > section[id]')];
   if (!links.length || !sections.length) return;
 
-  // helper — "home" => "/", others => "/about", "/projects", ...
+  /* helper ─ always “/section” (even home) */
   const setPath = (id, push = false) => {
-    const path = id === 'home' ? '/' : `/${id}`;
+    const path = `/${id}`;                                 // → “/home”, “/about” …
     (push ? history.pushState : history.replaceState)(null, '', path);
   };
 
-  /* click  ➜ smooth-scroll + pushState */
+  /* ─── click  ➜ smooth-scroll + pushState ─── */
   links.forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
-      const id      = link.getAttribute('href').slice(1);   // "about"
-      const target  = document.getElementById(id);
-      if (!target) return;
-      target.scrollIntoView({ behavior: 'smooth' });
-      setPath(id, true);                                     // push so back-button works
+      const id = link.getAttribute('href').slice(1);       // “about”
+      const tgt = document.getElementById(id);
+      if (!tgt) return;
+      tgt.scrollIntoView({ behavior: 'smooth' });
+      setPath(id, true);                                   // push so back-button works
     });
   });
 
-  /* scroll ➜ replaceState when section is centered */
+  /* ─── scroll ➜ replaceState when section is centered ─── */
   const io = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const id = entry.target.id;
-        setPath(id);                                         // replace, don’t push
+        setPath(id);                                       // replace, don’t push
         links.forEach(a =>
           a.classList.toggle('active', a.getAttribute('href') === `#${id}`)
         );
@@ -43,15 +38,14 @@ Dynamic URL ⇆ Section Sync  (click + scroll)
   }, { rootMargin: '-50% 0px -50% 0px' });
   sections.forEach(sec => io.observe(sec));
 
-  /* deep-link load — e.g. user lands on /projects */
-  const start = location.pathname.replace(/^\/+|\/+$/g, '') || 'home';
-  if (start !== 'home') {
-    document.getElementById(start)?.scrollIntoView();
-  }
+  /* ─── on first load (deep-links) ─── */
+  const first = (location.pathname.replace(/^\/+|\/+$/g, '') || 'home');
+  if (first !== 'home') document.getElementById(first)?.scrollIntoView();
+  setPath(first);                                          // normalise URL
 
-  /* back/forward buttons */
+  /* ─── back / forward buttons ─── */
   window.addEventListener('popstate', () => {
-    const id = location.pathname.replace(/^\/+|\/+$/g, '') || 'home';
+    const id = (location.pathname.replace(/^\/+|\/+$/g, '') || 'home');
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   });
 })();
