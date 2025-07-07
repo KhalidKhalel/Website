@@ -16,8 +16,12 @@ Custom Fonts
 */
 /* For your glowing-name effect logo */
 @font-face {
-    font-family: "Liberty";
-    src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/907368/liberty.otf');
+  font-family: "Liberty";
+  src: url("font/liberty.woff2") format("woff2"),
+       url("font/liberty.otf")   format("opentype");
+  font-weight : normal;
+  font-style  : normal;
+  font-display: swap;
 }
 
 /* 
