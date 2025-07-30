@@ -3,6 +3,7 @@
 GLOBAL BOX-SIZING
 =======================================================
 */
+/* Apply border-box sizing to all elements so padding and borders are included in the element’s dimensions */
 *,
 *::before,
 *::after {
@@ -14,7 +15,7 @@ GLOBAL BOX-SIZING
 Custom Fonts
 =======================================================
 */
-/* For your glowing-name effect logo */
+/* Define the custom “Liberty” font used for the animated logo */
 @font-face {
   font-family: "Liberty";
   src: url("font/liberty.woff2") format("woff2"),
@@ -29,10 +30,12 @@ Custom Fonts
 Global Styles
 =======================================================
 */
+/* Smoothly scroll to anchors */
 html {
     scroll-behavior: smooth;
 }
 
+/* Basic body styling: remove default margin, set background color, and prevent horizontal overflow */
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
@@ -41,17 +44,20 @@ body {
     overflow-x: hidden;
 }
 
+/* Prevent fade‑in animations from affecting headings and paragraphs */
 h1, p, main {
     transition: none;
     opacity: 1;
 }
+
 
 /* 
 =========================================
 Navigation Bar Styles 
 =========================================
 */
-   nav {
+/* Main navigation bar: uses flexbox to space items, sits above content, and can slide up when hidden */
+nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -59,12 +65,10 @@ Navigation Bar Styles
     background: transparent;          
     position: relative;
     z-index: 1001;
-
-    
     transition: transform .3s ease;
 }
 
-/* Sticky / auto-hide nav */
+/* Styles applied when the nav becomes sticky at the top of the viewport */
 nav.fixed {
     position: fixed;
     top: 0;
@@ -75,17 +79,19 @@ nav.fixed {
     box-shadow: 0 2px 6px rgba(0,0,0,.4);
 }
 
+/* Hide the nav by translating it upward when scrolling down */
 nav.nav-hidden {
     transform: translateY(-110%);     
 }
 
-
+/* Logo styling inside the nav */
 .logo {
     font-size: 1.5rem;
     color: #64FFDA;
     z-index: 1001;
 }
 
+/* Container for nav links */
 .nav-links {
     display: flex;
     list-style: none;
@@ -101,6 +107,7 @@ nav.nav-hidden {
 Navigation Links Styles
 =======================================================
 */
+/* Base styling for nav links (excluding the resume link) */
 .nav-links a:not(.resume-link) {
     color: #64FFDA;
     text-decoration: none;
@@ -112,6 +119,7 @@ Navigation Links Styles
     border: 2px solid transparent;
 }
 
+/* Hover effects for nav links */
 .nav-links a:not(.resume-link):hover {
     color: #64FFDA;
     background-color: transparent;
@@ -122,6 +130,7 @@ Navigation Links Styles
     border: 2px solid rgba(100,255,218,0.6);
 }
 
+/* Styles for the active nav link (highlighted section) */
 .nav-links a:not(.resume-link).active {
     color: #64FFDA;
     background-color: transparent;
@@ -138,6 +147,7 @@ Navigation Links Styles
 Resume Link Styling
 =======================================================
 */
+/* Resume button: styled differently to draw attention */
 .resume-link {
     color: #F5F5F5;
     background-color: #ED4502;
@@ -153,6 +163,7 @@ Resume Link Styling
     transition: all 0.3s ease;
 }
 
+/* Hover and active states for the resume link */
 .resume-link:hover {
     background-color: rgba(237,69,2,0.8);
     box-shadow:
@@ -178,6 +189,7 @@ Resume Link Styling
 Hamburger Menu (for Mobile)
 =======================================================
 */
+/* Hidden by default; displays on small screens to toggle nav visibility */
 .hamburger-menu {
     display: none;
     flex-direction: column;
@@ -187,6 +199,7 @@ Hamburger Menu (for Mobile)
     z-index: 1001;
 }
 
+/* Visual representation of the three hamburger lines */
 .hamburger-menu-line {
     width: 25px;
     height: 3px;
@@ -196,6 +209,7 @@ Hamburger Menu (for Mobile)
     z-index: 1001;
 }
 
+/* Transformations when the hamburger is toggled (animated X) */
 .hamburger-menu.toggle .hamburger-menu-line:nth-child(1) {
     transform: rotate(45deg) translate(0, 0);
     position: absolute;
@@ -210,6 +224,7 @@ Hamburger Menu (for Mobile)
     position: absolute;
 }
 
+/* Reset positions when untoggled */
 .hamburger-menu:not(.toggle) .hamburger-menu-line:nth-child(1),
 .hamburger-menu:not(.toggle) .hamburger-menu-line:nth-child(3) {
     transform: rotate(0) translate(0, 0);
@@ -222,9 +237,10 @@ Hamburger Menu (for Mobile)
 
 /* 
 =======================================================
-Glowing Name Animation with Flicker and Glow Effects
+Logo Styling
 =======================================================
 */
+/* Style and animate the glowing logo letters */
 .glowing-name {
     font-family: 'Liberty', sans-serif;
     font-size: 2rem;
@@ -238,6 +254,7 @@ Glowing Name Animation with Flicker and Glow Effects
     z-index: 1001;
 }
 
+/* Each letter glows/flickers at different intervals */
 .glowing-name span {
     display: inline-block;
     animation: glow 4s ease-in-out infinite;
@@ -269,6 +286,7 @@ Glowing Name Animation with Flicker and Glow Effects
     margin-right: 1rem;
 }
 
+/* Glow animation keyframes for the logo letters */
 @keyframes glow {
     0%, 100% {
         text-shadow:
@@ -288,6 +306,7 @@ Glowing Name Animation with Flicker and Glow Effects
     }
 }
 
+/* Flicker animation used on some letters */
 @keyframes flicker {
     0%, 18%, 22%, 25%, 53%, 100% {
         opacity: 1;
@@ -306,15 +325,17 @@ Glowing Name Animation with Flicker and Glow Effects
 
 /* 
 =======================================================
-Wave Emoji Animation Styles
+Wave Animation Styles
 =======================================================
 */
+/* Emoji waving effect next to the introduction */
 .wave {
     display: inline-block;
     animation: wave-animation 2.5s infinite;
     transform-origin: 70% 70%;
 }
 
+/* Keyframes for rotating the wave emoji */
 @keyframes wave-animation {
     0% { transform: rotate(0deg); }
     10% { transform: rotate(14deg); }
@@ -331,15 +352,17 @@ Wave Emoji Animation Styles
 Home Styles
 =======================================================
 */
+/* Main container for the home section */
 .home {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     text-align: center;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 80px); /* Full viewport height minus navigation bar */
 }
 
+/* Avatar image with neon ring */
 .avatar-container {
     display: flex;
     justify-content: center;
@@ -367,6 +390,7 @@ Home Styles
     width: 100%;
     height: 100%;
     border-radius: 50%;
+    /* Create a glowing ring behind the avatar */
     box-shadow:
         0 0 15px rgba(100,255,218,0.6),
         0 0 30px rgba(100,255,218,0.4),
@@ -379,24 +403,62 @@ Home Styles
     text-align: center;
 }
 
+/* Main title in the home section */
 .home-content h1 {
     font-size: 2.2rem;
     color: #64FFDA;
     margin-bottom: 1rem;
 }
 
-.home-content p {
-    font-size: calc(1rem + 0.5vw);
-    max-width: 1000px;
-    line-height: 1.6;
-    margin: 0 auto;
+/* Social links container */
+.social-icons {
+    margin: 3rem 0;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
 }
+
+/* Each social link wrapper */
+.social-icon {
+    display: inline-block;
+    background: transparent;
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Icon sizing, glow and hover effects */
+.social-icon i {
+    pointer-events: none;
+    color: inherit;
+    font-size: clamp(2rem, 3vw, 3rem);
+    transition: font-size 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+    text-shadow: 0 0 15px currentColor;
+}
+
+.social-icon:hover i {
+    transform: scale(1.2);
+    text-shadow: 0 0 20px currentColor;
+}
+
+/* Social icon colors for each platform */
+.social-icon.github {
+    color: #ffffff;
+}
+
+.social-icon.linkedin {
+    color: #0077B5;
+}
+
+.social-icon.instagram {
+    color: #E1306C;
+}
+
 
 /* 
 =======================================================
 Arrow Styles
 =======================================================
 */
+/* Container for the down arrow; pushed to bottom of the home section */
 .scroll-arrow-container {
     display: flex;
     justify-content: center;
@@ -404,6 +466,7 @@ Arrow Styles
     padding: 1rem 0;
 }
 
+/* Circle around the scroll arrow with glow and bounce animations */
 .scroll-arrow {
     width: 50px;
     height: 50px;
@@ -420,6 +483,7 @@ Arrow Styles
         arrow-bounce 1.5s infinite;
 }
 
+/* Arrow graphic inside the circle */
 .scroll-arrow::before {
     content: '';
     position: absolute;
@@ -432,6 +496,7 @@ Arrow Styles
     transform: translateX(-50%) rotate(-45deg);
 }
 
+/* Glow animation for the scroll arrow */
 @keyframes arrow-glow {
     0%, 100% {
         box-shadow:
@@ -447,6 +512,7 @@ Arrow Styles
     }
 }
 
+/* Bounce animation for the scroll arrow */
 @keyframes arrow-bounce {
     0%   { transform: translateY(0); }
     20%  { transform: translateY(5px); }
@@ -458,6 +524,7 @@ Arrow Styles
 Single Fade-In Animation
 =======================================================
 */
+/* General fade-in keyframe used for revealing elements on scroll */
 @keyframes fadeInSmoothly {
     0%   { opacity: 0; }
     100% { opacity: 1; }
@@ -468,6 +535,7 @@ Single Fade-In Animation
 Home Fade-In
 =======================================================
 */
+/* Fade-in effects for the home section components */
 .avatar-container {
     opacity: 0;
     transition: opacity 2.5s ease-out;
@@ -503,6 +571,7 @@ Home Fade-In
 About Section
 =======================================================
 */
+/* Main layout for the about section */
 .about {
     background-color: #1E1E2D;
     color: #FFFFFF;
@@ -516,24 +585,28 @@ About Section
     transition: opacity 3s ease-out;
 }
 
+/* Container for the about content text */
 .about-content {
     max-width: 1000px;
     margin: 0 1.5rem;
     flex: 1;
 }
 
+/* Heading in the about section */
 .about-content h2 {
     font-size: 2.2rem;
     margin-bottom: 1rem;
     font-weight: 700;
 }
 
+/* Paragraph styling in the about section */
 .about-content p {
     font-size: calc(1rem + 0.5vw);
     line-height: 1.6;
     margin: 1rem 0;
 }
 
+/* Fade-in effect for the about section */
 .about.fade-in-visible {
     animation: fadeInSmoothly 3s forwards;
     opacity: 1;
@@ -544,6 +617,7 @@ About Section
 Skills Container
 =======================================================
 */
+/* Wrapper for the skills section */
 .skills-container {
     width: 90%;
     max-width: 1200px;
@@ -553,12 +627,14 @@ Skills Container
     align-items: flex-start;
 }
 
+/* Heading for the skills section */
 .skills-heading {
     margin: 0;
     margin-bottom: 0.5rem;
     text-align: left;
 }
 
+/* Row containing all skill columns */
 .skills-row {
     display: flex;
     justify-content: center;
@@ -572,6 +648,7 @@ Skills Container
 Skills Columns
 =======================================================
 */
+/* Individual skill column card */
 .skills-column {
     flex: 1;
     min-width: 250px;
@@ -585,6 +662,7 @@ Skills Columns
     transition: all 0.3s ease-in-out;
 }
 
+/* Different colored borders and glows per skill category */
 .programming {
     border-color: #2A83DB;
     box-shadow: 0 0 15px rgba(42,131,219,0.6);
@@ -600,6 +678,7 @@ Skills Columns
     box-shadow: 0 0 15px rgba(235,78,30,0.6);
 }
 
+/* Hover effect for skill columns */
 .skills-column:hover {
     transform: scale(1.05);
     box-shadow: 0 0 25px rgba(100,255,218,0.8);
@@ -622,6 +701,7 @@ Skills Columns
 skills-title
 =======================================================
 */
+/* Title of each skills column */
 .skills-title {
     font-size: clamp(1.4rem, 2vw, 1.8rem);
     margin-top: 0.5rem;  
@@ -631,6 +711,7 @@ skills-title
     transition: color 0.3s ease-in-out;
 }
 
+/* Title color per category */
 .programming .skills-title {
     color: #2A83DB;
     text-shadow: 0 0 10px rgba(42,131,219,0.6);
@@ -646,6 +727,7 @@ skills-title
     text-shadow: 0 0 10px rgba(235,78,30,0.6);
 }
 
+/* Unordered list styling within skills columns */
 .skills-list {
     list-style: none;
     margin: 0;
@@ -653,6 +735,7 @@ skills-title
     width: 100%;
 }
 
+/* Individual skill bar container */
 .skills-list li {
     position: relative;
     margin-bottom: 2rem;
@@ -661,6 +744,7 @@ skills-title
     height: 6px;
 }
 
+/* Skill name label above each bar */
 .skills-list li em {
     position: absolute;
     top: -20px;
@@ -670,6 +754,7 @@ skills-title
     text-shadow: 0 0 10px rgba(0,0,0,0.6);
 }
 
+/* Animated bar inside each skill */
 .skill-bar {
     position: relative;
     height: 100%;
@@ -678,6 +763,7 @@ skills-title
     display: block;
 }
 
+/* Percentage label above each bar */
 .skill-percentage {
     position: absolute;
     top: -20px;
@@ -692,6 +778,7 @@ skills-title
 Child Selectors for Skills
 =======================================================
 */
+/* Set the width and color of each programming bar */
 .programming .skills-list .skill-bar {
     background-color: #2A83DB;
     box-shadow: 0 0 15px rgba(42,131,219,0.6);
@@ -702,6 +789,7 @@ Child Selectors for Skills
 .programming .skills-list li:nth-child(4) .skill-bar { width: 65%; }
 .programming .skills-list li:nth-child(5) .skill-bar { width: 30%; }
 
+/* Set the width and color of each tools bar */
 .tools .skills-list .skill-bar {
     background-color: #A0CF3C;
     box-shadow: 0 0 15px rgba(160,207,60,0.6);
@@ -712,6 +800,7 @@ Child Selectors for Skills
 .tools .skills-list li:nth-child(4) .skill-bar { width: 65%; }
 .tools .skills-list li:nth-child(5) .skill-bar { width: 75%; }
 
+/* Set the width and color of each technical skills bar */
 .technical-skills .skills-list .skill-bar {
     background-color: #EB4E1E;
     box-shadow: 0 0 15px rgba(235,78,30,0.6);
@@ -727,6 +816,7 @@ Child Selectors for Skills
 Neon Gradient for .highlight
 =======================================================
 */
+/* Highlighted text has a moving radial gradient to create a neon effect */
 .highlight {
     font-size: 2.2rem; 
     background: radial-gradient(
@@ -745,6 +835,7 @@ Neon Gradient for .highlight
     animation: highlightFlow 1.5s linear infinite; 
 }
 
+/* Animate the neon gradient */
 @keyframes highlightFlow {
     to {
         background-position: 200% center;
@@ -756,6 +847,7 @@ Neon Gradient for .highlight
 Education & Experience Timelines
 =======================================================
 */
+/* Container for the education and experience timelines */
 .edu-exp-container {
     display: flex;
     justify-content: space-between;
@@ -768,23 +860,27 @@ Education & Experience Timelines
     box-sizing: border-box;
 }
 
+/* Both timelines share the full width equally */
 .timeline {
     flex: 1;
     opacity: 1; 
 }
 
+/* Basic list styles reset for timeline lists */
 .timeline-list {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
+/* Each timeline entry aligns its icon and content side by side */
 .timeline-item {
     display: flex;
     align-items: stretch;
     margin-bottom: 2rem;
 }
 
+/* Column showing the icon and the connecting line */
 .icon-lane {
     position: relative;
     width: 40px;
@@ -793,6 +889,7 @@ Education & Experience Timelines
     align-items: center;
 }
 
+/* Wrapper for the font-awesome icon */
 .icon-wrapper {
     width: 32px;
     height: 32px;
@@ -809,6 +906,7 @@ Education & Experience Timelines
     font-size: 1rem;
 }
 
+/* Vertical line connecting timeline items */
 .vertical-line {
     width: 2px;
     background-color: #64FFDA;
@@ -816,6 +914,7 @@ Education & Experience Timelines
     flex: 1; 
 }
 
+/* Content box for each timeline item */
 .timeline-box {
     flex: 1;
     background-color: #14111E;
@@ -828,6 +927,7 @@ Education & Experience Timelines
     text-align: center;
 }
 
+/* Styling for clickable headings inside the timeline entries */
 .timeline-heading {
     font-size: 1rem;
     text-decoration: none; 
@@ -841,6 +941,7 @@ Education & Experience Timelines
     text-decoration: none; 
 }
 
+/* Dates shown in timeline entries */
 .timeline-date {
     font-size: 0.85rem;
     color: #FFFFFF;
@@ -849,6 +950,7 @@ Education & Experience Timelines
     margin-bottom: 0.3rem;
 }
 
+/* Descriptions in timeline entries */
 .timeline-description {
     margin: 0;
     line-height: 1.4;
@@ -860,6 +962,7 @@ Education & Experience Timelines
 PROJECTS SECTION 
 =======================================================
 */
+/* Wrapper around the entire projects section */
 .projects {
     background: #14111E;
     padding: 3rem 0;
@@ -868,11 +971,13 @@ PROJECTS SECTION
     transition: opacity 3s ease-out;
 }
 
+/* Fade-in effect when the projects section comes into view */
 .projects.fade-in-visible {
     animation: fadeInSmoothly 1.5s forwards;
     opacity: 1;
 }
 
+/* Container for all project cards and heading */
 .projects-container {
     width: 90%;
     max-width: 1200px;
@@ -882,6 +987,7 @@ PROJECTS SECTION
     align-items: flex-start;
 }
 
+/* Heading for the projects section */
 .projects-heading {
     margin-top: 0;
     margin-bottom: 1rem;
@@ -891,6 +997,7 @@ PROJECTS SECTION
     text-align: left;
 }
 
+/* Flex row to arrange project cards; uses wrap and stretch for equal heights */
 .projects-row {
     display: flex;
     justify-content: center;
@@ -898,9 +1005,13 @@ PROJECTS SECTION
     gap: 2rem;
     width: 100%;
     box-sizing: border-box;
+    align-items: stretch;
 }
 
+/* Individual project card; flex layout so inner content can push downwards */
 .projects-column {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     min-width: 250px;
     max-width: 350px;
@@ -916,16 +1027,19 @@ PROJECTS SECTION
     
 }
 
+/* Fade each project card in as it appears in the viewport */
 .projects-column.fade-in-visible {
     animation: fadeInSmoothly 1.2s forwards;
     opacity: 1;
 }
 
+/* Hover effect to enlarge project cards slightly */
 .projects-column:hover {
     transform: scale(1.05);
     box-shadow: 0 0 25px rgba(100,255,218,0.8);
 }
 
+/* Left align the folder icon within project cards */
 .left-align-folder {
     text-align: left;
 }
@@ -939,6 +1053,7 @@ PROJECTS SECTION
     font-size: 1.2rem;
 }
 
+/* Project title styling */
 .project-title {
     font-size: 1.3rem;
     color: #64FFDA;
@@ -946,6 +1061,7 @@ PROJECTS SECTION
     text-shadow: 0 0 10px rgba(100,255,218,0.4);
 }
 
+/* Short description of each project */
 .project-description {
     font-size: 0.95rem;
     color: #FFFFFF;
@@ -954,21 +1070,26 @@ PROJECTS SECTION
     opacity: 0.9;
 }
 
+/* Technology list: flex layout; auto top margin pushes it and links to the bottom of the card */
 .project-tech-list {
     display: flex;
     gap: 1rem;
     list-style: none;
-    margin: 0 0 1rem 0;
+    margin: 0;
     padding: 0;
     justify-content: center;
+    margin-top: auto;
+    margin-bottom: 1rem;
 }
 
+/* Individual technology item in the list */
 .project-tech-list li {
     font-size: 0.85rem;
     color: #FFFFFF;
     opacity: 0.8;
 }
 
+/* Container for project links (GitHub, live demo) */
 .project-links {
     display: flex;
     gap: 1rem;
@@ -976,6 +1097,7 @@ PROJECTS SECTION
     margin-bottom: 1rem;
 }
 
+/* Base link styling in project cards */
 .project-links a {
     color: #64FFDA;
     font-size: 1rem;
@@ -983,6 +1105,7 @@ PROJECTS SECTION
     transition: color 0.3s ease;
 }
 
+/* Hover color change for project links */
 .project-links a:hover {
     color: #b2a8fd; 
 }
@@ -992,6 +1115,7 @@ PROJECTS SECTION
 CONTACT SECTION STYLES
 =======================================================
 */
+/* Wrapper for the contact section */
 .contact {
     background-color: #1E1E2D;
     color: #FFFFFF;
@@ -1001,17 +1125,20 @@ CONTACT SECTION STYLES
     transition: opacity 3s ease-out;
 }
 
+/* Fade-in for the contact section */
 .contact.fade-in-visible {
     animation: fadeInSmoothly 1.5s forwards;
     opacity: 1;
 }
 
+/* Container for contact form and text */
 .contact-container {
     width: 90%;
     max-width: 600px;
     margin: 0 auto;
 }
 
+/* Contact section heading */
 .contact-heading {
     font-size: 2.2rem;
     margin-bottom: 1rem;
@@ -1020,6 +1147,7 @@ CONTACT SECTION STYLES
     text-align: center;
 }
 
+/* Introductory text in contact section */
 .contact-intro {
     font-size: calc(1rem + 0.2vw);
     margin-bottom: 2rem;
@@ -1029,31 +1157,34 @@ CONTACT SECTION STYLES
     text-align: center;
 }
 
-/* Form */
+/* Form layout in the contact section */
 .contact-form {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
+/* Group each label and input */
 .form-group {
     display: flex;
     flex-direction: column;
     text-align: left;
 }
 
+/* Form label styling */
 .form-group label {
     font-size: 1rem;
     margin-bottom: 0.5rem;
     color: #64FFDA;
 }
 
+/* Asterisk color for required fields */
 .form-group .required {
     color: #ED4502;
     margin-left: 0.25rem;
 }
 
-/* Ensure inputs/textarea never overflow */
+/* General styling for inputs and textareas */
 .form-group input,
 .form-group textarea {
     width: 100%;
@@ -1069,6 +1200,7 @@ CONTACT SECTION STYLES
     resize: vertical;
 }
 
+/* Highlight fields when they have focus */
 .form-group input:focus,
 .form-group textarea:focus {
     border-color: #b2a8fd;
@@ -1077,7 +1209,7 @@ CONTACT SECTION STYLES
         0 0 20px rgba(42, 131, 219, 0.4);
 }
 
-/* Submit Button matches Resume link styling */
+/* Submit button in the contact form */
 .contact-button {
     align-self: center;
     background-color: #ED4502;
@@ -1095,6 +1227,7 @@ CONTACT SECTION STYLES
     transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
 }
 
+/* Button hover and active states */
 .contact-button:hover {
     background-color: rgba(237, 69, 2, 0.8);
     box-shadow:
@@ -1111,7 +1244,23 @@ CONTACT SECTION STYLES
         0 0 90px rgba(237, 69, 2, 0.4);
 }
 
-/* Direct email fallback link */
+/* Text displayed when form submission succeeds or fails */
+#form-status{
+    margin-top: 1rem;
+    min-height: 1.2rem;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+#form-status.success { 
+    color:#64FFDA; 
+}
+
+#form-status.error { 
+    color:#ED4502; 
+} 
+
+/* Optional email fallback link */
 .direct-email {
     margin-top: 1rem;
     font-size: 0.95rem;
@@ -1128,28 +1277,12 @@ CONTACT SECTION STYLES
     color: #b2a8fd;
 }
 
-/* contact-form status message */
-   #form-status{
-    margin-top: 1rem;
-    min-height: 1.2rem;
-    font-size: 0.95rem;
-    text-align: center;
-  }
-
-  #form-status.success { 
-    color:#64FFDA; 
-}
-
-  #form-status.error { 
-    color:#ED4502; 
-} 
-
 /* 
 =======================================================
 SCROLL-UP BUTTON
 =======================================================
 */
-
+/* “Back to top” button styling */
 #scroll-up{
     position:fixed;
     bottom:2rem;
@@ -1172,10 +1305,12 @@ SCROLL-UP BUTTON
     transition:transform .3s ease, box-shadow .3s ease;
 }
 
+/* Show the scroll button when the page is scrolled down */
 #scroll-up.show{
     display:flex;
 }
 
+/* Hover effect for the scroll button */
 #scroll-up:hover{
     transform:scale(1.1);
     box-shadow:
@@ -1184,16 +1319,16 @@ SCROLL-UP BUTTON
         0 0 65px rgba(237,69,2,0.4);
 }
 
-#scroll-up i{font-size:1rem;}
-
+#scroll-up i{
+    font-size:1rem;
+}
 
 /* 
 =======================================================
 404 Page
 =======================================================
 */
-
-/* ---------- 404 layout wrapper ---------- */
+/* Centering and styling for a custom 404 error page */
 body.page-404{
     display:flex;flex-direction:column;
     justify-content:center;align-items:center;
@@ -1203,10 +1338,10 @@ body.page-404{
     text-align:center;
     margin:0;
     font-family:"Inter",Arial,sans-serif;
-  }
-  
-  /* ---------- neon panel ---------- */
-  .board-404{
+}
+
+/* Neon border panel on the 404 page */
+.board-404{
     display:inline-block;
     padding:2.4rem 5rem 3.4rem;
     border:3px solid #64ffda;
@@ -1214,15 +1349,15 @@ body.page-404{
     background:#1b1926;
     box-shadow:0 0 .6rem #64ffda,0 0 1.4rem rgba(100,255,218,.45);
     animation:boardGlow 3.5s ease-in-out infinite alternate;
-  }
-  @keyframes boardGlow{
+}
+@keyframes boardGlow{
     0%  {box-shadow:0 0 .4rem #64ffda,0 0 1rem rgba(100,255,218,.35);}
     100%{box-shadow:0 0 1.2rem #64ffda,0 0 2.8rem rgba(100,255,218,.70);}
-  }
-  
-  /* ---------- glowing 4-0-4 digits ---------- */
-  .numbers{display:flex;gap:1rem;justify-content:center;}
-  .number{
+}
+
+/* Large “404” digits with glow and flicker effects */
+.numbers{display:flex;gap:1rem;justify-content:center;}
+.number{
     font-family:"Liberty",cursive;
     font-size:clamp(4rem,11vw,7rem);
     font-weight:200;
@@ -1230,38 +1365,38 @@ body.page-404{
     text-shadow:0 0 1.4rem #ed4502,0 0 2.8rem rgba(237,69,2,.8);
     animation:numberGlow 3s ease-in-out infinite alternate,
              numberFlicker 1.8s infinite;
-  }
-  .number:nth-child(2){animation-delay:.25s,.25s;}
-  .number:nth-child(3){animation-delay:.5s,.5s;}
-  
-  @keyframes numberGlow{
+}
+.number:nth-child(2){animation-delay:.25s,.25s;}
+.number:nth-child(3){animation-delay:.5s,.5s;}
+
+@keyframes numberGlow{
     0%  {text-shadow:0 0 .9rem #ed4502,0 0 1.9rem rgba(237,69,2,.55);}
     100%{text-shadow:0 0 1.8rem #ed4502,0 0 3.6rem rgba(237,69,2,.85);}
-  }
-  @keyframes numberFlicker{
+}
+@keyframes numberFlicker{
     0%,19%,21%,23%,25%,54%,56%,100%{opacity:1;}
     20%,24%,55%{opacity:0;}
-  }
-  
-  /* ---------- typing line ---------- */
-  .message-line{
+}
+
+/* Typing effect line on the 404 page */
+.message-line{
     margin-top:2.4rem;
     font-family:"Courier New",monospace;
     color:#64ffda;
     text-shadow:0 0 5px #64ffda;
     font-size:clamp(1rem,2vw,1.3rem);
     min-height:2.2rem;
-  }
-  .type-cursor{
+}
+.type-cursor{
     display:inline-block;width:1ch;
     background:#64ffda;
     margin-left:2px;
     animation:cursorBlink 1s steps(2,end) infinite;
-  }
-  @keyframes cursorBlink{0%,50%{opacity:1;}51%,100%{opacity:0;}}
-  
-  /* ---------- round home button ---------- */
-  .home-btn{
+}
+@keyframes cursorBlink{0%,50%{opacity:1;}51%,100%{opacity:0;}}
+
+/* Round “home” button on the 404 page */
+.home-btn{
     margin-top:2rem;
     width:60px;height:60px;
     border:3px solid #64ffda;
@@ -1273,19 +1408,21 @@ body.page-404{
     font-size:1.4rem;
     box-shadow:0 0 1rem #64ffda;
     transition:transform .3s,box-shadow .3s;
-  }
-  .home-btn:hover{
+}
+.home-btn:hover{
     transform:scale(1.1);
     box-shadow:0 0 2rem #64ffda;
     background:rgba(100,255,218,.08);
-  }
-  
+}
+
 /* 
 =======================================================
 Responsive 
 =======================================================
 */
+/* Adjust layout and sizing on screens narrower than 940px */
 @media (max-width: 940px) {
+    /* Turn nav into a full-screen overlay on mobile */
     .nav-links {
         display: none;
         flex-direction: column;
@@ -1323,11 +1460,13 @@ Responsive
         visibility: hidden;
     }
 
+    /* Reduce avatar size on small screens */
     .avatar-container {
         width: calc(25vw + 25px);
         height: calc(25vw + 25px);
     }
 
+    /* Adjust font sizes for headings on small screens */
     .home-content h1 {
         font-size: calc(1.8rem + 1vw);
     }
@@ -1336,6 +1475,7 @@ Responsive
         font-size: calc(1rem + 0.5vw);
     }
 
+    /* Resize scroll arrow */
     .scroll-arrow {
         width: 40px;
         height: 40px;
@@ -1347,7 +1487,6 @@ Responsive
         top: 11px;
     }
 
-    /* Center Skills heading on small screens */
     .skills-heading {
         text-align: center;
     }
@@ -1375,7 +1514,6 @@ Responsive
         width: 40px;
     }
 
-    /* Center Projects heading on small screens */
     .projects-heading {
         text-align: center;
     }
@@ -1389,7 +1527,7 @@ Responsive
         justify-content: center;
     }
 
-    /* Contact adjustments */
+    /* Resize form inputs/buttons on small screens */
     .form-group input,
     .form-group textarea {
         font-size: 0.95rem;
@@ -1401,6 +1539,7 @@ Responsive
     }
 }
 
+/* Further adjustments for very narrow screens (480px) */
 @media (max-width: 480px) {
     .skills-row {
         flex-direction: column;
@@ -1432,7 +1571,7 @@ Responsive
         max-width: 90%;
     }
 
-    /* Contact adjustments */
+    /* Contact form adjustments on narrow screens */
     .contact-container {
         width: 100%;
         padding: 0 1rem;
@@ -1448,6 +1587,7 @@ Responsive
     }
 }
 
+/* Fine-tune scroll button position on narrow screens */
 @media(max-width:480px){
     #scroll-up{
         width:40px;
@@ -1457,16 +1597,20 @@ Responsive
     }
 }
 
-/* ---------- 404 page responsive ---------- */
-  @media(max-width:600px){
+/* Further reduce spacing on medium screens (600px) for the 404 page */
+@media(max-width:600px){
     .board-404{padding:1.8rem 3.4rem 2.8rem;}
     .number  {font-size:clamp(3.2rem,14vw,5.8rem);}
     .home-btn{width:50px;height:50px;font-size:1.2rem;}
     .message-line{font-size:1rem;padding:0 .25rem;}
-  }
-  @media(max-width:380px){
+    .social-icon i {font-size: clamp(1.6rem, 5vw, 2.2rem);}
+}
+
+/* Tighten 404 layout further on very narrow screens (380px) */
+@media(max-width:380px){
     .board-404{padding:1.3rem 2.4rem 2.2rem;}
     .number   {font-size:clamp(2.6rem,16vw,4.6rem);}
     .home-btn {width:42px;height:42px;font-size:1rem;}
     .message-line{font-size:.9rem;}
-  }
+    .social-icon i {font-size: clamp(1.4rem, 8vw, 1.8rem);}
+}

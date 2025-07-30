@@ -1,32 +1,45 @@
 /* 
 =======================================================
-   Dynamic URL ⇆ Section Sync  (clean “/” for home)
+   Dynamic URL ⇆ Section Sync  (clean "/" for home)
 =======================================================
 */
 (() => {
-  const links    = document.querySelectorAll('.nav-links a[href^="#"]');
-  const sections = [...document.querySelectorAll('main > section[id]')];
+  const links      = document.querySelectorAll('.nav-links a[href^="#"]');
+  const sections   = [...document.querySelectorAll('main > section[id]')];
+  const navHeight  = document.querySelector('nav')?.offsetHeight || 0;
   if (!links.length || !sections.length) return;
 
-  /* helper — id ⇒ new URL ("/" for home, "/#about" for others) */
+  /* helper - id ⇒ new URL ("/" for home, "/#about" for others) */
   const setURL = id => {
     const url = id === 'home' ? '/' : `/#${id}`;
     const current = location.pathname + location.hash; // e.g. "/#about"
     if (current !== url) history.replaceState(null, '', url);
   };
 
-  /* ───────── clicks ───────── */
+  /* smooth-scroll helper */
+  const scrollToID = id => {
+    if (id === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    const target = document.getElementById(id);
+    if (!target) return;
+    const top = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
+  /* ---------- clicks ---------- */
   links.forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
-      const id = link.getAttribute('href').slice(1);   // "home" | "about"…
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-      setURL(id);                                      // push clean URL
+      const id = link.getAttribute('href').slice(1); // "home" | "about" | "projects"...
+      scrollToID(id);
+      setURL(id);
       links.forEach(a => a.classList.toggle('active', a === link));
     });
   });
 
-  /* ───────── scroll ───────── */
+  /* ---------- scroll ---------- */
   const io = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -37,23 +50,22 @@
         );
       }
     });
-  }, { rootMargin: '-50% 0px -50% 0px' });
+  }, { rootMargin: `-${navHeight}px 0px -50% 0px` });
   sections.forEach(sec => io.observe(sec));
 
-  /* ───────── initial load / deep-link ───────── */
+  /* ---------- initial load / deep-link ---------- */
   window.addEventListener('DOMContentLoaded', () => {
-    const startID =
-      (location.hash ? location.hash.slice(1) : 'home'); // default to home
-    document.getElementById(startID)?.scrollIntoView();
+    const startID = location.hash ? location.hash.slice(1) : 'home';
+    scrollToID(startID);
     document
       .querySelector(`a[href="#${startID}"]`)
       ?.classList.add('active');
   });
 
-  /* ───────── back / forward buttons ───────── */
+  /* ---------- back / forward buttons ---------- */
   window.addEventListener('popstate', () => {
     const id = location.hash ? location.hash.slice(1) : 'home';
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    scrollToID(id);
   });
 })();
 
@@ -124,17 +136,20 @@ Smooth-scroll shortcuts
 */
 const scrollArrow  = document.getElementById('scroll-arrow');
 const aboutSection = document.getElementById('about');
+const navHeight    = document.querySelector('nav')?.offsetHeight || 0;
 
 if (scrollArrow && aboutSection)
-  scrollArrow.addEventListener('click', () =>
-    aboutSection.scrollIntoView({ behavior:'smooth' })
-  );
+  scrollArrow.addEventListener('click', () => {
+    const top = aboutSection.getBoundingClientRect().top + window.pageYOffset - navHeight;
+    window.scrollTo({ top, behavior: 'smooth' });
+  });
 
 const aboutLink = document.querySelector('.nav-links a[href="#about"]');
 if (aboutLink && aboutSection)
   aboutLink.addEventListener('click', e => {
     e.preventDefault();
-    aboutSection.scrollIntoView({ behavior:'smooth' });
+    const top = aboutSection.getBoundingClientRect().top + window.pageYOffset - navHeight;
+    window.scrollTo({ top, behavior: 'smooth' });
   });
 
 /* 
@@ -150,11 +165,11 @@ document.addEventListener('DOMContentLoaded', () => {
         io.unobserve(e.target);
       }
     });
-  }, { threshold:.15 });
+  }, { threshold: .15 });
 
   [
-    '.avatar-container','.home-content','.scroll-arrow-container',
-    '.about','.projects','.contact','.projects-column'
+    '.avatar-container', '.home-content', '.scroll-arrow-container',
+    '.about', '.projects', '.contact', '.projects-column'
   ].forEach(sel => document.querySelectorAll(sel).forEach(t => io.observe(t)));
 });
 
@@ -163,49 +178,48 @@ document.addEventListener('DOMContentLoaded', () => {
 Contact form (Netlify)
 =======================================================
 */
-
 document.addEventListener('DOMContentLoaded', () => {
-    const form        = document.querySelector('.contact-form');
-    const statusEl    = document.getElementById('form-status');
-    if (!form || !statusEl) return;
-  
-    const encode = data =>
-      Object.keys(data)
-        .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
-        .join('&');
-  
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-  
-      /* honeypot check */
-      if (form.querySelector('[name="bot-field"]')?.value) return;
-  
-      /* gather form data */
-      const data = { 'form-name': form.getAttribute('name') };
-      form.querySelectorAll('input, textarea').forEach(el => {
-        if (el.name && el.type !== 'submit') data[el.name] = el.value;
-      });
-  
-      /* POST */
-      fetch('/', {
-        method : 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body   : encode(data)
-      })
-      .then(() => {
-        form.reset();
-        statusEl.textContent = 'Thank you! Your message has been sent.';
-        statusEl.classList.remove('error');
-        statusEl.classList.add('success');
-      })
-      .catch(err => {
-        console.error(err);
-        statusEl.textContent = 'Oops! Something went wrong. Please try again later.';
-        statusEl.classList.remove('success');
-        statusEl.classList.add('error');
-      });
+  const form     = document.querySelector('.contact-form');
+  const statusEl = document.getElementById('form-status');
+  if (!form || !statusEl) return;
+
+  const encode = data =>
+    Object.keys(data)
+      .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
+      .join('&');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    /* honeypot check */
+    if (form.querySelector('[name="bot-field"]')?.value) return;
+
+    /* gather form data */
+    const data = { 'form-name': form.getAttribute('name') };
+    form.querySelectorAll('input, textarea').forEach(el => {
+      if (el.name && el.type !== 'submit') data[el.name] = el.value;
+    });
+
+    /* POST */
+    fetch('/', {
+      method : 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body   : encode(data)
+    })
+    .then(() => {
+      form.reset();
+      statusEl.textContent = 'Thank you! Your message has been sent.';
+      statusEl.classList.remove('error');
+      statusEl.classList.add('success');
+    })
+    .catch(err => {
+      console.error(err);
+      statusEl.textContent = 'Oops! Something went wrong. Please try again later.';
+      statusEl.classList.remove('success');
+      statusEl.classList.add('error');
     });
   });
+});
 
 /* 
 =======================================================
@@ -219,7 +233,7 @@ if (scrollBtn) {
                          : scrollBtn.classList.remove('show');
   });
   scrollBtn.addEventListener('click', () =>
-    window.scrollTo({ top:0, behavior:'smooth' })
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   );
 }
 
@@ -251,35 +265,34 @@ window.addEventListener('scroll', () => {
 404 typing effect (runs only on 404 page)
 ======================================================= 
 */
-   (() => {
-    const line = document.getElementById('nfLine');
-    if (!line) return;                                
-  
-    const MSG        = "Looks like you got lost. Let's get you back home.";
-    const TYPE_MS    = 45;     // speed per character
-    const LOOP_PAUSE = 5000;   // pause before re-start
-    const CURSOR     = '<span class="type-cursor"></span>';
-  
-    function run () {
-      let i = 0;
-      const step = () => {
-        if (i <= MSG.length) {
-          line.innerHTML = MSG.slice(0, i) + CURSOR;
-          i++;
-          setTimeout(step, TYPE_MS);
-        } else {
-          line.textContent = MSG;                    
-          setTimeout(() => {                          
-            line.textContent = '';
-            run();
-          }, LOOP_PAUSE);
-        }
-      };
-      step();
-    }
-  
-    // start immediately if DOM is ready, otherwise wait
-    document.readyState === 'loading'
-      ? document.addEventListener('DOMContentLoaded', run)
-      : run();
-  })();
+(() => {
+  const line = document.getElementById('nfLine');
+  if (!line) return;
+
+  const MSG        = "Looks like you got lost. Let's get you back home.";
+  const TYPE_MS    = 45;   // speed per character
+  const LOOP_PAUSE = 5000; // pause before restart
+  const CURSOR     = '<span class="type-cursor"></span>';
+
+  function run () {
+    let i = 0;
+    const step = () => {
+      if (i <= MSG.length) {
+        line.innerHTML = MSG.slice(0, i) + CURSOR;
+        i++;
+        setTimeout(step, TYPE_MS);
+      } else {
+        line.textContent = MSG;
+        setTimeout(() => {
+          line.textContent = '';
+          run();
+        }, LOOP_PAUSE);
+      }
+    };
+    step();
+  }
+
+  document.readyState === 'loading'
+    ? document.addEventListener('DOMContentLoaded', run)
+    : run();
+})();
