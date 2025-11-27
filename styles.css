@@ -1,1616 +1,1600 @@
-/* 
-=======================================================
-GLOBAL BOX-SIZING
-=======================================================
-*/
-/* Apply border-box sizing to all elements so padding and borders are included in the element’s dimensions */
+/* ==========================================================================
+   GLOBAL / RESET
+   ========================================================================== */
+
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-/* 
-=======================================================
-Custom Fonts
-=======================================================
-*/
-/* Define the custom “Liberty” font used for the animated logo */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #14111E;
+  color: #FFFFFF;
+  overflow-x: hidden;
+}
+
+h1,
+p,
+main {
+  transition: none;
+  opacity: 1;
+}
+
+/* ==========================================================================
+   FONTS
+   ========================================================================== */
+
 @font-face {
   font-family: "Liberty";
   src: url("font/liberty.woff2") format("woff2"),
        url("font/liberty.otf")   format("opentype");
-  font-weight : normal;
-  font-style  : normal;
+  font-weight: normal;
+  font-style: normal;
   font-display: swap;
 }
 
-/* 
-=======================================================
-Global Styles
-=======================================================
-*/
-/* Smoothly scroll to anchors */
-html {
-    scroll-behavior: smooth;
+/* ==========================================================================
+   CSS VARIABLES / UTILITIES
+   ========================================================================== */
+
+:root {
+  --nav-h: 72px; /* updated in JS to the actual nav height */
 }
 
-/* Basic body styling: remove default margin, set background color, and prevent horizontal overflow */
-body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #14111E;
-    color: #FFFFFF;
-    overflow-x: hidden;
+/* Ensures in-page anchor targets are not hidden under the sticky nav */
+main > section {
+  scroll-margin-top: calc(var(--nav-h) + 12px);
 }
 
-/* Prevent fade‑in animations from affecting headings and paragraphs */
-h1, p, main {
-    transition: none;
-    opacity: 1;
+/* Screen-reader only (used for honeypot label) */
+.visually-hidden {
+  display: none !important;
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
+/* ==========================================================================
+   NAVIGATION
+   ========================================================================== */
 
-/* 
-=========================================
-Navigation Bar Styles 
-=========================================
-*/
-/* Main navigation bar: uses flexbox to space items, sits above content, and can slide up when hidden */
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background: transparent;          
-    position: relative;
-    z-index: 1001;
-    transition: transform .3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: transparent;
+  position: relative;
+  z-index: 1001;
+  transition: transform 0.3s ease;
 }
 
-/* Styles applied when the nav becomes sticky at the top of the viewport */
 nav.fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: #14111E;             
-    z-index: 1001;
-    box-shadow: 0 2px 6px rgba(0,0,0,.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #14111E;
+  z-index: 1001;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
-/* Hide the nav by translating it upward when scrolling down */
 nav.nav-hidden {
-    transform: translateY(-110%);     
+  transform: translateY(-110%);
 }
 
-/* Logo styling inside the nav */
 .logo {
-    font-size: 1.5rem;
-    color: #64FFDA;
-    z-index: 1001;
+  font-size: 1.5rem;
+  color: #64FFDA;
+  z-index: 1001;
 }
 
-/* Container for nav links */
 .nav-links {
-    display: flex;
-    list-style: none;
-    background-color: transparent;
+  display: flex;
+  list-style: none;
+  background-color: transparent;
 }
 
 .nav-links li {
-    margin: 0 1rem;
+  margin: 0 1rem;
 }
 
-/* 
-=======================================================
-Navigation Links Styles
-=======================================================
-*/
-/* Base styling for nav links (excluding the resume link) */
+/* Links (except resume button) */
 .nav-links a:not(.resume-link) {
-    color: #64FFDA;
-    text-decoration: none;
-    font-size: 1.1rem;
-    position: relative;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
+  color: #64FFDA;
+  text-decoration: none;
+  font-size: 1.1rem;
+  position: relative;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
 }
 
-/* Hover effects for nav links */
 .nav-links a:not(.resume-link):hover {
-    color: #64FFDA;
-    background-color: transparent;
-    box-shadow:
-        0 0 15px rgba(100,255,218,0.6),
-        0 0 30px rgba(100,255,218,0.4),
-        0 0 45px rgba(100,255,218,0.3);
-    border: 2px solid rgba(100,255,218,0.6);
+  color: #64FFDA;
+  background-color: transparent;
+  box-shadow:
+    0 0 15px rgba(100, 255, 218, 0.6),
+    0 0 30px rgba(100, 255, 218, 0.4),
+    0 0 45px rgba(100, 255, 218, 0.3);
+  border: 2px solid rgba(100, 255, 218, 0.6);
 }
 
-/* Styles for the active nav link (highlighted section) */
-.nav-links a:not(.resume-link).active {
-    color: #64FFDA;
-    background-color: transparent;
-    box-shadow:
-        0 0 15px rgba(100,255,218,0.6),
-        0 0 30px rgba(100,255,218,0.4),
-        0 0 45px rgba(100,255,218,0.3);
-    border: 2px solid rgba(100,255,218,0.6);
-    border-radius: 4px;
+/* Active state: supports class + aria-current for accessibility */
+.nav-links a:not(.resume-link).active,
+.nav-links a[aria-current="page"] {
+  color: #64FFDA;
+  background-color: transparent;
+  box-shadow:
+    0 0 15px rgba(100, 255, 218, 0.6),
+    0 0 30px rgba(100, 255, 218, 0.4),
+    0 0 45px rgba(100, 255, 218, 0.3);
+  border: 2px solid rgba(100, 255, 218, 0.6);
+  border-radius: 4px;
 }
 
-/* 
-=======================================================
-Resume Link Styling
-=======================================================
-*/
-/* Resume button: styled differently to draw attention */
+/* Resume button */
 .resume-link {
-    color: #F5F5F5;
-    background-color: #ED4502;
-    border: 2px solid #ED4502;
-    box-shadow:
-        0 0 15px rgba(237,69,2,0.6),
-        0 0 30px rgba(237,69,2,0.4),
-        0 0 45px rgba(237,69,2,0.3);
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    font-size: 1.1rem;
-    text-decoration: none;
-    transition: all 0.3s ease;
+  color: #F5F5F5;
+  background-color: #ED4502;
+  border: 2px solid #ED4502;
+  box-shadow:
+    0 0 15px rgba(237, 69, 2, 0.6),
+    0 0 30px rgba(237, 69, 2, 0.4),
+    0 0 45px rgba(237, 69, 2, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
-/* Hover and active states for the resume link */
 .resume-link:hover {
-    background-color: rgba(237,69,2,0.8);
-    box-shadow:
-        0 0 10px rgba(237,69,2,0.5),
-        0 0 20px rgba(237,69,2,0.4),
-        0 0 30px rgba(237,69,2,0.3);
-    color: #F5F5F5;
-    border-color: #ED4502;
+  background-color: rgba(237, 69, 2, 0.8);
+  box-shadow:
+    0 0 10px rgba(237, 69, 2, 0.5),
+    0 0 20px rgba(237, 69, 2, 0.4),
+    0 0 30px rgba(237, 69, 2, 0.3);
+  color: #F5F5F5;
+  border-color: #ED4502;
 }
 
-.resume-link:active {
-    box-shadow:
-        0 0 30px rgba(237,69,2,0.8),
-        0 0 60px rgba(237,69,2,0.6),
-        0 0 90px rgba(237,69,2,0.4);
-    background-color: #ED4502;
-    color: #F5F5F5;
-    transition: all 0.3s ease;
-}
+/* ==========================================================================
+   HAMBURGER (MOBILE)
+   ========================================================================== */
 
-/* 
-=======================================================
-Hamburger Menu (for Mobile)
-=======================================================
-*/
-/* Hidden by default; displays on small screens to toggle nav visibility */
 .hamburger-menu {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    justify-content: center;
-    align-items: center;
-    z-index: 1001;
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
 }
 
-/* Visual representation of the three hamburger lines */
 .hamburger-menu-line {
-    width: 25px;
-    height: 3px;
-    background: #64FFDA;
-    margin: 3px 0;
-    transition: all 0.4s ease-in-out;
-    z-index: 1001;
+  width: 25px;
+  height: 3px;
+  background: #64FFDA;
+  margin: 3px 0;
+  transition: all 0.4s ease-in-out;
+  z-index: 1001;
 }
 
-/* Transformations when the hamburger is toggled (animated X) */
 .hamburger-menu.toggle .hamburger-menu-line:nth-child(1) {
-    transform: rotate(45deg) translate(0, 0);
-    position: absolute;
+  transform: rotate(45deg) translate(0, 0);
+  position: absolute;
 }
 
 .hamburger-menu.toggle .hamburger-menu-line:nth-child(2) {
-    opacity: 0;
+  opacity: 0;
 }
 
 .hamburger-menu.toggle .hamburger-menu-line:nth-child(3) {
-    transform: rotate(-45deg) translate(0, 0);
-    position: absolute;
+  transform: rotate(-45deg) translate(0, 0);
+  position: absolute;
 }
 
-/* Reset positions when untoggled */
-.hamburger-menu:not(.toggle) .hamburger-menu-line:nth-child(1),
-.hamburger-menu:not(.toggle) .hamburger-menu-line:nth-child(3) {
-    transform: rotate(0) translate(0, 0);
-    position: relative;
-}
+/* ==========================================================================
+   LOGO GLOW / ANIMATIONS
+   ========================================================================== */
 
-.hamburger-menu:not(.toggle) .hamburger-menu-line:nth-child(2) {
-    opacity: 1;
-}
-
-/* 
-=======================================================
-Logo Styling
-=======================================================
-*/
-/* Style and animate the glowing logo letters */
 .glowing-name {
-    font-family: 'Liberty', sans-serif;
-    font-size: 2rem;
-    color: #64FFDA;
-    text-align: center;
-    letter-spacing: 0.05rem;
-    display: inline-flex;
-    white-space: nowrap;
-    text-transform: capitalize;
-    font-weight: 100;
-    z-index: 1001;
+  font-family: "Liberty", sans-serif;
+  font-size: 2rem;
+  color: #64FFDA;
+  text-align: center;
+  letter-spacing: 0.05rem;
+  display: inline-flex;
+  white-space: nowrap;
+  text-transform: capitalize;
+  font-weight: 100;
+  z-index: 1001;
 }
 
-/* Each letter glows/flickers at different intervals */
 .glowing-name span {
-    display: inline-block;
-    animation: glow 4s ease-in-out infinite;
+  display: inline-block;
+  animation: glow 4s ease-in-out infinite;
 }
 
 .glowing-name span:nth-child(2) {
-    animation: flicker 5s infinite ease-in-out; 
+  animation: flicker 5s infinite ease-in-out;
 }
 
 .glowing-name span:nth-child(3) {
-    animation: flicker 6s infinite ease-in-out;
+  animation: flicker 6s infinite ease-in-out;
 }
 
 .glowing-name span:nth-child(5) {
-    animation: flicker 7s infinite ease-in-out;
+  animation: flicker 7s infinite ease-in-out;
 }
 
 .glowing-name span:nth-child(6) {
-    animation: flicker 8s infinite ease-in-out;
+  animation: flicker 8s infinite ease-in-out;
 }
 
 .glowing-name span:nth-last-child(1) {
-    font-size: 15px;
-    position: relative;
-    top: 19px;
+  font-size: 15px;
+  position: relative;
+  top: 19px;
 }
 
 .glowing-name span:nth-last-child(3) {
-    margin-right: 1rem;
+  margin-right: 1rem;
 }
 
-/* Glow animation keyframes for the logo letters */
 @keyframes glow {
-    0%, 100% {
-        text-shadow:
-            0 0 5px #64FFDA,
-            0 0 10px #64FFDA,
-            0 0 20px #64FFDA,
-            0 0 40px #64FFDA,
-            0 0 80px #64FFDA;
-    }
-    50% {
-        text-shadow:
-            0 0 10px #64FFDA,
-            0 0 20px #64FFDA,
-            0 0 40px #64FFDA,
-            0 0 80px #64FFDA,
-            0 0 160px #64FFDA;
-    }
+  0%,
+  100% {
+    text-shadow:
+      0 0 5px #64FFDA,
+      0 0 10px #64FFDA,
+      0 0 20px #64FFDA,
+      0 0 40px #64FFDA,
+      0 0 80px #64FFDA;
+  }
+  50% {
+    text-shadow:
+      0 0 10px #64FFDA,
+      0 0 20px #64FFDA,
+      0 0 40px #64FFDA,
+      0 0 80px #64FFDA,
+      0 0 160px #64FFDA;
+  }
 }
 
-/* Flicker animation used on some letters */
 @keyframes flicker {
-    0%, 18%, 22%, 25%, 53%, 100% {
-        opacity: 1;
-        text-shadow:
-            0 0 5px #64FFDA,
-            0 0 10px #64FFDA,
-            0 0 20px #64FFDA,
-            0 0 40px #64FFDA,
-            0 0 80px #64FFDA;
-    }
-    20%, 24%, 54% {
-        opacity: 0;
-        text-shadow: none;
-    }
+  0%,
+  18%,
+  22%,
+  25%,
+  53%,
+  100% {
+    opacity: 1;
+    text-shadow:
+      0 0 5px #64FFDA,
+      0 0 10px #64FFDA,
+      0 0 20px #64FFDA,
+      0 0 40px #64FFDA,
+      0 0 80px #64FFDA;
+  }
+  20%,
+  24%,
+  54% {
+    opacity: 0;
+    text-shadow: none;
+  }
 }
 
-/* 
-=======================================================
-Wave Animation Styles
-=======================================================
-*/
-/* Emoji waving effect next to the introduction */
+/* ==========================================================================
+   WAVE EMOJI
+   ========================================================================== */
+
 .wave {
-    display: inline-block;
-    animation: wave-animation 2.5s infinite;
-    transform-origin: 70% 70%;
+  display: inline-block;
+  animation: wave-animation 2.5s infinite;
+  transform-origin: 70% 70%;
 }
 
-/* Keyframes for rotating the wave emoji */
 @keyframes wave-animation {
-    0% { transform: rotate(0deg); }
-    10% { transform: rotate(14deg); }
-    20% { transform: rotate(-8deg); }
-    30% { transform: rotate(14deg); }
-    40% { transform: rotate(-4deg); }
-    50% { transform: rotate(10deg); }
-    60% { transform: rotate(0deg); }
-    100% { transform: rotate(0deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(14deg);
+  }
+  20% {
+    transform: rotate(-8deg);
+  }
+  30% {
+    transform: rotate(14deg);
+  }
+  40% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  60%,
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
-/* 
-=======================================================
-Home Styles
-=======================================================
-*/
-/* Main container for the home section */
+/* ==========================================================================
+   HOME
+   ========================================================================== */
+
 .home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    text-align: center;
-    height: calc(100vh - 80px); /* Full viewport height minus navigation bar */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  height: calc(100vh - 80px);
 }
 
-/* Avatar image with neon ring */
 .avatar-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    width: 250px;
-    height: 250px;
-    margin: 2rem auto 1.5rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 250px;
+  height: 250px;
+  margin: 2rem auto 1.5rem auto;
+  opacity: 0;
+  transition: opacity 2.5s ease-out;
 }
 
 .avatar {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 3px solid #64FFDA;
-    object-fit: cover;
-    object-position: center top;
-    display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid #64FFDA;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
 }
 
 .neon-circle {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    /* Create a glowing ring behind the avatar */
-    box-shadow:
-        0 0 15px rgba(100,255,218,0.6),
-        0 0 30px rgba(100,255,218,0.4),
-        0 0 45px rgba(100,255,218,0.3);
-    pointer-events: none;
-    z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow:
+    0 0 15px rgba(100, 255, 218, 0.6),
+    0 0 30px rgba(100, 255, 218, 0.4),
+    0 0 45px rgba(100, 255, 218, 0.3);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .home-content {
-    text-align: center;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 3s ease-out;
 }
 
-/* Main title in the home section */
 .home-content h1 {
-    font-size: 2.2rem;
-    color: #64FFDA;
-    margin-bottom: 1rem;
+  font-size: 2.2rem;
+  color: #64FFDA;
+  margin-bottom: 1rem;
 }
 
-/* Social links container */
 .social-icons {
-    margin: 3rem 0;
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
+  margin: 3rem 0;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
 }
 
-/* Each social link wrapper */
 .social-icon {
-    display: inline-block;
-    background: transparent;
-    transition: transform 0.3s ease, text-shadow 0.3s ease;
+  display: inline-block;
+  background: transparent;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
 
-/* Icon sizing, glow and hover effects */
 .social-icon i {
-    pointer-events: none;
-    color: inherit;
-    font-size: clamp(2rem, 3vw, 3rem);
-    transition: font-size 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
-    text-shadow: 0 0 15px currentColor;
+  pointer-events: none;
+  color: inherit;
+  font-size: clamp(2rem, 3vw, 3rem);
+  transition: font-size 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+  text-shadow: 0 0 15px currentColor;
 }
 
 .social-icon:hover i {
-    transform: scale(1.2);
-    text-shadow: 0 0 20px currentColor;
+  transform: scale(1.2);
+  text-shadow: 0 0 20px currentColor;
 }
 
-/* Social icon colors for each platform */
 .social-icon.github {
-    color: #ffffff;
+  color: #ffffff;
 }
 
 .social-icon.linkedin {
-    color: #0077B5;
+  color: #0077B5;
 }
 
 .social-icon.instagram {
-    color: #E1306C;
+  color: #E1306C;
 }
 
+/* ==========================================================================
+   SCROLL ARROW
+   ========================================================================== */
 
-/* 
-=======================================================
-Arrow Styles
-=======================================================
-*/
-/* Container for the down arrow; pushed to bottom of the home section */
 .scroll-arrow-container {
-    display: flex;
-    justify-content: center;
-    margin-top: auto;
-    padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  padding: 1rem 0;
+  opacity: 0;
+  transition: opacity 3s ease-out;
 }
 
-/* Circle around the scroll arrow with glow and bounce animations */
 .scroll-arrow {
-    width: 50px;
-    height: 50px;
-    border: 3px solid #ED4502;
-    border-radius: 50%;
-    position: relative;
-    cursor: pointer;
-    box-shadow:
-        0 0 15px rgba(237,69,2,0.6),
-        0 0 30px rgba(237,69,2,0.4),
-        0 0 45px rgba(237,69,2,0.3);
-    animation:
-        arrow-glow 1.5s infinite,
-        arrow-bounce 1.5s infinite;
+  width: 50px;
+  height: 50px;
+  border: 3px solid #ED4502;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  box-shadow:
+    0 0 15px rgba(237, 69, 2, 0.6),
+    0 0 30px rgba(237, 69, 2, 0.4),
+    0 0 45px rgba(237, 69, 2, 0.3);
+  animation: arrow-glow 1.5s infinite, arrow-bounce 1.5s infinite;
 }
 
-/* Arrow graphic inside the circle */
 .scroll-arrow::before {
-    content: '';
-    position: absolute;
-    top: 15px;
-    left: 50%;
-    width: 15px;
-    height: 15px;
-    border-left: 2px solid #ED4502;
-    border-bottom: 2px solid #ED4502;
-    transform: translateX(-50%) rotate(-45deg);
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  width: 15px;
+  height: 15px;
+  border-left: 2px solid #ED4502;
+  border-bottom: 2px solid #ED4502;
+  transform: translateX(-50%) rotate(-45deg);
 }
 
-/* Glow animation for the scroll arrow */
 @keyframes arrow-glow {
-    0%, 100% {
-        box-shadow:
-            0 0 15px rgba(237,69,2,0.6),
-            0 0 30px rgba(237,69,2,0.4),
-            0 0 45px rgba(237,69,2,0.3);
-    }
-    50% {
-        box-shadow:
-            0 0 30px rgba(237,69,2,0.8),
-            0 0 60px rgba(237,69,2,0.6),
-            0 0 90px rgba(237,69,2,0.4);
-    }
+  0%,
+  100% {
+    box-shadow:
+      0 0 15px rgba(237, 69, 2, 0.6),
+      0 0 30px rgba(237, 69, 2, 0.4),
+      0 0 45px rgba(237, 69, 2, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 30px rgba(237, 69, 2, 0.8),
+      0 0 60px rgba(237, 69, 2, 0.6),
+      0 0 90px rgba(237, 69, 2, 0.4);
+  }
 }
 
-/* Bounce animation for the scroll arrow */
 @keyframes arrow-bounce {
-    0%   { transform: translateY(0); }
-    20%  { transform: translateY(5px); }
-    40%  { transform: translateY(0); }
+  0% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(5px);
+  }
+  40% {
+    transform: translateY(0);
+  }
 }
 
-/* 
-=======================================================
-Single Fade-In Animation
-=======================================================
-*/
-/* General fade-in keyframe used for revealing elements on scroll */
+/* ==========================================================================
+   FADE IN HELPERS
+   ========================================================================== */
+
 @keyframes fadeInSmoothly {
-    0%   { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-/* 
-=======================================================
-Home Fade-In
-=======================================================
-*/
-/* Fade-in effects for the home section components */
-.avatar-container {
+  0% {
     opacity: 0;
-    transition: opacity 2.5s ease-out;
-}
-
-.home-content {
-    opacity: 0;
-    transition: opacity 3s ease-out;
-}
-
-.scroll-arrow-container {
-    opacity: 0;
-    transition: opacity 3s ease-out;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .avatar-container.fade-in-visible {
-    animation: fadeInSmoothly 2.5s forwards;
-    opacity: 0.85;
+  animation: fadeInSmoothly 2.5s forwards;
+  opacity: 0.85;
 }
 
 .home-content.fade-in-visible {
-    animation: fadeInSmoothly 3s forwards;
-    opacity: 1;
+  animation: fadeInSmoothly 3s forwards;
+  opacity: 1;
 }
 
 .scroll-arrow-container.fade-in-visible {
-    animation: fadeInSmoothly 3s forwards;
-    opacity: 1;
+  animation: fadeInSmoothly 3s forwards;
+  opacity: 1;
 }
 
-/* 
-=======================================================
-About Section
-=======================================================
-*/
-/* Main layout for the about section */
+/* ==========================================================================
+   ABOUT
+   ========================================================================== */
+
 .about {
-    background-color: #1E1E2D;
-    color: #FFFFFF;
-    padding: 1rem 0; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 3s ease-out;
+  background-color: #1E1E2D;
+  color: #FFFFFF;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 3s ease-out;
 }
 
-/* Container for the about content text */
 .about-content {
-    max-width: 1000px;
-    margin: 0 1.5rem;
-    flex: 1;
+  max-width: 1000px;
+  margin: 0 1.5rem;
+  flex: 1;
 }
 
-/* Heading in the about section */
 .about-content h2 {
-    font-size: 2.2rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
 }
 
-/* Paragraph styling in the about section */
 .about-content p {
-    font-size: calc(1rem + 0.5vw);
-    line-height: 1.6;
-    margin: 1rem 0;
+  font-size: calc(1rem + 0.5vw);
+  line-height: 1.6;
+  margin: 1rem 0;
 }
 
-/* Fade-in effect for the about section */
 .about.fade-in-visible {
-    animation: fadeInSmoothly 3s forwards;
-    opacity: 1;
+  animation: fadeInSmoothly 3s forwards;
+  opacity: 1;
 }
 
-/* 
-=======================================================
-Skills Container
-=======================================================
-*/
-/* Wrapper for the skills section */
+/* ==========================================================================
+   SKILLS
+   ========================================================================== */
+
 .skills-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0.5rem auto 1rem auto; 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0.5rem auto 1rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-/* Heading for the skills section */
 .skills-heading {
-    margin: 0;
-    margin-bottom: 0.5rem;
-    text-align: left;
+  margin: 0;
+  margin-bottom: 0.5rem;
+  text-align: left;
 }
 
-/* Row containing all skill columns */
 .skills-row {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    width: 100%;
-    box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* 
-=======================================================
-Skills Columns
-=======================================================
-*/
-/* Individual skill column card */
 .skills-column {
-    flex: 1;
-    min-width: 250px;
-    max-width: 350px;
-    text-align: center;
-    background-color: #14111E;
-    border-radius: 8px;
-    padding: 1rem;
-    border: 2px solid transparent;
-    box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    transition: all 0.3s ease-in-out;
+  flex: 1;
+  min-width: 250px;
+  max-width: 350px;
+  text-align: center;
+  background-color: #14111E;
+  border-radius: 8px;
+  padding: 1rem;
+  border: 2px solid transparent;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-in-out;
 }
 
-/* Different colored borders and glows per skill category */
 .programming {
-    border-color: #2A83DB;
-    box-shadow: 0 0 15px rgba(42,131,219,0.6);
+  border-color: #2A83DB;
+  box-shadow: 0 0 15px rgba(42, 131, 219, 0.6);
 }
 
 .tools {
-    border-color: #A0CF3C;
-    box-shadow: 0 0 15px rgba(160,207,60,0.6);
+  border-color: #A0CF3C;
+  box-shadow: 0 0 15px rgba(160, 207, 60, 0.6);
 }
 
 .technical-skills {
-    border-color: #EB4E1E;
-    box-shadow: 0 0 15px rgba(235,78,30,0.6);
+  border-color: #EB4E1E;
+  box-shadow: 0 0 15px rgba(235, 78, 30, 0.6);
 }
 
-/* Hover effect for skill columns */
 .skills-column:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 25px rgba(100,255,218,0.8);
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(100, 255, 218, 0.8);
 }
 
 .programming:hover {
-    box-shadow: 0 0 25px rgba(42,131,219,0.8);
+  box-shadow: 0 0 25px rgba(42, 131, 219, 0.8);
 }
 
 .tools:hover {
-    box-shadow: 0 0 25px rgba(160,207,60,0.8);
+  box-shadow: 0 0 25px rgba(160, 207, 60, 0.8);
 }
 
 .technical-skills:hover {
-    box-shadow: 0 0 25px rgba(235,78,30,0.8);
+  box-shadow: 0 0 25px rgba(235, 78, 30, 0.8);
 }
 
-/* 
-=======================================================
-skills-title
-=======================================================
-*/
-/* Title of each skills column */
+/* Titles */
 .skills-title {
-    font-size: clamp(1.4rem, 2vw, 1.8rem);
-    margin-top: 0.5rem;  
-    margin-bottom: 2rem;
-    font-family: 'Arial', sans-serif;
-    text-shadow: 0 0 10px rgba(100,255,218,0.6);
-    transition: color 0.3s ease-in-out;
+  font-size: clamp(1.4rem, 2vw, 1.8rem);
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  font-family: "Arial", sans-serif;
+  text-shadow: 0 0 10px rgba(100, 255, 218, 0.6);
 }
 
-/* Title color per category */
 .programming .skills-title {
-    color: #2A83DB;
-    text-shadow: 0 0 10px rgba(42,131,219,0.6);
+  color: #2A83DB;
+  text-shadow: 0 0 10px rgba(42, 131, 219, 0.6);
 }
 
 .tools .skills-title {
-    color: #A0CF3C;
-    text-shadow: 0 0 10px rgba(160,207,60,0.6);
+  color: #A0CF3C;
+  text-shadow: 0 0 10px rgba(160, 207, 60, 0.6);
 }
 
 .technical-skills .skills-title {
-    color: #EB4E1E;
-    text-shadow: 0 0 10px rgba(235,78,30,0.6);
+  color: #EB4E1E;
+  text-shadow: 0 0 10px rgba(235, 78, 30, 0.6);
 }
 
-/* Unordered list styling within skills columns */
+/* Bars */
 .skills-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
-/* Individual skill bar container */
 .skills-list li {
-    position: relative;
-    margin-bottom: 2rem;
-    background: #2A2A2A;
-    border-radius: 4px;
-    height: 6px;
+  position: relative;
+  margin-bottom: 2rem;
+  background: #2A2A2A;
+  border-radius: 4px;
+  height: 6px;
 }
 
-/* Skill name label above each bar */
 .skills-list li em {
-    position: absolute;
-    top: -20px;
-    left: 0;
-    font-size: 1rem;
-    color: #FFFFFF;
-    text-shadow: 0 0 10px rgba(0,0,0,0.6);
+  position: absolute;
+  top: -20px;
+  left: 0;
+  font-size: 1rem;
+  color: #FFFFFF;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 
-/* Animated bar inside each skill */
 .skill-bar {
-    position: relative;
-    height: 100%;
-    border-radius: 4px;
-    transition: width 1s ease-out;
-    display: block;
+  position: relative;
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1s ease-out;
+  display: block;
 }
 
-/* Percentage label above each bar */
 .skill-percentage {
-    position: absolute;
-    top: -20px;
-    right: 0;
-    font-size: 1rem;
-    color: #FFFFFF;
-    text-shadow: 0 0 10px rgba(0,0,0,0.6);
+  position: absolute;
+  top: -20px;
+  right: 0;
+  font-size: 1rem;
+  color: #FFFFFF;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 
-/* 
-=======================================================
-Child Selectors for Skills
-=======================================================
-*/
-/* Set the width and color of each programming bar */
+/* Child widths */
 .programming .skills-list .skill-bar {
-    background-color: #2A83DB;
-    box-shadow: 0 0 15px rgba(42,131,219,0.6);
+  background-color: #2A83DB;
+  box-shadow: 0 0 15px rgba(42, 131, 219, 0.6);
 }
-.programming .skills-list li:nth-child(1) .skill-bar { width: 90%; }
-.programming .skills-list li:nth-child(2) .skill-bar { width: 85%; }
-.programming .skills-list li:nth-child(3) .skill-bar { width: 75%; }
-.programming .skills-list li:nth-child(4) .skill-bar { width: 65%; }
-.programming .skills-list li:nth-child(5) .skill-bar { width: 30%; }
 
-/* Set the width and color of each tools bar */
+.programming .skills-list li:nth-child(1) .skill-bar {
+  width: 90%;
+}
+
+.programming .skills-list li:nth-child(2) .skill-bar {
+  width: 85%;
+}
+
+.programming .skills-list li:nth-child(3) .skill-bar {
+  width: 75%;
+}
+
+.programming .skills-list li:nth-child(4) .skill-bar {
+  width: 65%;
+}
+
+.programming .skills-list li:nth-child(5) .skill-bar {
+  width: 30%;
+}
+
 .tools .skills-list .skill-bar {
-    background-color: #A0CF3C;
-    box-shadow: 0 0 15px rgba(160,207,60,0.6);
+  background-color: #A0CF3C;
+  box-shadow: 0 0 15px rgba(160, 207, 60, 0.6);
 }
-.tools .skills-list li:nth-child(1) .skill-bar { width: 80%; }
-.tools .skills-list li:nth-child(2) .skill-bar { width: 70%; }
-.tools .skills-list li:nth-child(3) .skill-bar { width: 85%; }
-.tools .skills-list li:nth-child(4) .skill-bar { width: 65%; }
-.tools .skills-list li:nth-child(5) .skill-bar { width: 75%; }
 
-/* Set the width and color of each technical skills bar */
+.tools .skills-list li:nth-child(1) .skill-bar {
+  width: 80%;
+}
+
+.tools .skills-list li:nth-child(2) .skill-bar {
+  width: 70%;
+}
+
+.tools .skills-list li:nth-child(3) .skill-bar {
+  width: 85%;
+}
+
+.tools .skills-list li:nth-child(4) .skill-bar {
+  width: 65%;
+}
+
+.tools .skills-list li:nth-child(5) .skill-bar {
+  width: 75%;
+}
+
 .technical-skills .skills-list .skill-bar {
-    background-color: #EB4E1E;
-    box-shadow: 0 0 15px rgba(235,78,30,0.6);
+  background-color: #EB4E1E;
+  box-shadow: 0 0 15px rgba(235, 78, 30, 0.6);
 }
-.technical-skills .skills-list li:nth-child(1) .skill-bar { width: 85%; }
-.technical-skills .skills-list li:nth-child(2) .skill-bar { width: 80%; }
-.technical-skills .skills-list li:nth-child(3) .skill-bar { width: 75%; }
-.technical-skills .skills-list li:nth-child(4) .skill-bar { width: 70%; }
-.technical-skills .skills-list li:nth-child(5) .skill-bar { width: 65%; }
 
-/* 
-=======================================================
-Neon Gradient for .highlight
-=======================================================
-*/
-/* Highlighted text has a moving radial gradient to create a neon effect */
+.technical-skills .skills-list li:nth-child(1) .skill-bar {
+  width: 85%;
+}
+
+.technical-skills .skills-list li:nth-child(2) .skill-bar {
+  width: 80%;
+}
+
+.technical-skills .skills-list li:nth-child(3) .skill-bar {
+  width: 75%;
+}
+
+.technical-skills .skills-list li:nth-child(4) .skill-bar {
+  width: 70%;
+}
+
+.technical-skills .skills-list li:nth-child(5) .skill-bar {
+  width: 65%;
+}
+
+/* ==========================================================================
+   HIGHLIGHT TEXT
+   ========================================================================== */
+
 .highlight {
-    font-size: 2.2rem; 
-    background: radial-gradient(
-        circle at 100%,
-        #b2a8fd,
-        #8678f9 50%,
-        #c7d2fe 75%,
-        #9a8dfd 75%
-    );
-    font-weight: 600;
-    background-size: 200% auto;
-    color: #000;
-    -webkit-background-clip: text; 
-    background-clip: text;         
-    -webkit-text-fill-color: transparent;
-    animation: highlightFlow 1.5s linear infinite; 
+  font-size: 2.2rem;
+  background: radial-gradient(
+    circle at 100%,
+    #b2a8fd,
+    #8678f9 50%,
+    #c7d2fe 75%,
+    #9a8dfd 75%
+  );
+  font-weight: 600;
+  background-size: 200% auto;
+  color: #000;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: highlightFlow 1.5s linear infinite;
 }
 
-/* Animate the neon gradient */
 @keyframes highlightFlow {
-    to {
-        background-position: 200% center;
-    }
+  to {
+    background-position: 200% center;
+  }
 }
 
-/* 
-=======================================================
-Education & Experience Timelines
-=======================================================
-*/
-/* Container for the education and experience timelines */
+/* ==========================================================================
+   TIMELINES (Education & Experience)
+   ========================================================================== */
+
 .edu-exp-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 2rem;
-    width: 100%;
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 1rem;
-    box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
-/* Both timelines share the full width equally */
 .timeline {
-    flex: 1;
-    opacity: 1; 
+  flex: 1;
+  opacity: 1;
 }
 
-/* Basic list styles reset for timeline lists */
 .timeline-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-/* Each timeline entry aligns its icon and content side by side */
 .timeline-item {
-    display: flex;
-    align-items: stretch;
-    margin-bottom: 2rem;
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 2rem;
 }
 
-/* Column showing the icon and the connecting line */
 .icon-lane {
-    position: relative;
-    width: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  position: relative;
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Wrapper for the font-awesome icon */
 .icon-wrapper {
-    width: 32px;
-    height: 32px;
-    background: transparent; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 0.2rem;
-    z-index: 2;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.2rem;
+  z-index: 2;
 }
 
 .icon-wrapper i {
-    color: #64FFDA;
-    font-size: 1rem;
+  color: #64FFDA;
+  font-size: 1rem;
 }
 
-/* Vertical line connecting timeline items */
 .vertical-line {
-    width: 2px;
-    background-color: #64FFDA;
-    opacity: 0.4;
-    flex: 1; 
+  width: 2px;
+  background-color: #64FFDA;
+  opacity: 0.4;
+  flex: 1;
 }
 
-/* Content box for each timeline item */
 .timeline-box {
-    flex: 1;
-    background-color: #14111E;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    border: 2px solid #1E1E2D;
-    min-height: 130px;
-    padding: 1rem;
-    margin-left: 1rem; 
-    text-align: center;
+  flex: 1;
+  background-color: #14111E;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border: 2px solid #1E1E2D;
+  min-height: 130px;
+  padding: 1rem;
+  margin-left: 1rem;
+  text-align: center;
 }
 
-/* Styling for clickable headings inside the timeline entries */
 .timeline-heading {
-    font-size: 1rem;
-    text-decoration: none; 
-    display: inline-block;
-    margin-bottom: 0.3rem;
-    color: #64FFDA; 
-    text-shadow: 0 0 10px rgba(100,255,218,0.3);
+  font-size: 1rem;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 0.3rem;
+  color: #64FFDA;
+  text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
 }
 
-.timeline-heading:hover {
-    text-decoration: none; 
-}
-
-/* Dates shown in timeline entries */
 .timeline-date {
-    font-size: 0.85rem;
-    color: #FFFFFF;
-    opacity: 0.8;
-    display: block;
-    margin-bottom: 0.3rem;
+  font-size: 0.85rem;
+  color: #FFFFFF;
+  opacity: 0.8;
+  display: block;
+  margin-bottom: 0.3rem;
 }
 
-/* Descriptions in timeline entries */
 .timeline-description {
-    margin: 0;
-    line-height: 1.4;
-    font-size: 0.9rem; 
+  margin: 0;
+  line-height: 1.4;
+  font-size: 0.9rem;
 }
 
-/* 
-=======================================================
-PROJECTS SECTION 
-=======================================================
-*/
-/* Wrapper around the entire projects section */
+/* ==========================================================================
+   PROJECTS
+   ========================================================================== */
+
 .projects {
-    background: #14111E;
-    padding: 3rem 0;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 3s ease-out;
+  background: #14111E;
+  padding: 3rem 0;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 3s ease-out;
 }
 
-/* Fade-in effect when the projects section comes into view */
 .projects.fade-in-visible {
-    animation: fadeInSmoothly 1.5s forwards;
-    opacity: 1;
+  animation: fadeInSmoothly 1.5s forwards;
+  opacity: 1;
 }
 
-/* Container for all project cards and heading */
 .projects-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-/* Heading for the projects section */
 .projects-heading {
-    margin-top: 0;
-    margin-bottom: 1rem;
-    font-size: 2.2rem;
-    font-family: 'Arial', sans-serif;
-    font-weight: 700;
-    text-align: left;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 2.2rem;
+  font-family: "Arial", sans-serif;
+  font-weight: 700;
+  text-align: left;
 }
 
-/* Flex row to arrange project cards; uses wrap and stretch for equal heights */
 .projects-row {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap; 
-    gap: 2rem;
-    width: 100%;
-    box-sizing: border-box;
-    align-items: stretch;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: stretch;
 }
 
-/* Individual project card; flex layout so inner content can push downwards */
 .projects-column {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-width: 250px;
-    max-width: 350px;
-    text-align: center;
-    background-color: #1E1E2D;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    transition: all 0.3s ease-in-out;
-    border: 2px solid transparent;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    opacity: 0;
-    
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 250px;
+  max-width: 350px;
+  text-align: center;
+  background-color: #1E1E2D;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-in-out;
+  border: 2px solid transparent;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  opacity: 0;
 }
 
-/* Fade each project card in as it appears in the viewport */
 .projects-column.fade-in-visible {
-    animation: fadeInSmoothly 1.2s forwards;
-    opacity: 1;
+  animation: fadeInSmoothly 1.2s forwards;
+  opacity: 1;
 }
 
-/* Hover effect to enlarge project cards slightly */
 .projects-column:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 25px rgba(100,255,218,0.8);
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(100, 255, 218, 0.8);
 }
 
-/* Left align the folder icon within project cards */
 .left-align-folder {
-    text-align: left;
+  text-align: left;
 }
 
 .folder-icon {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .folder-icon i {
-    color: #64FFDA;
-    font-size: 1.2rem;
+  color: #64FFDA;
+  font-size: 1.2rem;
 }
 
-/* Project title styling */
 .project-title {
-    font-size: 1.3rem;
-    color: #64FFDA;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 0 10px rgba(100,255,218,0.4);
+  font-size: 1.3rem;
+  color: #64FFDA;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px rgba(100, 255, 218, 0.4);
 }
 
-/* Short description of each project */
 .project-description {
-    font-size: 0.95rem;
-    color: #FFFFFF;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    opacity: 0.9;
+  font-size: 0.95rem;
+  color: #FFFFFF;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  opacity: 0.9;
 }
 
-/* Technology list: flex layout; auto top margin pushes it and links to the bottom of the card */
 .project-tech-list {
-    display: flex;
-    gap: 1rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    justify-content: center;
-    margin-top: auto;
-    margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  margin-top: auto;
+  margin-bottom: 1rem;
 }
 
-/* Individual technology item in the list */
 .project-tech-list li {
-    font-size: 0.85rem;
-    color: #FFFFFF;
-    opacity: 0.8;
+  font-size: 0.85rem;
+  color: #FFFFFF;
+  opacity: 0.8;
 }
 
-/* Container for project links (GitHub, live demo) */
 .project-links {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 
-/* Base link styling in project cards */
 .project-links a {
-    color: #64FFDA;
-    font-size: 1rem;
-    text-decoration: none;
-    transition: color 0.3s ease;
+  color: #64FFDA;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-/* Hover color change for project links */
 .project-links a:hover {
-    color: #b2a8fd; 
+  color: #b2a8fd;
 }
 
-/* 
-=======================================================
-CONTACT SECTION STYLES
-=======================================================
-*/
-/* Wrapper for the contact section */
+/* ==========================================================================
+   CONTACT
+   ========================================================================== */
+
 .contact {
-    background-color: #1E1E2D;
-    color: #FFFFFF;
-    padding: 3rem 0;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 3s ease-out;
+  background-color: #1E1E2D;
+  color: #FFFFFF;
+  padding: 3rem 0;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 3s ease-out;
 }
 
-/* Fade-in for the contact section */
 .contact.fade-in-visible {
-    animation: fadeInSmoothly 1.5s forwards;
-    opacity: 1;
+  animation: fadeInSmoothly 1.5s forwards;
+  opacity: 1;
 }
 
-/* Container for contact form and text */
 .contact-container {
-    width: 90%;
-    max-width: 600px;
-    margin: 0 auto;
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-/* Contact section heading */
 .contact-heading {
-    font-size: 2.2rem;
-    margin-bottom: 1rem;
-    font-family: 'Arial', sans-serif;
-    font-weight: 700;
-    text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  font-family: "Arial", sans-serif;
+  font-weight: 700;
+  text-align: center;
 }
 
-/* Introductory text in contact section */
 .contact-intro {
-    font-size: calc(1rem + 0.2vw);
-    margin-bottom: 2rem;
-    line-height: 1.5;
-    color: #FFFFFF;
-    opacity: 0.9;
-    text-align: center;
+  font-size: calc(1rem + 0.2vw);
+  margin-bottom: 2rem;
+  line-height: 1.5;
+  color: #FFFFFF;
+  opacity: 0.9;
+  text-align: center;
 }
 
-/* Form layout in the contact section */
 .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-/* Group each label and input */
 .form-group {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 }
 
-/* Form label styling */
 .form-group label {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-    color: #64FFDA;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #64FFDA;
 }
 
-/* Asterisk color for required fields */
 .form-group .required {
-    color: #ED4502;
-    margin-left: 0.25rem;
+  color: #ED4502;
+  margin-left: 0.25rem;
 }
 
-/* General styling for inputs and textareas */
 .form-group input,
 .form-group textarea {
-    width: 100%;
-    max-width: 100%;
-    background-color: #14111E;
-    border: 2px solid #64FFDA;
-    border-radius: 4px;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    color: #FFFFFF;
-    outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
-    resize: vertical;
+  width: 100%;
+  max-width: 100%;
+  background-color: #14111E;
+  border: 2px solid #64FFDA;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: #FFFFFF;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+  resize: vertical;
 }
 
-/* Highlight fields when they have focus */
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: #b2a8fd;
-    box-shadow:
-        0 0 10px rgba(42, 131, 219, 0.6),
-        0 0 20px rgba(42, 131, 219, 0.4);
+  border-color: #b2a8fd;
+  box-shadow:
+    0 0 10px rgba(42, 131, 219, 0.6),
+    0 0 20px rgba(42, 131, 219, 0.4);
 }
 
-/* Submit button in the contact form */
 .contact-button {
-    align-self: center;
-    background-color: #ED4502;
-    color: #F5F5F5;
-    border: 2px solid #ED4502;
-    border-radius: 4px;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow:
-        0 0 15px rgba(237, 69, 2, 0.6),
-        0 0 30px rgba(237, 69, 2, 0.4),
-        0 0 45px rgba(237, 69, 2, 0.3);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+  align-self: center;
+  background-color: #ED4502;
+  color: #F5F5F5;
+  border: 2px solid #ED4502;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow:
+    0 0 15px rgba(237, 69, 2, 0.6),
+    0 0 30px rgba(237, 69, 2, 0.4),
+    0 0 45px rgba(237, 69, 2, 0.3);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
 }
 
-/* Button hover and active states */
 .contact-button:hover {
-    background-color: rgba(237, 69, 2, 0.8);
-    box-shadow:
-        0 0 10px rgba(237, 69, 2, 0.5),
-        0 0 20px rgba(237, 69, 2, 0.4),
-        0 0 30px rgba(237, 69, 2, 0.3);
+  background-color: rgba(237, 69, 2, 0.8);
+  box-shadow:
+    0 0 10px rgba(237, 69, 2, 0.5),
+    0 0 20px rgba(237, 69, 2, 0.4),
+    0 0 30px rgba(237, 69, 2, 0.3);
 }
 
-.contact-button:active {
-    background-color: #ED4502;
-    box-shadow:
-        0 0 30px rgba(237, 69, 2, 0.8),
-        0 0 60px rgba(237, 69, 2, 0.6),
-        0 0 90px rgba(237, 69, 2, 0.4);
+#form-status {
+  margin-top: 1rem;
+  min-height: 1.2rem;
+  font-size: 0.95rem;
+  text-align: center;
 }
 
-/* Text displayed when form submission succeeds or fails */
-#form-status{
-    margin-top: 1rem;
-    min-height: 1.2rem;
-    font-size: 0.95rem;
-    text-align: center;
+#form-status.success {
+  color: #64FFDA;
 }
 
-#form-status.success { 
-    color:#64FFDA; 
+#form-status.error {
+  color: #ED4502;
 }
 
-#form-status.error { 
-    color:#ED4502; 
-} 
-
-/* Optional email fallback link */
 .direct-email {
-    margin-top: 1rem;
-    font-size: 0.95rem;
-    color: #FFFFFF;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #FFFFFF;
 }
 
 .direct-email a {
-    color: #64FFDA;
-    text-decoration: none;
-    transition: color 0.3s ease;
+  color: #64FFDA;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .direct-email a:hover {
-    color: #b2a8fd;
+  color: #b2a8fd;
 }
 
-/* 
-=======================================================
-SCROLL-UP BUTTON
-=======================================================
-*/
-/* “Back to top” button styling */
-#scroll-up{
-    position:fixed;
-    bottom:2rem;
-    right:2rem;
-    width:45px;
-    height:45px;
-    border-radius:50%;
-    background:#ED4502;
-    color:#F5F5F5;
-    border:2px solid #ED4502;
+/* ==========================================================================
+   SCROLL-UP BUTTON
+   ========================================================================== */
+
+#scroll-up {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #ED4502;
+  color: #F5F5F5;
+  border: 2px solid #ED4502;
+  box-shadow:
+    0 0 15px rgba(237, 69, 2, 0.6),
+    0 0 30px rgba(237, 69, 2, 0.4),
+    0 0 45px rgba(237, 69, 2, 0.3);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#scroll-up.show {
+  display: flex;
+}
+
+#scroll-up:hover {
+  transform: scale(1.1);
+  box-shadow:
+    0 0 25px rgba(237, 69, 2, 0.8),
+    0 0 45px rgba(237, 69, 2, 0.6),
+    0 0 65px rgba(237, 69, 2, 0.4);
+}
+
+#scroll-up i {
+  font-size: 1rem;
+}
+
+/* ==========================================================================
+   404 PAGE
+   ========================================================================== */
+
+body.page-404 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #14111e;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  font-family: "Inter", Arial, sans-serif;
+}
+
+.board-404 {
+  display: inline-block;
+  padding: 2.4rem 5rem 3.4rem;
+  border: 3px solid #64ffda;
+  border-radius: 10px;
+  background: #1b1926;
+  box-shadow:
+    0 0 0.6rem #64ffda,
+    0 0 1.4rem rgba(100, 255, 218, 0.45);
+  animation: boardGlow 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes boardGlow {
+  0% {
     box-shadow:
-        0 0 15px rgba(237,69,2,0.6),
-        0 0 30px rgba(237,69,2,0.4),
-        0 0 45px rgba(237,69,2,0.3);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    z-index:1000;
-    transition:transform .3s ease, box-shadow .3s ease;
-}
-
-/* Show the scroll button when the page is scrolled down */
-#scroll-up.show{
-    display:flex;
-}
-
-/* Hover effect for the scroll button */
-#scroll-up:hover{
-    transform:scale(1.1);
+      0 0 0.4rem #64ffda,
+      0 0 1rem rgba(100, 255, 218, 0.35);
+  }
+  100% {
     box-shadow:
-        0 0 25px rgba(237,69,2,0.8),
-        0 0 45px rgba(237,69,2,0.6),
-        0 0 65px rgba(237,69,2,0.4);
+      0 0 1.2rem #64ffda,
+      0 0 2.8rem rgba(100, 255, 218, 0.7);
+  }
 }
 
-#scroll-up i{
-    font-size:1rem;
+.numbers {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
 }
 
-/* 
-=======================================================
-404 Page
-=======================================================
-*/
-/* Centering and styling for a custom 404 error page */
-body.page-404{
-    display:flex;flex-direction:column;
-    justify-content:center;align-items:center;
-    min-height:100vh;
-    background:#14111e;
-    color:#fff;
-    text-align:center;
-    margin:0;
-    font-family:"Inter",Arial,sans-serif;
+.number {
+  font-family: "Liberty", cursive;
+  font-size: clamp(4rem, 11vw, 7rem);
+  font-weight: 200;
+  color: #ed4502;
+  text-shadow:
+    0 0 1.4rem #ed4502,
+    0 0 2.8rem rgba(237, 69, 2, 0.8);
+  animation:
+    numberGlow 3s ease-in-out infinite alternate,
+    numberFlicker 1.8s infinite;
 }
 
-/* Neon border panel on the 404 page */
-.board-404{
-    display:inline-block;
-    padding:2.4rem 5rem 3.4rem;
-    border:3px solid #64ffda;
-    border-radius:10px;
-    background:#1b1926;
-    box-shadow:0 0 .6rem #64ffda,0 0 1.4rem rgba(100,255,218,.45);
-    animation:boardGlow 3.5s ease-in-out infinite alternate;
-}
-@keyframes boardGlow{
-    0%  {box-shadow:0 0 .4rem #64ffda,0 0 1rem rgba(100,255,218,.35);}
-    100%{box-shadow:0 0 1.2rem #64ffda,0 0 2.8rem rgba(100,255,218,.70);}
+.number:nth-child(2) {
+  animation-delay: 0.25s, 0.25s;
 }
 
-/* Large “404” digits with glow and flicker effects */
-.numbers{display:flex;gap:1rem;justify-content:center;}
-.number{
-    font-family:"Liberty",cursive;
-    font-size:clamp(4rem,11vw,7rem);
-    font-weight:200;
-    color:#ed4502;
-    text-shadow:0 0 1.4rem #ed4502,0 0 2.8rem rgba(237,69,2,.8);
-    animation:numberGlow 3s ease-in-out infinite alternate,
-             numberFlicker 1.8s infinite;
-}
-.number:nth-child(2){animation-delay:.25s,.25s;}
-.number:nth-child(3){animation-delay:.5s,.5s;}
-
-@keyframes numberGlow{
-    0%  {text-shadow:0 0 .9rem #ed4502,0 0 1.9rem rgba(237,69,2,.55);}
-    100%{text-shadow:0 0 1.8rem #ed4502,0 0 3.6rem rgba(237,69,2,.85);}
-}
-@keyframes numberFlicker{
-    0%,19%,21%,23%,25%,54%,56%,100%{opacity:1;}
-    20%,24%,55%{opacity:0;}
+.number:nth-child(3) {
+  animation-delay: 0.5s, 0.5s;
 }
 
-/* Typing effect line on the 404 page */
-.message-line{
-    margin-top:2.4rem;
-    font-family:"Courier New",monospace;
-    color:#64ffda;
-    text-shadow:0 0 5px #64ffda;
-    font-size:clamp(1rem,2vw,1.3rem);
-    min-height:2.2rem;
-}
-.type-cursor{
-    display:inline-block;width:1ch;
-    background:#64ffda;
-    margin-left:2px;
-    animation:cursorBlink 1s steps(2,end) infinite;
-}
-@keyframes cursorBlink{0%,50%{opacity:1;}51%,100%{opacity:0;}}
-
-/* Round “home” button on the 404 page */
-.home-btn{
-    margin-top:2rem;
-    width:60px;height:60px;
-    border:3px solid #64ffda;
-    border-radius:50%;
-    background:transparent;
-    display:flex;align-items:center;justify-content:center;
-    cursor:pointer;
-    color:#ed4502;
-    font-size:1.4rem;
-    box-shadow:0 0 1rem #64ffda;
-    transition:transform .3s,box-shadow .3s;
-}
-.home-btn:hover{
-    transform:scale(1.1);
-    box-shadow:0 0 2rem #64ffda;
-    background:rgba(100,255,218,.08);
+@keyframes numberGlow {
+  0% {
+    text-shadow:
+      0 0 0.9rem #ed4502,
+      0 0 1.9rem rgba(237, 69, 2, 0.55);
+  }
+  100% {
+    text-shadow:
+      0 0 1.8rem #ed4502,
+      0 0 3.6rem rgba(237, 69, 2, 0.85);
+  }
 }
 
-/* 
-=======================================================
-Responsive 
-=======================================================
-*/
-/* Adjust layout and sizing on screens narrower than 940px */
+@keyframes numberFlicker {
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  24%,
+  55% {
+    opacity: 0;
+  }
+}
+
+.message-line {
+  margin-top: 2.4rem;
+  font-family: "Courier New", monospace;
+  color: #64ffda;
+  text-shadow: 0 0 5px #64ffda;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  min-height: 2.2rem;
+}
+
+.type-cursor {
+  display: inline-block;
+  width: 1ch;
+  background: #64ffda;
+  margin-left: 2px;
+  animation: cursorBlink 1s steps(2, end) infinite;
+}
+
+@keyframes cursorBlink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.home-btn {
+  margin-top: 2rem;
+  width: 60px;
+  height: 60px;
+  border: 3px solid #64ffda;
+  border-radius: 50%;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #ed4502;
+  font-size: 1.4rem;
+  box-shadow: 0 0 1rem #64ffda;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.home-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 2rem #64ffda;
+  background: rgba(100, 255, 218, 0.08);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
 @media (max-width: 940px) {
-    /* Turn nav into a full-screen overlay on mobile */
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        position: fixed;
-        top: 0;
-        right: 0;
-        background: #14111E;
-        width: 100%;
-        height: 100vh;
-        justify-content: center;
-        text-align: center;
-        transition: all 0.3s ease-in-out;
-        z-index: 1000;
-        padding: 0;
-        margin: 0;
-    }
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background: #14111E;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    z-index: 1000;
+    padding: 0;
+    margin: 0;
+  }
 
-    .nav-links li {
-        margin: 1rem 0;
-    }
+  .nav-links li {
+    margin: 1rem 0;
+  }
 
-    .hamburger-menu {
-        display: flex;
-    }
+  .hamburger-menu {
+    display: flex;
+  }
 
-    .nav-active {
-        display: flex;
-    }
+  .nav-active {
+    display: flex;
+  }
 
-    body.nav-open {
-        overflow: hidden;
-    }
+  body.nav-open {
+    overflow: hidden;
+  }
 
-    body.nav-open main {
-        visibility: hidden;
-    }
+  body.nav-open main {
+    visibility: hidden;
+  }
 
-    /* Reduce avatar size on small screens */
-    .avatar-container {
-        width: calc(25vw + 25px);
-        height: calc(25vw + 25px);
-    }
+  .avatar-container {
+    width: calc(25vw + 25px);
+    height: calc(25vw + 25px);
+  }
 
-    /* Adjust font sizes for headings on small screens */
-    .home-content h1 {
-        font-size: calc(1.8rem + 1vw);
-    }
+  .home-content h1 {
+    font-size: calc(1.8rem + 1vw);
+  }
 
-    .home-content p {
-        font-size: calc(1rem + 0.5vw);
-    }
+  .home-content p {
+    font-size: calc(1rem + 0.5vw);
+  }
 
-    /* Resize scroll arrow */
-    .scroll-arrow {
-        width: 40px;
-        height: 40px;
-    }
+  .scroll-arrow {
+    width: 40px;
+    height: 40px;
+  }
 
-    .scroll-arrow::before {
-        width: 13px;
-        height: 13px;
-        top: 11px;
-    }
+  .scroll-arrow::before {
+    width: 13px;
+    height: 13px;
+    top: 11px;
+  }
 
-    .skills-heading {
-        text-align: center;
-    }
+  .skills-heading {
+    text-align: center;
+  }
 
-    .skills-row {
-        flex-wrap: wrap;
-    }
+  .skills-row {
+    flex-wrap: wrap;
+  }
 
-    .edu-exp-container {
-        flex-direction: column;
-        align-items: center;
-    }
+  .edu-exp-container {
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .timeline {
-        width: 100%;
-        max-width: 700px;
-        margin-bottom: 2rem;
-    }
+  .timeline {
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 2rem;
+  }
 
-    .timeline-item {
-        flex-direction: row; 
-    }
+  .projects-heading {
+    text-align: center;
+  }
 
-    .icon-lane {
-        width: 40px;
-    }
+  .projects-container {
+    align-items: center;
+  }
 
-    .projects-heading {
-        text-align: center;
-    }
+  .projects-row {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 
-    .projects-container {
-        align-items: center;
-    }
+  .form-group input,
+  .form-group textarea {
+    font-size: 0.95rem;
+    padding: 0.65rem 0.9rem;
+  }
 
-    .projects-row {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    /* Resize form inputs/buttons on small screens */
-    .form-group input,
-    .form-group textarea {
-        font-size: 0.95rem;
-        padding: 0.65rem 0.9rem;
-    }
-    .contact-button {
-        font-size: 0.95rem;
-        padding: 0.65rem 1.25rem;
-    }
+  .contact-button {
+    font-size: 0.95rem;
+    padding: 0.65rem 1.25rem;
+  }
 }
 
-/* Further adjustments for very narrow screens (480px) */
 @media (max-width: 480px) {
-    .skills-row {
-        flex-direction: column;
-        align-items: center;
-    }
+  .skills-row {
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .skills-column {
-        max-width: 90%;
-        margin-bottom: 1.5rem;
-    }
+  .skills-column {
+    max-width: 90%;
+    margin-bottom: 1.5rem;
+  }
 
-    .timeline-box {
-        margin-bottom: 1.5rem; 
-    }
+  .timeline-box {
+    margin-bottom: 1.5rem;
+  }
 
-    .timeline-description {
-        font-size: 0.85rem;
-    }
+  .timeline-description {
+    font-size: 0.85rem;
+  }
 
-    .project-title {
-        font-size: 1.1rem;
-    }
+  .project-title {
+    font-size: 1.1rem;
+  }
 
-    .project-description {
-        font-size: 0.85rem;
-    }
+  .project-description {
+    font-size: 0.85rem;
+  }
 
-    .projects-column {
-        max-width: 90%;
-    }
+  .projects-column {
+    max-width: 90%;
+  }
 
-    /* Contact form adjustments on narrow screens */
-    .contact-container {
-        width: 100%;
-        padding: 0 1rem;
-    }
-    .form-group input,
-    .form-group textarea {
-        font-size: 0.9rem;
-        padding: 0.5rem 0.75rem;
-    }
-    .contact-button {
-        font-size: 0.9rem;
-        padding: 0.5rem 1rem;
-    }
+  .contact-container {
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .contact-button {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
 }
 
-/* Fine-tune scroll button position on narrow screens */
-@media(max-width:480px){
-    #scroll-up{
-        width:40px;
-        height:40px;
-        bottom:1.5rem;
-        right:1.5rem;
-    }
+@media (max-width: 480px) {
+  #scroll-up {
+    width: 40px;
+    height: 40px;
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
 }
 
-/* Further reduce spacing on medium screens (600px) for the 404 page */
-@media(max-width:600px){
-    .board-404{padding:1.8rem 3.4rem 2.8rem;}
-    .number  {font-size:clamp(3.2rem,14vw,5.8rem);}
-    .home-btn{width:50px;height:50px;font-size:1.2rem;}
-    .message-line{font-size:1rem;padding:0 .25rem;}
-    .social-icon i {font-size: clamp(1.6rem, 5vw, 2.2rem);}
+/* 404 tighter layouts */
+@media (max-width: 600px) {
+  .board-404 {
+    padding: 1.8rem 3.4rem 2.8rem;
+  }
+
+  .number {
+    font-size: clamp(3.2rem, 14vw, 5.8rem);
+  }
+
+  .home-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+
+  .message-line {
+    font-size: 1rem;
+    padding: 0 0.25rem;
+  }
+
+  .social-icon i {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+  }
 }
 
-/* Tighten 404 layout further on very narrow screens (380px) */
-@media(max-width:380px){
-    .board-404{padding:1.3rem 2.4rem 2.2rem;}
-    .number   {font-size:clamp(2.6rem,16vw,4.6rem);}
-    .home-btn {width:42px;height:42px;font-size:1rem;}
-    .message-line{font-size:.9rem;}
-    .social-icon i {font-size: clamp(1.4rem, 8vw, 1.8rem);}
+@media (max-width: 380px) {
+  .board-404 {
+    padding: 1.3rem 2.4rem 2.2rem;
+  }
+
+  .number {
+    font-size: clamp(2.6rem, 16vw, 4.6rem);
+  }
+
+  .home-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+  }
+
+  .message-line {
+    font-size: 0.9rem;
+  }
+
+  .social-icon i {
+    font-size: clamp(1.4rem, 8vw, 1.8rem);
+  }
 }
