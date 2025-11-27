@@ -1,441 +1,525 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khalid K.</title>
-
-     <!-- Font-Awesome (for icons) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="styles.css">
-
-    <!-- Favicon -->
-     <link rel="icon" href="favicon.ico" sizes="any">
-     <link rel="icon" href="favicon.png" type="image/png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Khalid K.</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" href="favicon.png" type="image/png" />
 </head>
+
 <body>
-    <!-- 
-    =========================================
-    NAVIGATION BAR
-    ========================================= 
+  <!-- 
+    =========================================================
+    NAVIGATION
+    ========================================================= 
     -->
-    <nav>
-        <div class="logo glowing-name">
-            <span>K</span>
-            <span>h</span>
-            <span>a</span>
-            <span>l</span>
-            <span>i</span>
-            <span>d</span>
-            <span>K</span>
-            <span>&#8226;</span>
+  <nav>
+    <!-- Logo (animated glow) -->
+    <div class="logo glowing-name" aria-label="Khalid K logo">
+      <span>K</span><span>h</span><span>a</span><span>l</span><span>i</span><span>d</span><span>K</span><span>&#8226;</span>
+    </div>
+
+    <!-- Nav links -->
+    <ul class="nav-links" id="nav-links">
+      <li>
+        <a href="#home" data-target="home">Home</a>
+      </li>
+      <li>
+        <a href="#about" data-target="about">About</a>
+      </li>
+      <li>
+        <a href="#projects" data-target="projects">Projects</a>
+      </li>
+      <li>
+        <a href="#contact" data-target="contact">Contact</a>
+      </li>
+      <li>
+        <a class="resume-link" href="resume.pdf" target="_blank" rel="noopener">Resume</a>
+      </li>
+    </ul>
+
+    <!-- Hamburger (mobile) -->
+    <div class="hamburger-menu" id="hamburger-menu" aria-label="Menu" aria-expanded="false">
+      <span class="hamburger-menu-line"></span>
+      <span class="hamburger-menu-line"></span>
+      <span class="hamburger-menu-line"></span>
+    </div>
+  </nav>
+
+  <main>
+    <!-- === HOME === -->
+    <section class="home" id="home" aria-label="Home">
+      <!-- avatar + neon ring -->
+      <div class="avatar-container">
+        <img
+          class="avatar"
+          src="profile.png"
+          alt="A half-frame avatar of Khalid Khalel"
+        />
+        <div class="neon-circle" aria-hidden="true"></div>
+      </div>
+
+      <!-- headline + social -->
+      <div class="home-content">
+        <h1>
+          Hi there
+          <span class="wave" aria-hidden="true">👋</span>
+          I'm Khalid
+        </h1>
+
+        <div class="social-icons" aria-label="Social links">
+          <a
+            class="social-icon github"
+            href="https://github.com/KhalidKhalel"
+            target="_blank"
+            aria-label="GitHub"
+            ><i class="fab fa-github"></i
+          ></a>
+
+          <a
+            class="social-icon linkedin"
+            href="https://www.linkedin.com/in/khalidkhalel/"
+            target="_blank"
+            aria-label="LinkedIn"
+            ><i class="fab fa-linkedin"></i
+          ></a>
+
+          <a
+            class="social-icon instagram"
+            href="https://www.instagram.com/khalid.k615/"
+            target="_blank"
+            aria-label="Instagram"
+            ><i class="fab fa-instagram"></i
+          ></a>
+        </div>
+      </div>
+
+      <!-- scroll down arrow -->
+      <div class="scroll-arrow-container">
+        <div class="scroll-arrow" id="scroll-arrow" aria-label="Scroll to About"></div>
+      </div>
+    </section>
+
+    <!-- === ABOUT === -->
+    <section class="about" id="about" aria-label="About">
+      <!-- intro text -->
+      <div class="about-content">
+        <h2>
+          Let Me <span class="highlight">Introduce</span> Myself
+        </h2>
+
+        <p>
+          My name is Khalid Khalel, and I have a bachelor’s degree in Computer Science with a concentration in Cybersecurity 
+          from Middle Tennessee State University. I enjoy applying new skills to real-world challenges and am driven by a 
+          deep curiosity for computers and cybersecurity.
+        </p>
+      </div>
+
+      <!-- skills -->
+      <div class="skills-container">
+        <h2 class="skills-heading">
+          <span class="highlight">Skills</span>
+        </h2>
+
+        <div class="skills-row">
+          <!-- Programming -->
+          <div class="skills-column programming">
+            <h2 class="skills-title">Programming</h2>
+
+            <ul class="skills-list">
+              <li>
+                <span class="skill-bar"></span>
+                <em>HTML/CSS</em>
+                <span class="skill-percentage">90%</span>
+              </li>
+
+              <li>
+                <span class="skill-bar"></span>
+                <em>C/C++</em>
+                <span class="skill-percentage">85%</span>
+              </li>
+
+              <li>
+                <span class="skill-bar"></span>
+                <em>JavaScript</em>
+                <span class="skill-percentage">75%</span>
+              </li>
+
+              <li>
+                <span class="skill-bar"></span>
+                <em>Python</em>
+                <span class="skill-percentage">65%</span>
+              </li>
+
+              <li>
+                <span class="skill-bar"></span>
+                <em>PHP</em>
+                <span class="skill-percentage">30%</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tools -->
+          <div class="skills-column tools">
+            <h2 class="skills-title">Tools</h2>
+
+            <ul class="skills-list">
+              <li>
+                <span class="skill-bar"></span>
+                <em>Git</em>
+                <span class="skill-percentage">80%</span>
+              </li>
+
+              <li>
+                <span class="skill-bar"></span>
+                <em>Office 365</em>
+                <span class="skill-percentage">70%</span>
+              </li>
+
+              <li>
+                <span class="skill-bar"></span>
+                <em>VS Code</em>
+                <span class="skill-percentage">85%</span>
+              </li>
+
+              <li>
+                <span class="skill-bar"></span>
+                <em>Linux</em>
+                <span class="skill-percentage">65%</span>
+              </li>
+
+              <li>
+                <span class="skill-bar"></span>
+                <em>Command Line</em>
+                <span class="skill-percentage">75%</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Technical Skills -->
+          <div class="skills-column technical-skills">
+            <h2 class="skills-title">Technical Skills</h2>
+
+            <ul class="skills-list">
+              <li>
+                <span class="skill-bar"></span>
+                <em>Communication</em>
+                <span class="skill-percentage">85%</span>
+              </li>
+
+              <li>
+                <span class="skill-bar"></span>
+                <em>Teamwork</em>
+                <span class="skill-percentage">80%</span>
+              </li>
+
+              <li>
+                <span class="skill-bar"></span>
+                <em>Problem Solving</em>
+                <span class="skill-percentage">75%</span>
+              </li>
+
+              <li>
+                <span class="skill-bar"></span>
+                <em>Adaptability</em>
+                <span class="skill-percentage">70%</span>
+              </li>
+
+              <li>
+                <span class="skill-bar"></span>
+                <em>Creativity</em>
+                <span class="skill-percentage">65%</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education & Experience timelines -->
+      <div class="edu-exp-container">
+        <!-- Education -->
+        <div class="timeline education-timeline">
+          <h2 class="education-title">
+            <span class="highlight">Education</span>
+          </h2>
+
+          <ul class="timeline-list">
+            <li class="timeline-item">
+              <div class="icon-lane">
+                <div class="icon-wrapper">
+                  <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                </div>
+                <div class="vertical-line"></div>
+              </div>
+
+              <div class="timeline-box">
+                <a
+                  class="timeline-heading"
+                  href="https://mtsu.edu/"
+                  target="_blank"
+                  >B.S. in Computer Science, Concentration in Cybersecurity Systems | MTSU</a
+                >
+                <span class="timeline-date">January 2024 – December 2025</span>
+                <p class="timeline-description">GPA: 3.5/4.0</p>
+              </div>
+            </li>
+
+            <li class="timeline-item">
+              <div class="icon-lane">
+                <div class="icon-wrapper">
+                  <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                </div>
+                <div class="vertical-line"></div>
+              </div>
+
+              <div class="timeline-box">
+                <a
+                  class="timeline-heading"
+                  href="https://www.motlow.edu/"
+                  target="_blank"
+                  >A.S. in Computer Science | MSCC</a
+                >
+                <span class="timeline-date">August 2021 – December 2023</span>
+                <p class="timeline-description">GPA: 3.6/4.0</p>
+              </div>
+            </li>
+          </ul>
         </div>
 
-        <ul class="nav-links" id="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="resume.pdf" class="resume-link" target="_blank" rel="noopener">Resume</a></li>
-        </ul>
+        <!-- Experience -->
+        <div class="timeline experience-timeline">
+          <h2 class="experience-title">
+            <span class="highlight">Experience</span>
+          </h2>
 
-        <div class="hamburger-menu" id="hamburger-menu">
-            <span class="hamburger-menu-line"></span>
-            <span class="hamburger-menu-line"></span>
-            <span class="hamburger-menu-line"></span>
+          <ul class="timeline-list">
+            <li class="timeline-item">
+              <div class="icon-lane">
+                <div class="icon-wrapper">
+                  <i class="fas fa-briefcase" aria-hidden="true"></i>
+                </div>
+                <div class="vertical-line"></div>
+              </div>
+
+              <div class="timeline-box">
+                <a
+                  class="timeline-heading"
+                  href="https://www.walmart.com/"
+                  target="_blank"
+                  >Sales Associate | Walmart</a
+                >
+                <span class="timeline-date">July 2021 – September 2025</span>
+                <p class="timeline-description">
+                  Worked in a fast-paced retail environment, providing product
+                  recommendations, ensuring quality service, managing inventory,
+                  and handling customer concerns professionally.
+                </p>
+              </div>
+            </li>
+
+            <li class="timeline-item">
+              <div class="icon-lane">
+                <div class="icon-wrapper">
+                  <i class="fas fa-briefcase" aria-hidden="true"></i>
+                </div>
+                <div class="vertical-line"></div>
+              </div>
+
+              <div class="timeline-box">
+                <a
+                  class="timeline-heading"
+                  href="https://antage.net/"
+                  target="_blank"
+                  >Software Engineering Capstone | Internship | Antage</a
+                >
+                <span class="timeline-date">Spring 2025 – Summer 2025</span>
+                <p class="timeline-description">
+                  Built a .NET-based solution for test tracking &amp; TDD,
+                  focusing on advanced software design, integration testing,
+                  and MySQL/EF-based data storage.
+                </p>
+              </div>
+            </li>
+
+            <li class="timeline-item">
+              <div class="icon-lane">
+                <div class="icon-wrapper">
+                  <i class="fas fa-briefcase" aria-hidden="true"></i>
+                </div>
+                <div class="vertical-line"></div>
+              </div>
+
+              <div class="timeline-box">
+                <a
+                  class="timeline-heading"
+                  href="https://csc.mtsu.edu/acm/"
+                  target="_blank"
+                  >MTSU ACM (Secretary) | MTSU ACM</a
+                >
+                <span class="timeline-date">January 2024 – August 2024</span>
+                <p class="timeline-description">
+                  Organized events &amp; mentorship, boosting engagement and
+                  internship placements through networking &amp; research.
+                </p>
+              </div>
+            </li>
+          </ul>
         </div>
-    </nav>
+      </div>
+    </section>
 
-    <main>
-        <!-- 
-        =========================================
-        HOME SECTION
-        ========================================= 
-        -->
-        <section class="home" id="home">
-            <div class="avatar-container">
-                <img src="profile.png" alt="A half-frame avatar of Khalid Khalel" class="avatar">
-                <div class="neon-circle"></div>
-            </div>
-            <div class="home-content">
-                <h1>Hi there <span class="wave">👋</span> I'm Khalid</h1>
-                <div class="social-icons">
-                <a class="social-icon github" href="https://github.com/KhalidKhalel" target="_blank" aria-label="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a class="social-icon linkedin" href="https://www.linkedin.com/in/khalidkhalel/" target="_blank" aria-label="LinkedIn">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a class="social-icon instagram" href="https://www.instagram.com/khalid.k615/" target="_blank" aria-label="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                </div>
-            </div>
-            <div class="scroll-arrow-container">
-                <div class="scroll-arrow" id="scroll-arrow"></div>
-            </div>
-        </section>
 
-        <!--
-        =========================================
-        ABOUT SECTION
-        =========================================
-        -->
-        <section class="about" id="about">
-            <div class="about-content">
-                <h2>
-                    Let Me <span class="highlight">Introduce</span> Myself
-                </h2>
-                <p>
-                    My name is Khalid Khalel, a Computer Science student at Middle Tennessee State 
-                    University with a concentration in Cybersecurity. I enjoy applying new skills 
-                    to real-world challenges and am driven by a deep curiosity for computers 
-                    and cybersecurity.
-                </p>
+    <!-- === PROJECTS === -->
+    <section class="projects" id="projects" aria-label="Projects">
+      <div class="projects-container">
+        <h2 class="projects-heading">
+          <span class="highlight">Projects</span>
+        </h2>
+
+        <div class="projects-row">
+          <!-- Project 1 -->
+          <div class="projects-column">
+            <div class="folder-icon left-align-folder">
+              <i class="fas fa-folder" aria-hidden="true"></i>
             </div>
 
-            <!-- ========= SKILLS CONTAINER ========= -->
-            <div class="skills-container">
-                <h2 class="skills-heading">
-                    <span class="highlight">Skills</span>
-                </h2>
+            <h3 class="project-title">Authentication API</h3>
 
-                <div class="skills-row">
-                    <!-- ========= Programming Skills ========= -->
-                    <div class="skills-column programming">
-                        <h2 class="skills-title">Programming</h2>
-                        <ul class="skills-list">
-                            <li>
-                                <span class="skill-bar"></span>
-                                <em>HTML/CSS</em>
-                                <span class="skill-percentage">90%</span>
-                            </li>
-                            <li>
-                                <span class="skill-bar"></span>
-                                <em>C/C++</em>
-                                <span class="skill-percentage">85%</span>
-                            </li>
-                            <li>
-                                <span class="skill-bar"></span>
-                                <em>JavaScript</em>
-                                <span class="skill-percentage">75%</span>
-                            </li>
-                            <li>
-                                <span class="skill-bar"></span>
-                                <em>Python</em>
-                                <span class="skill-percentage">65%</span>
-                            </li>
-                            <li>
-                                <span class="skill-bar"></span>
-                                <em>PHP</em>
-                                <span class="skill-percentage">30%</span>
-                            </li>
-                        </ul>
-                    </div>
+            <p class="project-description">
+              Secure authentication API built with Node.js &amp; TypeScript,
+              using JWT and bcrypt hashing.
+            </p>
 
-                    <!-- ========= Tools Skills ========= -->
-                    <div class="skills-column tools">
-                        <h2 class="skills-title">Tools</h2>
-                        <ul class="skills-list">
-                            <li>
-                                <span class="skill-bar"></span>
-                                <em>Git</em>
-                                <span class="skill-percentage">80%</span>
-                            </li>
-                            <li>
-                                <span class="skill-bar"></span>
-                                <em>Office 365</em>
-                                <span class="skill-percentage">70%</span>
-                            </li>
-                            <li>
-                                <span class="skill-bar"></span>
-                                <em>VS Code</em>
-                                <span class="skill-percentage">85%</span>
-                            </li>
-                            <li>
-                                <span class="skill-bar"></span>
-                                <em>Linux</em>
-                                <span class="skill-percentage">65%</span>
-                            </li>
-                            <li>
-                                <span class="skill-bar"></span>
-                                <em>Command Line</em>
-                                <span class="skill-percentage">75%</span>
-                            </li>
-                        </ul>
-                    </div>
+            <ul class="project-tech-list">
+              <li>Node.js</li>
+              <li>TypeScript</li>
+              <li>Express.js</li>
+            </ul>
 
-                    <!-- ========= Technical Skills ========= -->
-                    <div class="skills-column technical-skills">
-                        <h2 class="skills-title">Technical Skills</h2>
-                        <ul class="skills-list">
-                            <li>
-                                <span class="skill-bar"></span>
-                                <em>Communication</em>
-                                <span class="skill-percentage">85%</span>
-                            </li>
-                            <li>
-                                <span class="skill-bar"></span>
-                                <em>Teamwork</em>
-                                <span class="skill-percentage">80%</span>
-                            </li>
-                            <li>
-                                <span class="skill-bar"></span>
-                                <em>Problem Solving</em>
-                                <span class="skill-percentage">75%</span>
-                            </li>
-                            <li>
-                                <span class="skill-bar"></span>
-                                <em>Adaptability</em>
-                                <span class="skill-percentage">70%</span>
-                            </li>
-                            <li>
-                                <span class="skill-bar"></span>
-                                <em>Creativity</em>
-                                <span class="skill-percentage">65%</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div> <!-- End .skills-row -->
-            </div> <!-- End .skills-container -->
-
-            <!-- ========= EDUCATION & EXPERIENCE TIMELINES ========= -->
-            <div class="edu-exp-container">
-
-                <!-- ========= Education Timeline ========= -->
-                <div class="timeline education-timeline">
-                    <h2 class="education-title">
-                        <span class="highlight">Education</span>
-                    </h2>
-                    <ul class="timeline-list">
-                        <li class="timeline-item">
-                            <div class="icon-lane">
-                                <div class="icon-wrapper">
-                                    <i class="fas fa-graduation-cap"></i>
-                                </div>
-                                <div class="vertical-line"></div>
-                            </div>
-                            <div class="timeline-box">
-                                <a 
-                                  href="https://mtsu.edu/" 
-                                  target="_blank" 
-                                  class="timeline-heading"
-                                >
-                                    B.S. in Computer Science, Concentration in Cybersecurity Systems | MTSU
-                                </a>
-                                <span class="timeline-date">
-                                    January 2024 – Present
-                                </span>
-                                <p class="timeline-description">
-                                    GPA: 3.5/4.0
-                                </p>
-                            </div>
-                        </li>
-                        <li class="timeline-item">
-                            <div class="icon-lane">
-                                <div class="icon-wrapper">
-                                    <i class="fas fa-graduation-cap"></i>
-                                </div>
-                                <div class="vertical-line"></div>
-                            </div>
-                            <div class="timeline-box">
-                                <a href="https://www.motlow.edu/" target="_blank" class="timeline-heading">
-                                    A.S. in Computer Science | MSCC
-                                </a>
-                                <span class="timeline-date">
-                                    August 2021 – December 2023
-                                </span>
-                                <p class="timeline-description">
-                                    GPA: 3.6/4.0
-                                </p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- ========= Experience Timeline ========= -->
-                <div class="timeline experience-timeline">
-                    <h2 class="experience-title">
-                        <span class="highlight">Experience</span>
-                    </h2>
-                    <ul class="timeline-list">
-                        <li class="timeline-item">
-                            <div class="icon-lane">
-                                <div class="icon-wrapper">
-                                    <i class="fas fa-briefcase"></i>
-                                </div>
-                                <div class="vertical-line"></div>
-                            </div>
-                            <div class="timeline-box">
-                                <a href="https://www.walmart.com/" target="_blank" class="timeline-heading">
-                                    Sales Associate | Walmart
-                                </a>
-                                <span class="timeline-date">
-                                    July 2021 – Present
-                                </span>
-                                <p class="timeline-description">
-                                    Worked in a fast-paced retail environment, providing product recommendations, ensuring quality service, 
-                                    managing inventory, and handling customer concerns professionally.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="timeline-item">
-                            <div class="icon-lane">
-                                <div class="icon-wrapper">
-                                    <i class="fas fa-briefcase"></i>
-                                </div>
-                                <div class="vertical-line"></div>
-                            </div>
-                            <div class="timeline-box">
-                                <a href="https://antage.net/" target="_blank" class="timeline-heading">
-                                    Software Engineering Capstone | Internship | Antage
-                                </a>
-                                <span class="timeline-date">
-                                    Spring 2025 – Summer 2025
-                                </span>
-                                <p class="timeline-description">
-                                    Built a .NET-based solution for test tracking &amp; TDD, focusing on 
-                                    advanced software design, integration testing, and MySQL/EF-based data storage.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="timeline-item">
-                            <div class="icon-lane">
-                                <div class="icon-wrapper">
-                                    <i class="fas fa-briefcase"></i>
-                                </div>
-                                <div class="vertical-line"></div>
-                            </div>
-                            <div class="timeline-box">
-                                <a href="https://csc.mtsu.edu/acm/" target="_blank" class="timeline-heading">
-                                    MTSU ACM (Secretary) | MTSU ACM
-                                </a>
-                                <span class="timeline-date">
-                                    January 2024 – August 2024
-                                </span>
-                                <p class="timeline-description">
-                                    Organized events &amp; mentorship, boosting engagement 
-                                    and internship placements through networking &amp; research.
-                                </p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div> <!-- End .edu-exp-container -->
-        </section>
-
-        <!--
-        =========================================
-        PROJECTS SECTION
-        =========================================
-        -->
-        <section class="projects" id="projects">
-            <div class="projects-container">
-                <h2 class="projects-heading">
-                    <span class="highlight">Projects</span>
-                </h2>
-
-                <div class="projects-row">
-                    <!-- ========= Project 1 ========= -->
-                    <div class="projects-column">
-                        <div class="folder-icon left-align-folder">
-                            <i class="fas fa-folder"></i>
-                        </div>
-                        <h3 class="project-title">Authentication API</h3>
-                        <p class="project-description">
-                            Secure authentication API built with Node.js &amp; TypeScript, using JWT and bcrypt hashing.
-                        </p>
-                        <ul class="project-tech-list">
-                            <li>Node.js</li>
-                            <li>TypeScript</li>
-                            <li>Express.js</li>
-                        </ul>
-                        <div class="project-links">
-                            <a href="https://github.com/KhalidKhalel/Authentication-API" target="_blank" title="View on GitHub" aria-label="View on GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- ========= Project 2 ========= -->
-                    <div class="projects-column">
-                        <div class="folder-icon left-align-folder">
-                            <i class="fas fa-folder"></i>
-                        </div>
-                        <h3 class="project-title">DayEye – OSINT Toolkit</h3>
-                        <p class="project-description">  
-                            ‼️ Under active development ‼️ DayEye is a free, privacy‑first open‑source intelligence (OSINT) assistant. It helps anyone quickly locate public‑record information, trace digital footprints, and remove personal data from data‑broker sites.
-                        </p>
-                        <ul class="project-tech-list">
-                            <li>HTML</li>
-                            <li>CSS</li>
-                            <li>JavaScript</li>
-                            <li>Node.js</li>
-                        </ul>
-                        <div class="project-links">
-                            <a href="#" target="_blank" title="View on GitHub" aria-label="View on GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
-                            <a href="#" target="_blank" title="Live Demo" aria-label="Live Demo">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div> <!-- End .projects-row -->
-            </div> <!-- End .projects-container -->
-        </section>
-
-        <!--
-        =========================================
-        CONTACT SECTION
-        =========================================
-        -->
-        <section class="contact" id="contact">
-            <div class="contact-container">
-                <h2 class="contact-heading">
-                    <span class="highlight">Contact</span>
-                </h2>
-                <p class="contact-intro">
-                    Feel free to drop me a message! I'll get back to you as soon as I can.
-                </p>
-                <form name="contact" method="POST" data-netlify="true" class="contact-form" netlify-honeypot="bot-field">
-                    <!-- Netlify hidden form-name & honeypot -->
-                    <input type="hidden" name="form-name" value="contact">
-                    <input type="hidden" name="bot-field">
-
-                    <div class="form-group">
-                        <label for="name">Name<span class="required">*</span></label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Email<span class="required">*</span></label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message">Message<span class="required">*</span></label>
-                        <textarea id="message" name="message" rows="6" required></textarea>
-                    </div>
-
-                    <button type="submit" class="contact-button">Send Message</button>
-                </form>
-                <div id="form-status"></div>
-
-                <p class="direct-email">
-                    Or email me directly:
-                    <a href="mailto:contact.khalidk@gmail.com">contact.khalidk@gmail.com</a>
-                </p>
+            <div class="project-links">
+              <a
+                href="https://github.com/KhalidKhalel/Authentication-API"
+                target="_blank"
+                title="View on GitHub"
+                aria-label="View on GitHub"
+                ><i class="fab fa-github"></i
+              ></a>
             </div>
-        </section>
-    </main>
+          </div>
 
-    <!-- ========= SCROLL-UP BUTTON ========= -->
-    <button id="scroll-up" title="Back to top">
-        <i class="fas fa-chevron-up"></i>
-    </button>
-    <script src="main.js"></script>
+          <!-- Project 2 -->
+          <div class="projects-column">
+            <div class="folder-icon left-align-folder">
+              <i class="fas fa-folder" aria-hidden="true"></i>
+            </div>
+
+            <h3 class="project-title">DayEye – OSINT</h3>
+
+            <p class="project-description">
+              ‼️ Under active development ‼️ DayEye is a free, privacy-first
+              open-source intelligence (OSINT) assistant. It helps anyone
+              quickly locate public-record information, trace digital
+              footprints, and remove personal data from data-broker sites.
+            </p>
+
+            <ul class="project-tech-list">
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>JavaScript</li>
+              <li>Node.js</li>
+            </ul>
+
+            <div class="project-links">
+              <a href="#" target="_blank" title="View on GitHub" aria-label="View on GitHub"><i class="fab fa-github"></i></a>
+
+              <a href="#" target="_blank" title="Live Demo" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- === CONTACT === -->
+    <section class="contact" id="contact" aria-label="Contact">
+      <div class="contact-container">
+        <h2 class="contact-heading">
+          <span class="highlight">Contact</span>
+        </h2>
+
+        <p class="contact-intro">
+          Feel free to drop me a message! I'll get back to you as soon as I can.
+        </p>
+
+        <form
+          class="contact-form"
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+        >
+          <!-- required by Netlify -->
+          <input type="hidden" name="form-name" value="contact" />
+
+          <!-- honeypot (hidden to humans) -->
+          <p class="visually-hidden">
+            <label>
+              Don’t fill this out if you’re human:
+              <input name="bot-field" />
+            </label>
+          </p>
+
+          <!-- Name -->
+          <div class="form-group">
+            <label for="name">
+              Name
+              <span class="required">*</span>
+            </label>
+            <input id="name" name="name" type="text" required />
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email">
+              Email
+              <span class="required">*</span>
+            </label>
+            <input id="email" name="email" type="email" required />
+          </div>
+
+          <!-- Message -->
+          <div class="form-group">
+            <label for="message">
+              Message
+              <span class="required">*</span>
+            </label>
+            <textarea id="message" name="message" rows="6" required></textarea>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="contact-button">
+            Send Message
+          </button>
+        </form>
+
+        <!-- status line (filled by JS) -->
+        <div id="form-status" aria-live="polite"></div>
+
+        <!-- direct email fallback -->
+        <p class="direct-email">
+          Or email me directly:
+          <a href="mailto:contact.khalidk@gmail.com">contact.khalidk@gmail.com</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <button id="scroll-up" title="Back to top" aria-label="Back to top">
+    <i class="fas fa-chevron-up" aria-hidden="true"></i>
+  </button>
+
+  <script src="main.js" defer></script>
 </body>
 </html>
