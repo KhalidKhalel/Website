@@ -1,16 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+  <!-- Basic Meta -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Khalid Khalel</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+  <title>Khalid Khalel | Computer Science & Cybersecurity</title>
+  <meta name="description"
+    content="Portfolio of Khalid Khalel - Computer Science graduate with a Cybersecurity concentration. Explore my projects, skills, and experience." />
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="Khalid Khalel | Portfolio" />
+  <meta property="og:description"
+    content="Computer Science graduate specializing in Cybersecurity. View my projects and skills." />
+  <meta property="og:type" content="website" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="favicon.ico" sizes="any" />
-  <link rel="icon" href="favicon.png" type="image/png" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
 </head>
 
+
 <body>
+  <!-- Background Effects -->
+  <div class="cyber-bg">
+    <div class="cyber-gradient"></div>
+  </div>
+  <div class="particles" id="particlesContainer"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="grid-overlay">
+    <div class="grid-lines"></div>
+  </div>
+
   <!-- 
     =========================================================
     NAVIGATION
@@ -54,72 +80,52 @@
     <section class="home" id="home" aria-label="Home">
       <!-- avatar + neon ring -->
       <div class="avatar-container">
-        <img
-          class="avatar"
-          src="profile.png"
-          alt="A half-frame avatar of Khalid Khalel"
-        />
+        <img class="avatar" src="assets/profile.png" alt="A half-frame avatar of Khalid Khalel" />
         <div class="neon-circle" aria-hidden="true"></div>
       </div>
 
       <!-- headline + social -->
       <div class="home-content">
-        <h1>
-          Hi there
-          <span class="wave" aria-hidden="true">👋</span>
-          I'm Khalid
-        </h1>
+        <h1>Hi there <span class="wave">👋</span> I'm Khalid</h1>
 
         <div class="social-icons" aria-label="Social links">
-          <a
-            class="social-icon github"
-            href="https://github.com/KhalidKhalel"
-            target="_blank"
-            aria-label="GitHub"
-            ><i class="fab fa-github"></i
-          ></a>
+          <a class="social-icon github" href="https://github.com/KhalidKhalel" target="_blank" title="GitHub"
+            aria-label="GitHub"><i class="fab fa-github"></i></a>
 
-          <a
-            class="social-icon linkedin"
-            href="https://www.linkedin.com/in/khalidkhalel/"
-            target="_blank"
-            aria-label="LinkedIn"
-            ><i class="fab fa-linkedin"></i
-          ></a>
+          <a class="social-icon linkedin" href="https://www.linkedin.com/in/khalidkhalel/" target="_blank"
+            title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
 
-          <a
-            class="social-icon instagram"
-            href="https://www.instagram.com/khalid.k615/"
-            target="_blank"
-            aria-label="Instagram"
-            ><i class="fab fa-instagram"></i
-          ></a>
+          <a class="social-icon instagram" href="https://www.instagram.com/khalid.k615/" target="_blank"
+            title="Instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
 
       <!-- scroll down arrow -->
       <div class="scroll-arrow-container">
-        <div class="scroll-arrow" id="scroll-arrow" aria-label="Scroll to About"></div>
+        <div class="scroll-arrow" id="scroll-arrow" aria-label="Scroll to About">
+          <i class="fas fa-arrow-down"></i>
+        </div>
       </div>
     </section>
 
     <!-- === ABOUT === -->
     <section class="about" id="about" aria-label="About">
       <!-- intro text -->
-      <div class="about-content">
+      <div class="about-content" style="opacity: 0;">
         <h2>
           Let Me <span class="highlight">Introduce</span> Myself
         </h2>
 
         <p>
-          My name is Khalid Khalel, and I have a bachelor’s degree in Computer Science with a concentration in Cybersecurity 
-          from Middle Tennessee State University. I enjoy applying new skills to real-world challenges and am driven by a 
-          deep curiosity for computers and cybersecurity.
+          My name is Khalid Khalel, and I'm a recent Computer Science graduate from Middle Tennessee State University
+          with a concentration in Cybersecurity. I'm passionate about building tools that solve real-world problems,
+          especially in the areas of privacy, security, and open-source intelligence.
+          I'm actively seeking opportunities to grow my career and make an impact in the tech industry.
         </p>
       </div>
 
       <!-- skills -->
-      <div class="skills-container">
+      <div class="skills-container" style="opacity: 0;">
         <h2 class="skills-heading">
           <span class="highlight">Skills</span>
         </h2>
@@ -156,8 +162,8 @@
 
               <li>
                 <span class="skill-bar"></span>
-                <em>PHP</em>
-                <span class="skill-percentage">30%</span>
+                <em>MySQL</em>
+                <span class="skill-percentage">60%</span>
               </li>
             </ul>
           </div>
@@ -235,13 +241,43 @@
               </li>
             </ul>
           </div>
+
+          <!-- Languages - in same row as other skill boxes -->
+          <div class="skills-column languages">
+            <h2 class="skills-title">Languages</h2>
+            <div class="languages-row">
+              <!-- Arabic -->
+              <div class="language-item">
+                <div class="circular-progress" data-percentage="100">
+                  <svg class="progress-ring" width="120" height="120">
+                    <circle class="progress-ring-bg" cx="60" cy="60" r="52"></circle>
+                    <circle class="progress-ring-circle arabic-ring" cx="60" cy="60" r="52"></circle>
+                  </svg>
+                  <span class="percentage-text">0%</span>
+                </div>
+                <span class="language-name">Arabic</span>
+              </div>
+
+              <!-- English -->
+              <div class="language-item">
+                <div class="circular-progress" data-percentage="100">
+                  <svg class="progress-ring" width="120" height="120">
+                    <circle class="progress-ring-bg" cx="60" cy="60" r="52"></circle>
+                    <circle class="progress-ring-circle english-ring" cx="60" cy="60" r="52"></circle>
+                  </svg>
+                  <span class="percentage-text">0%</span>
+                </div>
+                <span class="language-name">English</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Education & Experience timelines -->
       <div class="edu-exp-container">
         <!-- Education -->
-        <div class="timeline education-timeline">
+        <div class="timeline education-timeline" style="opacity: 0;">
           <h2 class="education-title">
             <span class="highlight">Education</span>
           </h2>
@@ -256,14 +292,10 @@
               </div>
 
               <div class="timeline-box">
-                <a
-                  class="timeline-heading"
-                  href="https://mtsu.edu/"
-                  target="_blank"
-                  >B.S. in Computer Science, Concentration in Cybersecurity Systems | MTSU</a
-                >
-                <span class="timeline-date">January 2024 – December 2025</span>
-                <p class="timeline-description">GPA: 3.5/4.0</p>
+                <a class="timeline-heading" href="https://mtsu.edu/" target="_blank">B.S. in Computer Science,
+                  Cybersecurity Concentration | MTSU</a>
+                <span class="timeline-date">January 2024 - December 2025</span>
+                <p class="timeline-description">GPA: 3.6/4.0</p>
               </div>
             </li>
 
@@ -276,12 +308,8 @@
               </div>
 
               <div class="timeline-box">
-                <a
-                  class="timeline-heading"
-                  href="https://www.motlow.edu/"
-                  target="_blank"
-                  >A.S. in Computer Science | MSCC</a
-                >
+                <a class="timeline-heading" href="https://www.motlow.edu/" target="_blank">A.S. in Computer Science |
+                  MSCC</a>
                 <span class="timeline-date">August 2021 – December 2023</span>
                 <p class="timeline-description">GPA: 3.6/4.0</p>
               </div>
@@ -290,7 +318,7 @@
         </div>
 
         <!-- Experience -->
-        <div class="timeline experience-timeline">
+        <div class="timeline experience-timeline" style="opacity: 0;">
           <h2 class="experience-title">
             <span class="highlight">Experience</span>
           </h2>
@@ -305,12 +333,8 @@
               </div>
 
               <div class="timeline-box">
-                <a
-                  class="timeline-heading"
-                  href="https://www.walmart.com/"
-                  target="_blank"
-                  >Sales Associate | Walmart</a
-                >
+                <a class="timeline-heading" href="https://www.walmart.com/" target="_blank">Sales Associate |
+                  Walmart</a>
                 <span class="timeline-date">July 2021 – September 2025</span>
                 <p class="timeline-description">
                   Worked in a fast-paced retail environment, providing product
@@ -329,13 +353,9 @@
               </div>
 
               <div class="timeline-box">
-                <a
-                  class="timeline-heading"
-                  href="https://antage.net/"
-                  target="_blank"
-                  >Software Engineering Capstone | Internship | Antage</a
-                >
-                <span class="timeline-date">Spring 2025 – Summer 2025</span>
+                <a class="timeline-heading" href="https://antage.net/" target="_blank">Software Engineering Capstone |
+                  Antage</a>
+                <span class="timeline-date">January 2025 - May 2025</span>
                 <p class="timeline-description">
                   Built a .NET-based solution for test tracking &amp; TDD,
                   focusing on advanced software design, integration testing,
@@ -353,12 +373,8 @@
               </div>
 
               <div class="timeline-box">
-                <a
-                  class="timeline-heading"
-                  href="https://csc.mtsu.edu/acm/"
-                  target="_blank"
-                  >MTSU ACM (Secretary) | MTSU ACM</a
-                >
+                <a class="timeline-heading" href="https://csc.mtsu.edu/acm/" target="_blank">MTSU ACM (Secretary) | MTSU
+                  ACM</a>
                 <span class="timeline-date">January 2024 – August 2024</span>
                 <p class="timeline-description">
                   Organized events &amp; mentorship, boosting engagement and
@@ -379,147 +395,141 @@
           <span class="highlight">Projects</span>
         </h2>
 
-        <div class="projects-row">
-          <!-- Project 1 -->
+        <div class="projects-row" style="opacity: 0;">
+          <!-- OSINT Toolkit Project -->
           <div class="projects-column">
             <div class="folder-icon left-align-folder">
               <i class="fas fa-folder" aria-hidden="true"></i>
             </div>
 
-            <h3 class="project-title">Authentication API</h3>
+            <h3 class="project-title">OSINT Toolkit - Public Data Removal</h3>
 
             <p class="project-description">
-              Secure authentication API built with Node.js &amp; TypeScript,
-              using JWT and bcrypt hashing.
+              A privacy-focused OSINT assistant that aggregates personal data from multiple
+              public-record sources. Features an AI-powered chatbot to guide users through
+              opt-out processes across data broker sites, helping protect online privacy.
             </p>
 
             <ul class="project-tech-list">
+              <li>Python</li>
+              <li>JavaScript</li>
               <li>Node.js</li>
-              <li>TypeScript</li>
-              <li>Express.js</li>
+              <li>HTML/CSS</li>
             </ul>
 
             <div class="project-links">
-              <a
-                href="https://github.com/KhalidKhalel/Authentication-API"
-                target="_blank"
-                title="View on GitHub"
-                aria-label="View on GitHub"
-                ><i class="fab fa-github"></i
-              ></a>
+              <a href="https://github.com/KhalidKhalel/VEX" target="_blank" title="View on GitHub"
+                aria-label="View on GitHub"><i class="fab fa-github"></i></a>
+              <a href="#" target="_blank" title="Live Demo" aria-label="Live Demo"><i
+                  class="fas fa-external-link-alt"></i></a>
             </div>
           </div>
 
-          <!-- Project 2 -->
+          <!-- SOC Dashboard Project -->
           <div class="projects-column">
             <div class="folder-icon left-align-folder">
               <i class="fas fa-folder" aria-hidden="true"></i>
             </div>
 
-            <h3 class="project-title">DayEye – OSINT</h3>
+            <h3 class="project-title">SOC Dashboard</h3>
 
             <p class="project-description">
-              ‼️ Under active development ‼️ DayEye is a free, privacy-first
-              open-source intelligence (OSINT) assistant. It helps anyone
-              quickly locate public-record information, trace digital
-              footprints, and remove personal data from data-broker sites.
+              A Security Operations Center (SOC) dashboard that collects and analyzes logs,
+              detects suspicious activity, and helps respond to security incidents. Features
+              real-time alerts, incident tracking, and data visualization for network monitoring.
+              Developed as a class assignment for Database Management Systems.
             </p>
 
+
             <ul class="project-tech-list">
-              <li>HTML</li>
-              <li>CSS</li>
               <li>JavaScript</li>
               <li>Node.js</li>
+              <li>MySQL</li>
+              <li>HTML/CSS</li>
             </ul>
 
             <div class="project-links">
-              <a href="#" target="_blank" title="View on GitHub" aria-label="View on GitHub"><i class="fab fa-github"></i></a>
-
-              <a href="#" target="_blank" title="Live Demo" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+              <a href="https://github.com/MErruas/securelog" target="_blank" title="View on GitHub"
+                aria-label="View on GitHub"><i class="fab fa-github"></i></a>
             </div>
           </div>
         </div>
+
       </div>
     </section>
 
     <!-- === CONTACT === -->
     <section class="contact" id="contact" aria-label="Contact">
-      <div class="contact-container">
-        <h2 class="contact-heading">
-          <span class="highlight">Contact</span>
-        </h2>
+      <div class="contact-container" style="opacity: 1;">
+        <div class="contact-content-wrapper">
+          <h2 class="contact-heading">
+            <span class="highlight">Contact</span>
+          </h2>
 
-        <p class="contact-intro">
-          Feel free to drop me a message! I'll get back to you as soon as I can.
-        </p>
-
-        <form
-          class="contact-form"
-          name="contact"
-          method="POST"
-          data-netlify="true"
-          netlify-honeypot="bot-field"
-        >
-          <!-- required by Netlify -->
-          <input type="hidden" name="form-name" value="contact" />
-
-          <!-- honeypot (hidden to humans) -->
-          <p class="visually-hidden">
-            <label>
-              Don’t fill this out if you’re human:
-              <input name="bot-field" />
-            </label>
+          <p class="contact-intro">
+            Feel free to drop me a message! I'll get back to you as soon as I can.
           </p>
 
-          <!-- Name -->
-          <div class="form-group">
-            <label for="name">
-              Name
-              <span class="required">*</span>
-            </label>
-            <input id="name" name="name" type="text" required />
-          </div>
+          <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+            <!-- required by Netlify -->
+            <input type="hidden" name="form-name" value="contact" />
 
-          <!-- Email -->
-          <div class="form-group">
-            <label for="email">
-              Email
-              <span class="required">*</span>
-            </label>
-            <input id="email" name="email" type="email" required />
-          </div>
+            <!-- honeypot (hidden to humans) -->
+            <p class="visually-hidden">
+              <label>
+                Don’t fill this out if you’re human:
+                <input name="bot-field" />
+              </label>
+            </p>
 
-          <!-- Message -->
-          <div class="form-group">
-            <label for="message">
-              Message
-              <span class="required">*</span>
-            </label>
-            <textarea id="message" name="message" rows="6" required></textarea>
-          </div>
+            <!-- Name -->
+            <div class="form-group">
+              <label for="name">
+                Name
+                <span class="required">*</span>
+              </label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
 
-          <!-- Submit -->
-          <button type="submit" class="contact-button">
-            Send Message
-          </button>
-        </form>
+            <!-- Email -->
+            <div class="form-group">
+              <label for="email">
+                Email
+                <span class="required">*</span>
+              </label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
 
-        <!-- status line (filled by JS) -->
-        <div id="form-status" aria-live="polite"></div>
+            <!-- Message -->
+            <div class="form-group">
+              <label for="message">
+                Message
+                <span class="required">*</span>
+              </label>
+              <textarea id="message" name="message" rows="6" required></textarea>
+            </div>
 
-        <!-- direct email fallback -->
-        <p class="direct-email">
-          Or email me directly:
-          <a href="mailto:contact.khalidk@gmail.com">contact.khalidk@gmail.com</a>
-        </p>
+            <!-- Submit -->
+            <button type="submit" class="contact-button">
+              Send Message
+            </button>
+          </form>
+
+          <!-- status line (filled by JS) -->
+          <div id="form-status" aria-live="polite"></div>
+
+          <!-- direct email fallback - obfuscated to prevent spam bots -->
+          <p class="direct-email">
+            Or email me directly:
+            <a
+              href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#99;&#111;&#110;&#116;&#97;&#99;&#116;&#46;&#107;&#104;&#97;&#108;&#105;&#100;&#107;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#99;&#111;&#110;&#116;&#97;&#99;&#116;&#46;&#107;&#104;&#97;&#108;&#105;&#100;&#107;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>
+          </p>
+        </div>
       </div>
     </section>
   </main>
 
-  <button id="scroll-up" title="Back to top" aria-label="Back to top">
-    <i class="fas fa-chevron-up" aria-hidden="true"></i>
-  </button>
-
   <script src="main.js" defer></script>
 </body>
+
 </html>

@@ -1,298 +1,401 @@
-/* 
-=======================================================
-   Dynamic URL ⇆ Section Sync  (clean "/" for home)
-=======================================================
-*/
-(() => {
-  const links      = document.querySelectorAll('.nav-links a[href^="#"]');
-  const sections   = [...document.querySelectorAll('main > section[id]')];
-  const navHeight  = document.querySelector('nav')?.offsetHeight || 0;
-  if (!links.length || !sections.length) return;
+/* =========================================================
+   BACKGROUND EFFECTS - Particles and Orbs
+   ========================================================= */
 
-  /* helper - id ⇒ new URL ("/" for home, "/#about" for others) */
-  const setURL = id => {
-    const url = id === 'home' ? '/' : `/#${id}`;
-    const current = location.pathname + location.hash; // e.g. "/#about"
-    if (current !== url) history.replaceState(null, '', url);
-  };
+// Generate floating particles
+function generateParticles() {
+  const container = document.getElementById('particlesContainer');
+  if (!container) return;
 
-  /* smooth-scroll helper */
-  const scrollToID = id => {
-    if (id === 'home') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-    const target = document.getElementById(id);
-    if (!target) return;
-    const top = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
-    window.scrollTo({ top, behavior: 'smooth' });
-  };
+  const particleCount = 40;
 
-  /* ---------- clicks ---------- */
-  links.forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const id = link.getAttribute('href').slice(1); // "home" | "about" | "projects"...
-      scrollToID(id);
-      setURL(id);
-      links.forEach(a => a.classList.toggle('active', a === link));
-    });
-  });
-
-  /* ---------- scroll ---------- */
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        setURL(id);
-        links.forEach(a =>
-          a.classList.toggle('active', a.getAttribute('href') === `#${id}`)
-        );
-      }
-    });
-  }, { rootMargin: `-${navHeight}px 0px -50% 0px` });
-  sections.forEach(sec => io.observe(sec));
-
-  /* ---------- initial load / deep-link ---------- */
-  window.addEventListener('DOMContentLoaded', () => {
-    const startID = location.hash ? location.hash.slice(1) : 'home';
-    scrollToID(startID);
-    document
-      .querySelector(`a[href="#${startID}"]`)
-      ?.classList.add('active');
-  });
-
-  /* ---------- back / forward buttons ---------- */
-  window.addEventListener('popstate', () => {
-    const id = location.hash ? location.hash.slice(1) : 'home';
-    scrollToID(id);
-  });
-})();
-
-/* 
-=======================================================
-Menu-toggle (mobile nav)
-======================================================= 
-*/
-const hamburgerMenu = document.getElementById('hamburger-menu');
-const navLinks      = document.getElementById('nav-links');
-const mainContent   = document.querySelector('main');
-
-function toggleMainVisibility () {
-  if (!mainContent || !navLinks) return;
-  mainContent.style.visibility =
-    navLinks.classList.contains('nav-active') ? 'hidden' : 'visible';
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = `${Math.random() * 100}%`;
+    particle.style.animationDelay = `${Math.random() * 20}s`;
+    particle.style.animationDuration = `${Math.random() * 10 + 15}s`;
+    container.appendChild(particle);
+  }
 }
 
-if (hamburgerMenu && navLinks) {
-  hamburgerMenu.addEventListener('click', () => {
-    navLinks.classList.toggle('nav-active');
-    hamburgerMenu.classList.toggle('toggle');
-    document.body.classList.toggle('nav-open');
-    toggleMainVisibility();
-  });
+// Mouse interaction for orbs
+function initOrbInteraction() {
+  const orbs = document.querySelectorAll('.orb');
+  if (!orbs.length) return;
 
-  window.addEventListener('resize', () => {
-    if (innerWidth > 880 && navLinks.classList.contains('nav-active')) {
-      navLinks.classList.remove('nav-active');
-      hamburgerMenu.classList.remove('toggle');
-      document.body.classList.remove('nav-open');
-      toggleMainVisibility();
+  let mouseTimer;
+  document.addEventListener('mousemove', (e) => {
+    if (!mouseTimer) {
+      mouseTimer = setTimeout(() => {
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+
+        orbs.forEach((orb, index) => {
+          const speed = (index + 1) * 0.015;
+          const x = (mouseX - window.innerWidth / 2) * speed;
+          const y = (mouseY - window.innerHeight / 2) * speed;
+          orb.style.transform = `translate(${x}px, ${y}px)`;
+        });
+
+        mouseTimer = null;
+      }, 16); // ~60fps
     }
   });
 }
 
-/* 
-=======================================================
-Active-link highlight
-======================================================= 
-*/
-const navItems = document.querySelectorAll('.nav-links a:not(.resume-link)');
+// Initialize background effects
+generateParticles();
+initOrbInteraction();
 
-function setActive (el) {
-  navItems.forEach(a => a.classList.remove('active'));
-  el && el.classList.add('active');
+/* =========================================================
+   Helpers - shorthand selectors for cleaner code
+   ========================================================= */
+const $ = (sel, ctx = document) => ctx.querySelector(sel);
+const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+
+/* =========================================================
+   Nav sizing → CSS var (for scroll offsets)
+   ========================================================= */
+const nav = $("nav");
+
+function setNavHeightVar() {
+  const h = nav?.offsetHeight || 0;
+  document.documentElement.style.setProperty("--nav-h", `${h}px`);
 }
+window.addEventListener("resize", setNavHeightVar);
 
-navItems.forEach(a =>
-  a.addEventListener('click', function () {
-    setActive(this);
-    if (innerWidth <= 880 && navLinks && hamburgerMenu) {
-      navLinks.classList.remove('nav-active');
-      hamburgerMenu.classList.remove('toggle');
-      document.body.classList.remove('nav-open');
-      toggleMainVisibility();
-    }
-  })
-);
+/* =========================================================
+   Sticky / auto-hide nav
+   ========================================================= */
+let prevScrollY = window.pageYOffset || document.documentElement.scrollTop;
 
-if (navItems.length)
-  document.addEventListener('DOMContentLoaded', () => setActive(navItems[0]));
+function handleStickyNav() {
+  if (!nav) return;
 
-/* 
-=======================================================
-Smooth-scroll shortcuts
-======================================================= 
-*/
-const scrollArrow  = document.getElementById('scroll-arrow');
-const aboutSection = document.getElementById('about');
-const navHeight    = document.querySelector('nav')?.offsetHeight || 0;
+  const currScrollY =
+    window.pageYOffset || document.documentElement.scrollTop;
 
-if (scrollArrow && aboutSection)
-  scrollArrow.addEventListener('click', () => {
-    const top = aboutSection.getBoundingClientRect().top + window.pageYOffset - navHeight;
-    window.scrollTo({ top, behavior: 'smooth' });
-  });
+  if (currScrollY > 0) nav.classList.add("fixed");
+  else nav.classList.remove("fixed");
 
-const aboutLink = document.querySelector('.nav-links a[href="#about"]');
-if (aboutLink && aboutSection)
-  aboutLink.addEventListener('click', e => {
-    e.preventDefault();
-    const top = aboutSection.getBoundingClientRect().top + window.pageYOffset - navHeight;
-    window.scrollTo({ top, behavior: 'smooth' });
-  });
-
-/* 
-=======================================================
-Fade-in IntersectionObservers
-======================================================= 
-*/
-document.addEventListener('DOMContentLoaded', () => {
-  const io = new IntersectionObserver(es => {
-    es.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('fade-in-visible');
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: .15 });
-
-  [
-    '.avatar-container', '.home-content', '.scroll-arrow-container',
-    '.about', '.projects', '.contact', '.projects-column'
-  ].forEach(sel => document.querySelectorAll(sel).forEach(t => io.observe(t)));
-});
-
-/* 
-=======================================================
-Contact form (Netlify)
-=======================================================
-*/
-document.addEventListener('DOMContentLoaded', () => {
-  const form     = document.querySelector('.contact-form');
-  const statusEl = document.getElementById('form-status');
-  if (!form || !statusEl) return;
-
-  const encode = data =>
-    Object.keys(data)
-      .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
-      .join('&');
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-
-    /* honeypot check */
-    if (form.querySelector('[name="bot-field"]')?.value) return;
-
-    /* gather form data */
-    const data = { 'form-name': form.getAttribute('name') };
-    form.querySelectorAll('input, textarea').forEach(el => {
-      if (el.name && el.type !== 'submit') data[el.name] = el.value;
-    });
-
-    /* POST */
-    fetch('/', {
-      method : 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body   : encode(data)
-    })
-    .then(() => {
-      form.reset();
-      statusEl.textContent = 'Thank you! Your message has been sent.';
-      statusEl.classList.remove('error');
-      statusEl.classList.add('success');
-    })
-    .catch(err => {
-      console.error(err);
-      statusEl.textContent = 'Oops! Something went wrong. Please try again later.';
-      statusEl.classList.remove('success');
-      statusEl.classList.add('error');
-    });
-  });
-});
-
-/* 
-=======================================================
-Scroll-up button
-======================================================= 
-*/
-const scrollBtn = document.getElementById('scroll-up');
-if (scrollBtn) {
-  window.addEventListener('scroll', () => {
-    window.scrollY > 300 ? scrollBtn.classList.add('show')
-                         : scrollBtn.classList.remove('show');
-  });
-  scrollBtn.addEventListener('click', () =>
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  );
-}
-
-/* 
-=======================================================
-Sticky / auto-hide nav bar
-======================================================= 
-*/
-const navBar = document.querySelector('nav');
-let prevScrollY = pageYOffset || document.documentElement.scrollTop;
-
-if (navBar && prevScrollY > 0) navBar.classList.add('fixed');
-
-window.addEventListener('scroll', () => {
-  if (!navBar) return;
-  const currScrollY = pageYOffset || document.documentElement.scrollTop;
-  if (currScrollY > 0) navBar.classList.add('fixed');
-  else                 navBar.classList.remove('fixed');
-
-  if (currScrollY > prevScrollY && currScrollY > 120)
-       navBar.classList.add('nav-hidden');
-  else navBar.classList.remove('nav-hidden');
-
-  prevScrollY = currScrollY;
-});
-
-/* 
-=======================================================
-404 typing effect (runs only on 404 page)
-======================================================= 
-*/
-(() => {
-  const line = document.getElementById('nfLine');
-  if (!line) return;
-
-  const MSG        = "Looks like you got lost. Let's get you back home.";
-  const TYPE_MS    = 45;   // speed per character
-  const LOOP_PAUSE = 5000; // pause before restart
-  const CURSOR     = '<span class="type-cursor"></span>';
-
-  function run () {
-    let i = 0;
-    const step = () => {
-      if (i <= MSG.length) {
-        line.innerHTML = MSG.slice(0, i) + CURSOR;
-        i++;
-        setTimeout(step, TYPE_MS);
-      } else {
-        line.textContent = MSG;
-        setTimeout(() => {
-          line.textContent = '';
-          run();
-        }, LOOP_PAUSE);
-      }
-    };
-    step();
+  if (currScrollY > prevScrollY && currScrollY > 120) {
+    nav.classList.add("nav-hidden");
+  } else {
+    nav.classList.remove("nav-hidden");
   }
 
-  document.readyState === 'loading'
-    ? document.addEventListener('DOMContentLoaded', run)
-    : run();
-})();
+  prevScrollY = currScrollY;
+}
+
+/* =========================================================
+   Mobile menu toggle
+   ========================================================= */
+const hamburgerMenu = $("#hamburger-menu");
+const navLinksUL = $("#nav-links");
+
+function closeMobileMenu() {
+  navLinksUL?.classList.remove("nav-active");
+  hamburgerMenu?.classList.remove("toggle");
+  document.body.classList.remove("nav-open");
+  if (hamburgerMenu) hamburgerMenu.setAttribute("aria-expanded", "false");
+}
+
+function openMobileMenu() {
+  navLinksUL?.classList.add("nav-active");
+  hamburgerMenu?.classList.add("toggle");
+  document.body.classList.add("nav-open");
+  if (hamburgerMenu) hamburgerMenu.setAttribute("aria-expanded", "true");
+}
+
+function toggleMobileMenu() {
+  const isOpen = navLinksUL?.classList.contains("nav-active");
+  isOpen ? closeMobileMenu() : openMobileMenu();
+}
+
+if (hamburgerMenu && navLinksUL) {
+  hamburgerMenu.addEventListener("click", toggleMobileMenu);
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 880 && navLinksUL.classList.contains("nav-active")) {
+      closeMobileMenu();
+    }
+  });
+}
+
+/* =========================================================
+   Smooth scroll + URL / active-link sync
+   ========================================================= */
+const navItems = $$(".nav-links a:not(.resume-link)");
+
+function setActiveLinkById(id) {
+  navItems.forEach((a) => {
+    const match = a.getAttribute("href") === `#${id}`;
+    a.classList.toggle("active", match);
+    if (match) a.setAttribute("aria-current", "page");
+    else a.removeAttribute("aria-current");
+  });
+}
+
+function setURLForSection(id) {
+  // Keep current path/query, just adjust hash for clean URLs even if deployed in a subfolder
+  const base = window.location.pathname + window.location.search;
+  const newURL = id === "home" ? base : `${base}#${id}`;
+  const current = base + window.location.hash;
+
+  if (current !== newURL) history.replaceState(null, "", newURL);
+}
+
+function scrollToSection(id) {
+  if (id === "home") {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+
+  const target = document.getElementById(id);
+  const navH = nav?.offsetHeight || 0;
+
+  if (!target) return;
+  const top =
+    target.getBoundingClientRect().top + window.pageYOffset - navH;
+
+  window.scrollTo({ top, behavior: "smooth" });
+}
+
+navItems.forEach((a) => {
+  a.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const id = a.getAttribute("href").slice(1);
+
+    // smooth scroll
+    scrollToSection(id);
+
+    // update URL + active
+    setURLForSection(id);
+    setActiveLinkById(id);
+
+    // close mobile menu
+    if (window.innerWidth <= 880) closeMobileMenu();
+  });
+});
+
+/* =========================================================
+   IntersectionObserver: set URL + active on scroll
+   ========================================================= */
+const sections = $$("main > section[id]");
+
+function observeSections() {
+  const navH = nav?.offsetHeight || 0;
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          setURLForSection(id);
+          setActiveLinkById(id);
+        }
+      });
+    },
+    {
+      // push the top boundary down by nav height, and bottom up a bit
+      rootMargin: `-${navH + 1}px 0px -55% 0px`,
+      threshold: 0.1,
+    }
+  );
+
+  sections.forEach((sec) => io.observe(sec));
+}
+
+/* =========================================================
+   Initial deep link + history navigation
+   ========================================================= */
+function handleDeepLinkOnLoad() {
+  const id = window.location.hash ? window.location.hash.slice(1) : "home";
+  // ensure correct active link immediately
+  setActiveLinkById(id);
+  // scroll there (use instant jump if loading with a hash)
+  if (id !== "home") {
+    const navH = nav?.offsetHeight || 0;
+    const target = document.getElementById(id);
+    if (target) {
+      const top =
+        target.getBoundingClientRect().top + window.pageYOffset - navH;
+      window.scrollTo({ top });
+    }
+  }
+}
+
+window.addEventListener("popstate", () => {
+  const id = window.location.hash ? window.location.hash.slice(1) : "home";
+  scrollToSection(id);
+});
+
+/* =========================================================
+   Scroll arrow → About
+   ========================================================= */
+const scrollArrow = $("#scroll-arrow");
+const aboutSection = $("#about");
+
+if (scrollArrow && aboutSection) {
+  scrollArrow.addEventListener("click", () => {
+    scrollToSection("about");
+  });
+}
+
+/* =========================================================
+   Fade-ins
+   ========================================================= */
+function initFadeIns() {
+  const io = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("fade-in-visible");
+          obs.unobserve(e.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  [
+    ".avatar-container",
+    ".home-content",
+    ".scroll-arrow-container",
+    ".about-content",
+    ".skills-container",
+    ".education-timeline",
+    ".experience-timeline",
+    ".projects-row",
+    ".contact-container",
+  ].forEach((sel) => $$(sel).forEach((el) => io.observe(el)));
+}
+
+/* =========================================================
+   Contact form (Netlify)
+   ========================================================= */
+function initNetlifyForm() {
+  const form = $(".contact-form");
+  const statusEl = $("#form-status");
+
+  if (!form || !statusEl) return;
+
+  const encode = (data) =>
+    Object.keys(data)
+      .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
+      .join("&");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    // honeypot (bots)
+    const hp = form.querySelector('[name="bot-field"]');
+    if (hp && hp.value) {
+      // quietly ignore
+      return;
+    }
+
+    // gather
+    const data = { "form-name": form.getAttribute("name") || "contact" };
+    form.querySelectorAll("input, textarea").forEach((el) => {
+      if (el.name && el.type !== "submit") data[el.name] = el.value;
+    });
+
+    // POST to Netlify
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encode(data),
+    })
+      .then(() => {
+        form.reset();
+        statusEl.textContent = "Thank you! Your message has been sent.";
+        statusEl.classList.remove("error");
+        statusEl.classList.add("success");
+      })
+      .catch((err) => {
+        console.error(err);
+        statusEl.textContent =
+          "Oops! Something went wrong. Please try again later.";
+        statusEl.classList.remove("success");
+        statusEl.classList.add("error");
+      });
+  });
+}
+
+/* Scroll-up button removed - single page doesn't need it */
+
+/* Typing effect removed - greeting is now static HTML */
+
+/* =========================================================
+   Circular Progress Bars for Languages
+   ========================================================= */
+function initCircularProgress() {
+  const progressBars = document.querySelectorAll(".circular-progress");
+  if (!progressBars.length) return;
+
+  const circumference = 2 * Math.PI * 52; // radius = 52
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const percentage = parseInt(el.dataset.percentage) || 0;
+          const circle = el.querySelector(".progress-ring-circle");
+          const textEl = el.querySelector(".percentage-text");
+
+          // Animate the ring
+          const offset = circumference - (percentage / 100) * circumference;
+          circle.style.strokeDashoffset = offset;
+
+          // Animate the number counter with easing (slower at end)
+          const duration = 1500;
+          const startTime = performance.now();
+
+          function easeOutQuart(t) {
+            return 1 - Math.pow(1 - t, 4);
+          }
+
+          function countUp(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easedProgress = easeOutQuart(progress);
+            const current = Math.round(easedProgress * percentage);
+
+            textEl.textContent = current + "%";
+
+            if (progress < 1) {
+              requestAnimationFrame(countUp);
+            }
+          }
+          requestAnimationFrame(countUp);
+
+          observer.unobserve(el);
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  progressBars.forEach((bar) => observer.observe(bar));
+}
+
+/* =========================================================
+   Boot
+   ========================================================= */
+document.addEventListener("DOMContentLoaded", () => {
+  setNavHeightVar();
+  handleStickyNav();
+  observeSections();
+  handleDeepLinkOnLoad();
+  initFadeIns();
+  initNetlifyForm();
+  initCircularProgress();
+});
+
+window.addEventListener("scroll", () => {
+  handleStickyNav();
+});

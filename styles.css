@@ -10,16 +10,210 @@
 
 html {
   scroll-behavior: smooth;
+  /* Prevent white flash on overscroll */
+  background-color: #14111E;
 }
 
 body {
   margin: 0;
   font-family: "Arial", sans-serif;
-  background-color: #14111E;
+  background: transparent;
   color: #FFFFFF;
   overflow-x: hidden;
 }
 
+/* ==========================================================================
+   BACKGROUND EFFECTS
+   ========================================================================== */
+
+/* Main background container */
+.cyber-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #14111E;
+  overflow: hidden;
+  z-index: -5;
+}
+
+/* Animated gradient background */
+.cyber-gradient {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(100, 255, 218, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(237, 69, 2, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(168, 85, 247, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 60% 20%, rgba(42, 131, 219, 0.12) 0%, transparent 50%);
+  animation: gradientRotate 30s linear infinite;
+  filter: blur(40px);
+}
+
+@keyframes gradientRotate {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(180deg) scale(1.2);
+  }
+
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+/* Floating particles container */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -3;
+  pointer-events: none;
+}
+
+/* Individual particle */
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #64FFDA;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #64FFDA;
+  animation: particleFloat 20s infinite;
+  opacity: 0;
+}
+
+.particle:nth-child(odd) {
+  background: #ED4502;
+  box-shadow: 0 0 10px #ED4502;
+  animation-duration: 25s;
+}
+
+.particle:nth-child(3n) {
+  background: #A855F7;
+  box-shadow: 0 0 10px #A855F7;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(100vh) translateX(0);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.8;
+  }
+
+  90% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateY(-100vh) translateX(100px);
+    opacity: 0;
+  }
+}
+
+/* Glowing orbs */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  animation: orbFloat 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -4;
+}
+
+.orb1 {
+  width: 300px;
+  height: 300px;
+  background: #64FFDA;
+  top: 10%;
+  left: -150px;
+  animation-delay: 0s;
+}
+
+.orb2 {
+  width: 400px;
+  height: 400px;
+  background: #ED4502;
+  bottom: 10%;
+  right: -200px;
+  animation-delay: 5s;
+}
+
+.orb3 {
+  width: 250px;
+  height: 250px;
+  background: #A855F7;
+  top: 50%;
+  left: 50%;
+  animation-delay: 10s;
+}
+
+@keyframes orbFloat {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(100px, -50px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-50px, 100px) scale(0.9);
+  }
+}
+
+/* Grid overlay */
+.grid-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.grid-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(rgba(100, 255, 218, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 255, 218, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  /* No animation - grid stays static */
+}
+
+/* gridMove keyframes - currently unused, keeping for reference
+@keyframes gridMove {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+*/
+
+/* Disable transitions on initial load to prevent flash */
 h1,
 p,
 main {
@@ -27,14 +221,14 @@ main {
   opacity: 1;
 }
 
+
 /* ==========================================================================
    FONTS
    ========================================================================== */
 
 @font-face {
   font-family: "Liberty";
-  src: url("font/liberty.woff2") format("woff2"),
-       url("font/liberty.otf")   format("opentype");
+  src: url("font/liberty.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -45,11 +239,12 @@ main {
    ========================================================================== */
 
 :root {
-  --nav-h: 72px; /* updated in JS to the actual nav height */
+  --nav-h: 72px;
+  /* updated in JS to the actual nav height */
 }
 
 /* Ensures in-page anchor targets are not hidden under the sticky nav */
-main > section {
+main>section {
   scroll-margin-top: calc(var(--nav-h) + 12px);
 }
 
@@ -87,7 +282,8 @@ nav.fixed {
   top: 0;
   left: 0;
   right: 0;
-  background: #14111E;
+  background: rgba(20, 17, 30, 0.9);
+  backdrop-filter: blur(10px);
   z-index: 1001;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
@@ -150,12 +346,12 @@ nav.nav-hidden {
 /* Resume button */
 .resume-link {
   color: #F5F5F5;
-  background-color: #ED4502;
-  border: 2px solid #ED4502;
+  background-color: #A855F7;
+  border: 2px solid #A855F7;
   box-shadow:
-    0 0 15px rgba(237, 69, 2, 0.6),
-    0 0 30px rgba(237, 69, 2, 0.4),
-    0 0 45px rgba(237, 69, 2, 0.3);
+    0 0 15px rgba(168, 85, 247, 0.6),
+    0 0 30px rgba(168, 85, 247, 0.4),
+    0 0 45px rgba(168, 85, 247, 0.3);
   padding: 0.5rem 1rem;
   border-radius: 4px;
   font-size: 1.1rem;
@@ -164,13 +360,13 @@ nav.nav-hidden {
 }
 
 .resume-link:hover {
-  background-color: rgba(237, 69, 2, 0.8);
+  background-color: rgba(168, 85, 247, 0.8);
   box-shadow:
-    0 0 10px rgba(237, 69, 2, 0.5),
-    0 0 20px rgba(237, 69, 2, 0.4),
-    0 0 30px rgba(237, 69, 2, 0.3);
+    0 0 10px rgba(168, 85, 247, 0.5),
+    0 0 20px rgba(168, 85, 247, 0.4),
+    0 0 30px rgba(168, 85, 247, 0.3);
   color: #F5F5F5;
-  border-color: #ED4502;
+  border-color: #A855F7;
 }
 
 /* ==========================================================================
@@ -258,6 +454,7 @@ nav.nav-hidden {
 }
 
 @keyframes glow {
+
   0%,
   100% {
     text-shadow:
@@ -267,6 +464,7 @@ nav.nav-hidden {
       0 0 40px #64FFDA,
       0 0 80px #64FFDA;
   }
+
   50% {
     text-shadow:
       0 0 10px #64FFDA,
@@ -278,6 +476,7 @@ nav.nav-hidden {
 }
 
 @keyframes flicker {
+
   0%,
   18%,
   22%,
@@ -292,6 +491,7 @@ nav.nav-hidden {
       0 0 40px #64FFDA,
       0 0 80px #64FFDA;
   }
+
   20%,
   24%,
   54% {
@@ -301,7 +501,7 @@ nav.nav-hidden {
 }
 
 /* ==========================================================================
-   WAVE EMOJI
+   WAVE EMOJI - animated hand wave
    ========================================================================== */
 
 .wave {
@@ -314,24 +514,56 @@ nav.nav-hidden {
   0% {
     transform: rotate(0deg);
   }
+
   10% {
     transform: rotate(14deg);
   }
+
   20% {
     transform: rotate(-8deg);
   }
+
   30% {
     transform: rotate(14deg);
   }
+
   40% {
     transform: rotate(-4deg);
   }
+
   50% {
     transform: rotate(10deg);
   }
+
   60%,
   100% {
     transform: rotate(0deg);
+  }
+}
+
+/* Greeting CSS removed - using default h1 styling */
+
+/* ==========================================================================
+   TYPING CURSOR
+   ========================================================================== */
+
+.typing-cursor {
+  display: inline-block;
+  color: #64FFDA;
+  font-weight: 100;
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
   }
 }
 
@@ -355,6 +587,8 @@ nav.nav-hidden {
   position: relative;
   width: 250px;
   height: 250px;
+  min-width: 150px;
+  min-height: 150px;
   margin: 2rem auto 1.5rem auto;
   opacity: 0;
   transition: opacity 2.5s ease-out;
@@ -451,52 +685,54 @@ nav.nav-hidden {
 .scroll-arrow {
   width: 50px;
   height: 50px;
-  border: 3px solid #ED4502;
+  border: none;
+  background: transparent;
   border-radius: 50%;
   position: relative;
   cursor: pointer;
-  box-shadow:
-    0 0 15px rgba(237, 69, 2, 0.6),
-    0 0 30px rgba(237, 69, 2, 0.4),
-    0 0 45px rgba(237, 69, 2, 0.3);
-  animation: arrow-glow 1.5s infinite, arrow-bounce 1.5s infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: arrow-bounce 1.5s infinite;
 }
 
-.scroll-arrow::before {
-  content: "";
-  position: absolute;
-  top: 15px;
-  left: 50%;
-  width: 15px;
-  height: 15px;
-  border-left: 2px solid #ED4502;
-  border-bottom: 2px solid #ED4502;
-  transform: translateX(-50%) rotate(-45deg);
+.scroll-arrow i {
+  color: #64FFDA;
+  font-size: 1.6rem;
+  animation: arrowPulse 2s ease-in-out infinite;
 }
 
-@keyframes arrow-glow {
+@keyframes arrowPulse {
+
   0%,
   100% {
-    box-shadow:
-      0 0 15px rgba(237, 69, 2, 0.6),
-      0 0 30px rgba(237, 69, 2, 0.4),
-      0 0 45px rgba(237, 69, 2, 0.3);
+    text-shadow: 0 0 10px rgba(100, 255, 218, 0.6), 0 0 20px rgba(100, 255, 218, 0.4);
+    transform: scale(1);
   }
+
   50% {
-    box-shadow:
-      0 0 30px rgba(237, 69, 2, 0.8),
-      0 0 60px rgba(237, 69, 2, 0.6),
-      0 0 90px rgba(237, 69, 2, 0.4);
+    text-shadow: 0 0 25px rgba(100, 255, 218, 1), 0 0 50px rgba(100, 255, 218, 0.8), 0 0 75px rgba(100, 255, 218, 0.5);
+    transform: scale(1.15);
   }
 }
+
+/* Centered down arrow chevron */
+.scroll-arrow::before {
+  display: none;
+}
+
+/* arrow-glow removed in favor of arrowPulse */
+
 
 @keyframes arrow-bounce {
   0% {
     transform: translateY(0);
   }
+
   20% {
     transform: translateY(5px);
   }
+
   40% {
     transform: translateY(0);
   }
@@ -510,6 +746,7 @@ nav.nav-hidden {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -525,6 +762,12 @@ nav.nav-hidden {
   opacity: 1;
 }
 
+.education-timeline.fade-in-visible,
+.experience-timeline.fade-in-visible {
+  animation: fadeInSmoothly 2s forwards;
+  opacity: 1;
+}
+
 .scroll-arrow-container.fade-in-visible {
   animation: fadeInSmoothly 3s forwards;
   opacity: 1;
@@ -535,7 +778,7 @@ nav.nav-hidden {
    ========================================================================== */
 
 .about {
-  background-color: #1E1E2D;
+  background-color: #14111E;
   color: #FFFFFF;
   padding: 1rem 0;
   display: flex;
@@ -543,14 +786,25 @@ nav.nav-hidden {
   align-items: center;
   flex-direction: column;
   text-align: center;
-  opacity: 0;
-  transition: opacity 3s ease-out;
+  /* Background is fixed, no fade-in on container */
 }
 
 .about-content {
   max-width: 1000px;
   margin: 0 1.5rem;
   flex: 1;
+  opacity: 0;
+  /* Fade-in applied to content only */
+}
+
+.about-content.fade-in-visible,
+.skills-container.fade-in-visible,
+.education-timeline.fade-in-visible,
+.experience-timeline.fade-in-visible,
+.projects-row.fade-in-visible,
+.contact-container.fade-in-visible {
+  animation: fadeInSmoothly 3s forwards;
+  opacity: 1;
 }
 
 .about-content h2 {
@@ -565,10 +819,8 @@ nav.nav-hidden {
   margin: 1rem 0;
 }
 
-.about.fade-in-visible {
-  animation: fadeInSmoothly 3s forwards;
-  opacity: 1;
-}
+/* About section visibility handled by about-content */
+
 
 /* ==========================================================================
    SKILLS
@@ -592,15 +844,15 @@ nav.nav-hidden {
 .skills-row {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 2rem;
   width: 100%;
   box-sizing: border-box;
 }
 
 .skills-column {
-  flex: 1;
-  min-width: 250px;
-  max-width: 350px;
+  flex: 0 0 auto;
+  width: 350px;
   text-align: center;
   background-color: #14111E;
   border-radius: 8px;
@@ -625,22 +877,7 @@ nav.nav-hidden {
   box-shadow: 0 0 15px rgba(235, 78, 30, 0.6);
 }
 
-.skills-column:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(100, 255, 218, 0.8);
-}
-
-.programming:hover {
-  box-shadow: 0 0 25px rgba(42, 131, 219, 0.8);
-}
-
-.tools:hover {
-  box-shadow: 0 0 25px rgba(160, 207, 60, 0.8);
-}
-
-.technical-skills:hover {
-  box-shadow: 0 0 25px rgba(235, 78, 30, 0.8);
-}
+/* Hover effects removed */
 
 /* Titles */
 .skills-title {
@@ -664,6 +901,11 @@ nav.nav-hidden {
 .technical-skills .skills-title {
   color: #EB4E1E;
   text-shadow: 0 0 10px rgba(235, 78, 30, 0.6);
+}
+
+.languages .skills-title {
+  color: #A855F7;
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.6);
 }
 
 /* Bars */
@@ -731,7 +973,7 @@ nav.nav-hidden {
 }
 
 .programming .skills-list li:nth-child(5) .skill-bar {
-  width: 30%;
+  width: 60%;
 }
 
 .tools .skills-list .skill-bar {
@@ -785,18 +1027,97 @@ nav.nav-hidden {
 }
 
 /* ==========================================================================
+   LANGUAGES - CIRCULAR PROGRESS BARS
+   ========================================================================== */
+
+/* Purple neon color for languages (uses skills-column base styles) */
+.languages {
+  border-color: #A855F7;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+  width: 350px;
+}
+
+.languages-row {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.language-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.circular-progress {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  overflow: visible;
+  /* Allow glow to show outside */
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+  overflow: visible;
+}
+
+.progress-ring-bg {
+  fill: none;
+  stroke: #2A2A2A;
+  stroke-width: 8;
+}
+
+.progress-ring-circle {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 326.73;
+  /* 2 * PI * 52 */
+  stroke-dashoffset: 326.73;
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Both rings use purple to match the Languages border */
+.arabic-ring,
+.english-ring {
+  stroke: #A855F7;
+  filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.8));
+}
+
+.percentage-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Language names - white like the percentage */
+.language-name {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
    HIGHLIGHT TEXT
    ========================================================================== */
 
 .highlight {
   font-size: 2.2rem;
-  background: radial-gradient(
-    circle at 100%,
-    #b2a8fd,
-    #8678f9 50%,
-    #c7d2fe 75%,
-    #9a8dfd 75%
-  );
+  background: radial-gradient(circle at 100%,
+      #b2a8fd,
+      #8678f9 50%,
+      #c7d2fe 75%,
+      #9a8dfd 75%);
   font-weight: 600;
   background-size: 200% auto;
   color: #000;
@@ -805,6 +1126,7 @@ nav.nav-hidden {
   -webkit-text-fill-color: transparent;
   animation: highlightFlow 1.5s linear infinite;
 }
+
 
 @keyframes highlightFlow {
   to {
@@ -878,14 +1200,15 @@ nav.nav-hidden {
 
 .timeline-box {
   flex: 1;
-  background-color: #14111E;
+  background-color: #1E1E2D;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  border: 2px solid #1E1E2D;
+  border: 2px solid #64FFDA;
+  box-shadow: 0 0 15px rgba(100, 255, 218, 0.6);
   min-height: 130px;
   padding: 1rem;
   margin-left: 1rem;
   text-align: center;
+  transition: all 0.3s ease-in-out;
 }
 
 .timeline-heading {
@@ -916,17 +1239,20 @@ nav.nav-hidden {
    ========================================================================== */
 
 .projects {
-  background: #14111E;
+  background: transparent;
   padding: 3rem 0;
   text-align: center;
-  opacity: 0;
-  transition: opacity 3s ease-out;
 }
 
-.projects.fade-in-visible {
-  animation: fadeInSmoothly 1.5s forwards;
+.projects-row {
+  opacity: 0;
+}
+
+.projects-row.fade-in-visible {
+  animation: fadeInSmoothly 3s forwards;
   opacity: 1;
 }
+
 
 .projects-container {
   width: 90%;
@@ -959,28 +1285,27 @@ nav.nav-hidden {
 .projects-column {
   display: flex;
   flex-direction: column;
-  flex: 1;
-  min-width: 250px;
-  max-width: 350px;
+  flex: 0 0 auto;
+  /* Don't grow or shrink */
+  width: 320px;
+  /* Fixed width for consistent sizing */
+  min-width: 280px;
+  max-width: 320px;
   text-align: center;
   background-color: #1E1E2D;
   border-radius: 8px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  /* Neon border styling */
+  border: 2px solid #64FFDA;
+  box-shadow: 0 0 15px rgba(100, 255, 218, 0.6);
   transition: all 0.3s ease-in-out;
-  border: 2px solid transparent;
   padding: 1.5rem;
   margin-bottom: 2rem;
-  opacity: 0;
 }
+
 
 .projects-column.fade-in-visible {
   animation: fadeInSmoothly 1.2s forwards;
   opacity: 1;
-}
-
-.projects-column:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(100, 255, 218, 0.8);
 }
 
 .left-align-folder {
@@ -1013,7 +1338,8 @@ nav.nav-hidden {
 
 .project-tech-list {
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -1051,23 +1377,101 @@ nav.nav-hidden {
    ========================================================================== */
 
 .contact {
-  background-color: #1E1E2D;
+  background-color: #14111E;
   color: #FFFFFF;
   padding: 3rem 0;
   text-align: center;
-  opacity: 0;
-  transition: opacity 3s ease-out;
-}
-
-.contact.fade-in-visible {
-  animation: fadeInSmoothly 1.5s forwards;
-  opacity: 1;
 }
 
 .contact-container {
   width: 90%;
-  max-width: 600px;
+  max-width: 450px;
   margin: 0 auto;
+  position: relative;
+  padding: 0;
+  /* Padding moves to content-wrapper */
+  border-radius: 12px;
+  /* NO background here - it goes on the content-wrapper instead */
+  background: transparent;
+  border: none;
+  overflow: visible;
+  box-shadow: none;
+}
+
+
+/* Both ::before (sharp border) and ::after (glow) share the same ROTATING gradient */
+.contact-container::before,
+.contact-container::after {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  /* Conic gradient rotates from the center, creating the "moving around" effect */
+  background: conic-gradient(from var(--angle), #A855F7, #64FFDA, #ED4502, #2A83DB, #A855F7);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: rotateBorder 8s linear infinite;
+  border-radius: 14px;
+}
+
+/* ::before is the SHARP BORDER - in front of the glow */
+.contact-container::before {
+  z-index: -1;
+}
+
+/* ::after is the GLOW - behind the sharp border */
+.contact-container::after {
+  z-index: -2;
+  filter: blur(50px);
+}
+
+
+/* The content wrapper provides the SOLID DARK BACKGROUND */
+.contact-container .contact-content-wrapper {
+  position: relative;
+  z-index: 1;
+  /* This puts it ON TOP of the pseudo-elements */
+  background: linear-gradient(0deg, #14111E, #1a1528);
+  padding: 1rem;
+  border-radius: 12px;
+  opacity: 1;
+}
+
+/* Rotate the gradient angle from 0 to 360 degrees */
+/* Rotation animation for the contact border gradient */
+@keyframes rotateBorder {
+  0% {
+    --angle: 0deg;
+  }
+
+  100% {
+    --angle: 360deg;
+  }
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: true;
+}
+
+/* Fallback for browsers that don't support @property */
+@supports not (background: conic-gradient(from 0deg, red, blue)) {
+  .contact-container::before {
+    background: linear-gradient(90deg, #A855F7, #64FFDA, #ED4502, #2A83DB, #A855F7);
+    background-size: 300% 100%;
+    animation: borderSlide 4s linear infinite;
+  }
+
+  @keyframes borderSlide {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    100% {
+      background-position: 300% 50%;
+    }
+  }
 }
 
 .contact-heading {
@@ -1135,27 +1539,27 @@ nav.nav-hidden {
 
 .contact-button {
   align-self: center;
-  background-color: #ED4502;
+  background-color: #A855F7;
   color: #F5F5F5;
-  border: 2px solid #ED4502;
+  border: 2px solid #A855F7;
   border-radius: 4px;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   box-shadow:
-    0 0 15px rgba(237, 69, 2, 0.6),
-    0 0 30px rgba(237, 69, 2, 0.4),
-    0 0 45px rgba(237, 69, 2, 0.3);
+    0 0 15px rgba(168, 85, 247, 0.6),
+    0 0 30px rgba(168, 85, 247, 0.4),
+    0 0 45px rgba(168, 85, 247, 0.3);
   transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
 }
 
 .contact-button:hover {
-  background-color: rgba(237, 69, 2, 0.8);
+  background-color: rgba(168, 85, 247, 0.8);
   box-shadow:
-    0 0 10px rgba(237, 69, 2, 0.5),
-    0 0 20px rgba(237, 69, 2, 0.4),
-    0 0 30px rgba(237, 69, 2, 0.3);
+    0 0 10px rgba(168, 85, 247, 0.5),
+    0 0 20px rgba(168, 85, 247, 0.4),
+    0 0 30px rgba(168, 85, 247, 0.3);
 }
 
 #form-status {
@@ -1189,47 +1593,7 @@ nav.nav-hidden {
   color: #b2a8fd;
 }
 
-/* ==========================================================================
-   SCROLL-UP BUTTON
-   ========================================================================== */
-
-#scroll-up {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background: #ED4502;
-  color: #F5F5F5;
-  border: 2px solid #ED4502;
-  box-shadow:
-    0 0 15px rgba(237, 69, 2, 0.6),
-    0 0 30px rgba(237, 69, 2, 0.4),
-    0 0 45px rgba(237, 69, 2, 0.3);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 1000;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-#scroll-up.show {
-  display: flex;
-}
-
-#scroll-up:hover {
-  transform: scale(1.1);
-  box-shadow:
-    0 0 25px rgba(237, 69, 2, 0.8),
-    0 0 45px rgba(237, 69, 2, 0.6),
-    0 0 65px rgba(237, 69, 2, 0.4);
-}
-
-#scroll-up i {
-  font-size: 1rem;
-}
+/* Scroll-up button removed */
 
 /* ==========================================================================
    404 PAGE
@@ -1266,6 +1630,7 @@ body.page-404 {
       0 0 0.4rem #64ffda,
       0 0 1rem rgba(100, 255, 218, 0.35);
   }
+
   100% {
     box-shadow:
       0 0 1.2rem #64ffda,
@@ -1306,6 +1671,7 @@ body.page-404 {
       0 0 0.9rem #ed4502,
       0 0 1.9rem rgba(237, 69, 2, 0.55);
   }
+
   100% {
     text-shadow:
       0 0 1.8rem #ed4502,
@@ -1314,6 +1680,7 @@ body.page-404 {
 }
 
 @keyframes numberFlicker {
+
   0%,
   19%,
   21%,
@@ -1324,6 +1691,7 @@ body.page-404 {
   100% {
     opacity: 1;
   }
+
   20%,
   24%,
   55% {
@@ -1349,10 +1717,12 @@ body.page-404 {
 }
 
 @keyframes cursorBlink {
+
   0%,
   50% {
     opacity: 1;
   }
+
   51%,
   100% {
     opacity: 0;
@@ -1427,7 +1797,17 @@ body.page-404 {
   .avatar-container {
     width: calc(25vw + 25px);
     height: calc(25vw + 25px);
+    min-width: 150px;
+    min-height: 150px;
   }
+
+  /* Make home section fill the full viewport on tablets - svh accounts for browser UI */
+  .home {
+    height: calc(100vh - 60px);
+    height: calc(100svh - 60px);
+    min-height: auto;
+  }
+
 
   .home-content h1 {
     font-size: calc(1.8rem + 1vw);
@@ -1492,11 +1872,43 @@ body.page-404 {
   }
 }
 
+@media (max-width: 600px) {
+  .board-404 {
+    padding: 1.8rem 3.4rem 2.8rem;
+  }
+
+  .number {
+    font-size: clamp(3.2rem, 14vw, 5.8rem);
+  }
+
+  .home-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+
+  .message-line {
+    font-size: 1rem;
+    padding: 0 0.25rem;
+  }
+}
+
 @media (max-width: 480px) {
+
+  /* Make home section fill the full viewport on mobile - svh accounts for browser UI */
+  .home {
+    height: calc(100vh - 60px);
+    /* Fallback for browsers without svh support */
+    height: calc(100svh - 60px);
+    /* Small viewport height - excludes browser UI */
+    min-height: auto;
+  }
+
   .skills-row {
     flex-direction: column;
     align-items: center;
   }
+
 
   .skills-column {
     max-width: 90%;
@@ -1523,11 +1935,6 @@ body.page-404 {
     max-width: 90%;
   }
 
-  .contact-container {
-    width: 100%;
-    padding: 0 1rem;
-  }
-
   .form-group input,
   .form-group textarea {
     font-size: 0.9rem;
@@ -1538,40 +1945,35 @@ body.page-404 {
     font-size: 0.9rem;
     padding: 0.5rem 1rem;
   }
-}
 
-@media (max-width: 480px) {
-  #scroll-up {
-    width: 40px;
-    height: 40px;
-    bottom: 1.5rem;
-    right: 1.5rem;
-  }
-}
-
-/* 404 tighter layouts */
-@media (max-width: 600px) {
-  .board-404 {
-    padding: 1.8rem 3.4rem 2.8rem;
+  /* Contact Border - Same as desktop but remove glow for performance/clarity */
+  .contact-container {
+    width: 92%;
+    max-width: 100%;
+    background: transparent;
+    padding: 0;
+    animation: none;
   }
 
-  .number {
-    font-size: clamp(3.2rem, 14vw, 5.8rem);
+  /* Sharp rotating border only */
+  .contact-container::before {
+    display: block;
+    left: -2px;
+    top: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+    border-radius: 14px;
   }
 
-  .home-btn {
-    width: 50px;
-    height: 50px;
-    font-size: 1.2rem;
+  /* Hide the blurred glow layer */
+  .contact-container::after {
+    display: none;
   }
 
-  .message-line {
-    font-size: 1rem;
-    padding: 0 0.25rem;
-  }
-
-  .social-icon i {
-    font-size: clamp(1.6rem, 5vw, 2.2rem);
+  .contact-container .contact-content-wrapper {
+    padding: 1.5rem;
+    border-radius: 12px;
   }
 }
 
@@ -1595,6 +1997,7 @@ body.page-404 {
   }
 
   .social-icon i {
-    font-size: clamp(1.4rem, 8vw, 1.8rem);
+    font-size: 1.8rem;
+    min-width: 36px;
   }
 }
