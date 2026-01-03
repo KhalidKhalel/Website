@@ -325,9 +325,7 @@ function initNetlifyForm() {
   });
 }
 
-/* Scroll-up button removed - single page doesn't need it */
 
-/* Typing effect removed - greeting is now static HTML */
 
 /* =========================================================
    Circular Progress Bars for Languages

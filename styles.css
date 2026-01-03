@@ -198,22 +198,9 @@ body {
     linear-gradient(rgba(100, 255, 218, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(100, 255, 218, 0.03) 1px, transparent 1px);
   background-size: 50px 50px;
-  /* No animation - grid stays static */
 }
 
-/* gridMove keyframes - currently unused, keeping for reference
-@keyframes gridMove {
-  0% {
-    transform: translate(0, 0);
-  }
-
-  100% {
-    transform: translate(50px, 50px);
-  }
-}
-*/
-
-/* Disable transitions on initial load to prevent flash */
+/* Prevents flash on initial load */
 h1,
 p,
 main {
@@ -541,7 +528,7 @@ nav.nav-hidden {
   }
 }
 
-/* Greeting CSS removed - using default h1 styling */
+
 
 /* ==========================================================================
    TYPING CURSOR
@@ -716,12 +703,6 @@ nav.nav-hidden {
   }
 }
 
-/* Centered down arrow chevron */
-.scroll-arrow::before {
-  display: none;
-}
-
-/* arrow-glow removed in favor of arrowPulse */
 
 
 @keyframes arrow-bounce {
