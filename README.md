@@ -69,16 +69,6 @@ Portfolio Website/
 
 ---
 
-## 🚀 Sections
-
-- **Home** — Avatar with neon ring, social links, scroll arrow
-- **About** — Introduction, skills with progress bars, circular language proficiency
-- **Education & Experience** — Timeline layout with neon borders
-- **Projects** — OSINT Toolkit & SOC Dashboard
-- **Contact** — Form with animated rotating border
-
-
-
 
 <p align="center">
   <img src="https://readme-typing-svg.demolab.com/?lines=Made%20by%20Khalid%20Khalel&font=Fira%20Code&center=true&width=300&height=30&color=8B5CF6&vCenter=true&pause=100000&size=18&duration=1" />
