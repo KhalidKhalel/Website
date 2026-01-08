@@ -7,7 +7,7 @@
 
 <p align="center">
   <a href="https://www.khalidkhalel.com/" title="Live Website">
-    <img src="https://img.shields.io/badge/🌐_Live_Website-khalidkhalel.com-01FFFF?style=for-the-badge&labelColor=1A1B27" alt="Live Website"/>
+    <img src="https://img.shields.io/badge/🌐%20Live%20Website-KhalidKhalel.com-01FFFF?style=flat-square&labelColor=1A1B27" alt="Live Website"/>
   </a>
 </p>
 
@@ -23,11 +23,12 @@
 
 ## ✨ Features
 
-- **Modern Design** — Animated gradient background with floating particles and glowing effects
-- **Interactive Contact Form** — Rotating neon border with synchronized glow
-- **Fully Responsive** — Optimized for desktop, tablet, and mobile
-- **Smooth Animations** — Fade-in effects, hover states, and engaging transitions
-- **SEO Optimized** — Meta tags and Open Graph for social sharing
+- **Modern Design** - Animated gradient background with floating particles and glowing effects
+- **Glass Morphism UI** - Frosted glass navigation with backdrop blur
+- **Interactive Elements** - Smooth hover effects, animated underlines, and profile image transitions
+- **Fully Responsive** - Optimized for desktop, tablet, and mobile
+- **Smooth Animations** - Fade-in effects on scroll with engaging transitions
+- **SEO Optimized** - Meta tags and Open Graph for social sharing
 
 ---
 
@@ -71,12 +72,10 @@ Portfolio Website/
 
 ## 🚀 Sections
 
-- **Home** — Avatar with neon ring, social links, scroll arrow
-- **About** — Introduction, skills with progress bars, circular language proficiency
-- **Education & Experience** — Timeline layout with neon borders
-- **Projects** — OSINT Toolkit & SOC Dashboard
-- **Contact** — Form with animated rotating border
-
+- **Home** - Avatar with neon ring, social links, and glass-style "View Projects" button
+- **About** - Personal introduction with profile image featuring teal hover effect, tech skills grid
+- **Projects** - VEX project showcase with neon-bordered cards
+- **Contact** - Animated rotating border with "Get In Touch" button
 
 
 
