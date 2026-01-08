@@ -78,11 +78,6 @@
   <main>
     <!-- === HOME === -->
     <section class="home" id="home" aria-label="Home">
-      <!-- avatar + neon ring -->
-      <div class="avatar-container">
-        <img class="avatar" src="assets/profile.png" alt="A half-frame avatar of Khalid Khalel" />
-        <div class="neon-circle" aria-hidden="true"></div>
-      </div>
 
       <!-- headline + social -->
       <div class="home-content">
@@ -98,6 +93,13 @@
           <a class="social-icon instagram" href="https://www.instagram.com/khalid.k615/" target="_blank"
             title="Instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
+
+        <p class="hero-description">
+          A passionate Computer Science graduate specializing in Cybersecurity, building privacy-focused tools and web
+          applications that make a real-world impact.
+        </p>
+
+        <a href="#projects" class="projects-btn">View Projects</a>
       </div>
 
       <!-- scroll down arrow -->
@@ -110,282 +112,62 @@
 
     <!-- === ABOUT === -->
     <section class="about" id="about" aria-label="About">
-      <!-- intro text -->
-      <div class="about-content" style="opacity: 0;">
-        <h2>
-          Let Me <span class="highlight">Introduce</span> Myself
-        </h2>
-
-        <p>
-          My name is Khalid Khalel, and I'm a recent Computer Science graduate from Middle Tennessee State University
-          with a concentration in Cybersecurity. I'm passionate about building tools that solve real-world problems,
-          especially in the areas of privacy, security, and open-source intelligence.
-          I'm actively seeking opportunities to grow my career and make an impact in the tech industry.
-        </p>
-      </div>
-
-      <!-- skills -->
-      <div class="skills-container" style="opacity: 0;">
-        <h2 class="skills-heading">
-          <span class="highlight">Skills</span>
-        </h2>
-
-        <div class="skills-row">
-          <!-- Programming -->
-          <div class="skills-column programming">
-            <h2 class="skills-title">Programming</h2>
-
-            <ul class="skills-list">
-              <li>
-                <span class="skill-bar"></span>
-                <em>HTML/CSS</em>
-                <span class="skill-percentage">90%</span>
-              </li>
-
-              <li>
-                <span class="skill-bar"></span>
-                <em>C/C++</em>
-                <span class="skill-percentage">85%</span>
-              </li>
-
-              <li>
-                <span class="skill-bar"></span>
-                <em>JavaScript</em>
-                <span class="skill-percentage">75%</span>
-              </li>
-
-              <li>
-                <span class="skill-bar"></span>
-                <em>Python</em>
-                <span class="skill-percentage">65%</span>
-              </li>
-
-              <li>
-                <span class="skill-bar"></span>
-                <em>MySQL</em>
-                <span class="skill-percentage">60%</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Tools -->
-          <div class="skills-column tools">
-            <h2 class="skills-title">Tools</h2>
-
-            <ul class="skills-list">
-              <li>
-                <span class="skill-bar"></span>
-                <em>Git</em>
-                <span class="skill-percentage">80%</span>
-              </li>
-
-              <li>
-                <span class="skill-bar"></span>
-                <em>Office 365</em>
-                <span class="skill-percentage">70%</span>
-              </li>
-
-              <li>
-                <span class="skill-bar"></span>
-                <em>VS Code</em>
-                <span class="skill-percentage">85%</span>
-              </li>
-
-              <li>
-                <span class="skill-bar"></span>
-                <em>Linux</em>
-                <span class="skill-percentage">65%</span>
-              </li>
-
-              <li>
-                <span class="skill-bar"></span>
-                <em>Command Line</em>
-                <span class="skill-percentage">75%</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Technical Skills -->
-          <div class="skills-column technical-skills">
-            <h2 class="skills-title">Technical Skills</h2>
-
-            <ul class="skills-list">
-              <li>
-                <span class="skill-bar"></span>
-                <em>Communication</em>
-                <span class="skill-percentage">85%</span>
-              </li>
-
-              <li>
-                <span class="skill-bar"></span>
-                <em>Teamwork</em>
-                <span class="skill-percentage">80%</span>
-              </li>
-
-              <li>
-                <span class="skill-bar"></span>
-                <em>Problem Solving</em>
-                <span class="skill-percentage">75%</span>
-              </li>
-
-              <li>
-                <span class="skill-bar"></span>
-                <em>Adaptability</em>
-                <span class="skill-percentage">70%</span>
-              </li>
-
-              <li>
-                <span class="skill-bar"></span>
-                <em>Creativity</em>
-                <span class="skill-percentage">65%</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Languages - in same row as other skill boxes -->
-          <div class="skills-column languages">
-            <h2 class="skills-title">Languages</h2>
-            <div class="languages-row">
-              <!-- Arabic -->
-              <div class="language-item">
-                <div class="circular-progress" data-percentage="100">
-                  <svg class="progress-ring" width="120" height="120">
-                    <circle class="progress-ring-bg" cx="60" cy="60" r="52"></circle>
-                    <circle class="progress-ring-circle arabic-ring" cx="60" cy="60" r="52"></circle>
-                  </svg>
-                  <span class="percentage-text">0%</span>
-                </div>
-                <span class="language-name">Arabic</span>
-              </div>
-
-              <!-- English -->
-              <div class="language-item">
-                <div class="circular-progress" data-percentage="100">
-                  <svg class="progress-ring" width="120" height="120">
-                    <circle class="progress-ring-bg" cx="60" cy="60" r="52"></circle>
-                    <circle class="progress-ring-circle english-ring" cx="60" cy="60" r="52"></circle>
-                  </svg>
-                  <span class="percentage-text">0%</span>
-                </div>
-                <span class="language-name">English</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Education & Experience timelines -->
-      <div class="edu-exp-container">
-        <!-- Education -->
-        <div class="timeline education-timeline" style="opacity: 0;">
-          <h2 class="education-title">
-            <span class="highlight">Education</span>
+      <div class="about-wrapper" style="opacity: 0;">
+        <!-- Left side - Text content -->
+        <div class="about-text-content">
+          <h2>
+            <span class="highlight">About Me</span>
           </h2>
 
-          <ul class="timeline-list">
-            <li class="timeline-item">
-              <div class="icon-lane">
-                <div class="icon-wrapper">
-                  <i class="fas fa-graduation-cap" aria-hidden="true"></i>
-                </div>
-                <div class="vertical-line"></div>
-              </div>
+          <p>
+            Hey there! My name is <span class="highlight-inline">Khalid</span>, a Computer Science graduate from MTSU
+            with a concentration in
+            <span class="highlight-inline">Cybersecurity</span>. I'm passionate about building
+            tools that protect people's privacy and make the digital world a safer place.
+          </p>
 
-              <div class="timeline-box">
-                <a class="timeline-heading" href="https://mtsu.edu/" target="_blank">B.S. in Computer Science,
-                  Cybersecurity Concentration | MTSU</a>
-                <span class="timeline-date">January 2024 - December 2025</span>
-                <p class="timeline-description">GPA: 3.6/4.0</p>
-              </div>
-            </li>
+          <p>
+            My journey into tech started with curiosity about how things work under the hood.
+            That curiosity led me to explore everything from web development to security research,
+            and I've been hooked ever since. I enjoy applying new skills to real-world challenges.
+          </p>
 
-            <li class="timeline-item">
-              <div class="icon-lane">
-                <div class="icon-wrapper">
-                  <i class="fas fa-graduation-cap" aria-hidden="true"></i>
-                </div>
-                <div class="vertical-line"></div>
-              </div>
+          <p>
+            Currently, I'm building a tool that helps users understand and manage their digital footprint.
+            See what the internet knows about you, learn how to remove your data, and protect your online privacy.
+            Check out my work on <a href="https://github.com/KhalidKhalel" target="_blank"
+              class="inline-link">GitHub</a>.
+          </p>
 
-              <div class="timeline-box">
-                <a class="timeline-heading" href="https://www.motlow.edu/" target="_blank">A.S. in Computer Science |
-                  MSCC</a>
-                <span class="timeline-date">August 2021 – December 2023</span>
-                <p class="timeline-description">GPA: 3.6/4.0</p>
-              </div>
-            </li>
+          <p>
+            Skills &amp; technologies I work with:
+          </p>
+
+          <ul class="tech-list">
+            <li>JavaScript</li>
+            <li>Python</li>
+            <li>HTML/CSS</li>
+            <li>C/C++</li>
+            <li>MySQL</li>
+            <li>Git</li>
+            <li>Linux</li>
+            <li>Node.js</li>
+            <li>macOS</li>
+            <li>Windows</li>
+            <li>Terminal</li>
+            <li>Bash</li>
           </ul>
         </div>
 
-        <!-- Experience -->
-        <div class="timeline experience-timeline" style="opacity: 0;">
-          <h2 class="experience-title">
-            <span class="highlight">Experience</span>
-          </h2>
-
-          <ul class="timeline-list">
-            <li class="timeline-item">
-              <div class="icon-lane">
-                <div class="icon-wrapper">
-                  <i class="fas fa-briefcase" aria-hidden="true"></i>
-                </div>
-                <div class="vertical-line"></div>
-              </div>
-
-              <div class="timeline-box">
-                <a class="timeline-heading" href="https://www.walmart.com/" target="_blank">Sales Associate |
-                  Walmart</a>
-                <span class="timeline-date">July 2021 – September 2025</span>
-                <p class="timeline-description">
-                  Worked in a fast-paced retail environment, providing product
-                  recommendations, ensuring quality service, managing inventory,
-                  and handling customer concerns professionally.
-                </p>
-              </div>
-            </li>
-
-            <li class="timeline-item">
-              <div class="icon-lane">
-                <div class="icon-wrapper">
-                  <i class="fas fa-briefcase" aria-hidden="true"></i>
-                </div>
-                <div class="vertical-line"></div>
-              </div>
-
-              <div class="timeline-box">
-                <a class="timeline-heading" href="https://antage.net/" target="_blank">Software Engineering Capstone |
-                  Antage</a>
-                <span class="timeline-date">January 2025 - May 2025</span>
-                <p class="timeline-description">
-                  Built a .NET-based solution for test tracking &amp; TDD,
-                  focusing on advanced software design, integration testing,
-                  and MySQL/EF-based data storage.
-                </p>
-              </div>
-            </li>
-
-            <li class="timeline-item">
-              <div class="icon-lane">
-                <div class="icon-wrapper">
-                  <i class="fas fa-briefcase" aria-hidden="true"></i>
-                </div>
-                <div class="vertical-line"></div>
-              </div>
-
-              <div class="timeline-box">
-                <a class="timeline-heading" href="https://csc.mtsu.edu/acm/" target="_blank">MTSU ACM (Secretary) | MTSU
-                  ACM</a>
-                <span class="timeline-date">January 2024 – August 2024</span>
-                <p class="timeline-description">
-                  Organized events &amp; mentorship, boosting engagement and
-                  internship placements through networking &amp; research.
-                </p>
-              </div>
-            </li>
-          </ul>
+        <!-- Right side - Profile image with neon border -->
+        <div class="about-image-container">
+          <div class="about-image-wrapper">
+            <img class="about-image" src="assets/profile.png" alt="Khalid Khalel" />
+          </div>
         </div>
       </div>
     </section>
+
 
 
     <!-- === PROJECTS === -->
@@ -494,63 +276,15 @@
           </h2>
 
           <p class="contact-intro">
-            Feel free to drop me a message! I'll get back to you as soon as I can.
+            I'm always looking for new opportunities, my inbox is always open.
+            Whether you have a question or just want to say hi,
+            I'll try my best to get back to you!
           </p>
 
-          <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-            <!-- required by Netlify -->
-            <input type="hidden" name="form-name" value="contact" />
-
-            <!-- honeypot (hidden to humans) -->
-            <p class="visually-hidden">
-              <label>
-                Don’t fill this out if you’re human:
-                <input name="bot-field" />
-              </label>
-            </p>
-
-            <!-- Name -->
-            <div class="form-group">
-              <label for="name">
-                Name
-                <span class="required">*</span>
-              </label>
-              <input id="name" name="name" type="text" autocomplete="name" required />
-            </div>
-
-            <!-- Email -->
-            <div class="form-group">
-              <label for="email">
-                Email
-                <span class="required">*</span>
-              </label>
-              <input id="email" name="email" type="email" autocomplete="email" required />
-            </div>
-
-            <!-- Message -->
-            <div class="form-group">
-              <label for="message">
-                Message
-                <span class="required">*</span>
-              </label>
-              <textarea id="message" name="message" rows="6" required></textarea>
-            </div>
-
-            <!-- Submit -->
-            <button type="submit" class="contact-button">
-              Send Message
-            </button>
-          </form>
-
-          <!-- status line (filled by JS) -->
-          <div id="form-status" aria-live="polite"></div>
-
-          <!-- direct email fallback - obfuscated to prevent spam bots -->
-          <p class="direct-email">
-            Or email me directly:
-            <a
-              href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#99;&#111;&#110;&#116;&#97;&#99;&#116;&#46;&#107;&#104;&#97;&#108;&#105;&#100;&#107;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#99;&#111;&#110;&#116;&#97;&#99;&#116;&#46;&#107;&#104;&#97;&#108;&#105;&#100;&#107;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>
-          </p>
+          <div class="say-hello-btn-wrapper">
+            <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#99;&#111;&#110;&#116;&#97;&#99;&#116;&#46;&#107;&#104;&#97;&#108;&#105;&#100;&#107;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;"
+              class="say-hello-btn">Get In Touch</a>
+          </div>
         </div>
       </div>
     </section>

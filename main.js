@@ -76,13 +76,15 @@ function handleStickyNav() {
   const currScrollY =
     window.pageYOffset || document.documentElement.scrollTop;
 
-  if (currScrollY > 0) nav.classList.add("fixed");
-  else nav.classList.remove("fixed");
+  // Get the home section height to determine when to change nav background
+  const homeSection = document.getElementById('home');
+  const homeHeight = homeSection ? homeSection.offsetHeight : window.innerHeight;
 
-  if (currScrollY > prevScrollY && currScrollY > 120) {
-    nav.classList.add("nav-hidden");
+  // Toggle solid background based on scroll position
+  if (currScrollY > homeHeight - 100) {
+    nav.classList.add("nav-solid");
   } else {
-    nav.classList.remove("nav-hidden");
+    nav.classList.remove("nav-solid");
   }
 
   prevScrollY = currScrollY;
@@ -264,10 +266,7 @@ function initFadeIns() {
     ".avatar-container",
     ".home-content",
     ".scroll-arrow-container",
-    ".about-content",
-    ".skills-container",
-    ".education-timeline",
-    ".experience-timeline",
+    ".about-wrapper",
     ".projects-row",
     ".contact-container",
   ].forEach((sel) => $$(sel).forEach((el) => io.observe(el)));
