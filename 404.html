@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Page Not Found</title>
   <link rel="stylesheet" href="styles.css" />
-      <!-- Font-Awesome (for icons) -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-      <!-- Favicon -->
-     <link rel="icon" href="favicon.ico" sizes="any">
-     <link rel="icon" href="favicon.png" type="image/png">
+  <!-- Font-Awesome (for icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
 </head>
 
 <body class="page-404">
+
+  <nav class="nav-404">
+    <!-- Logo -->
+    <a href="/" class="logo glowing-name" aria-label="Khalid K logo">
+      <span>K</span><span>h</span><span>a</span><span>l</span><span>i</span><span>d</span><span>K</span><span>&#8226;</span>
+    </a>
+  </nav>
 
   <!-- neon panel -->
   <div class="board-404">
@@ -23,14 +30,15 @@
     </div>
   </div>
 
-  <!-- typing line -->
-  <div class="message-line" id="nfLine"></div>
-  
+  <!-- typing message -->
+  <div class="message-line" id="typingText"></div>
+
   <!-- home button -->
-<button class="home-btn" onclick="location.href='/'">
+  <button class="home-btn" onclick="location.href='/'">
     <i class="fas fa-home"></i>
   </button>
 
   <script src="main.js"></script>
 </body>
+
 </html>

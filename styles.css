@@ -23,6 +23,34 @@ body {
 }
 
 /* ==========================================================================
+   HIGHLIGHT TEXT
+   ========================================================================== */
+
+.highlight {
+  font-size: 2.2rem;
+  background: radial-gradient(circle at 100%,
+      #b2a8fd,
+      #8678f9 50%,
+      #c7d2fe 75%,
+      #9a8dfd 75%);
+  font-weight: 600;
+  background-size: 200% auto;
+  color: #000;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: highlightFlow 1.5s linear infinite;
+}
+
+
+@keyframes highlightFlow {
+  to {
+    background-position: 200% center;
+  }
+}
+
+
+/* ==========================================================================
    BACKGROUND EFFECTS
    ========================================================================== */
 
@@ -227,6 +255,7 @@ main {
 
 :root {
   --nav-h: 72px;
+  /* Set dynamically via JavaScript */
 }
 
 /* Ensures in-page anchor targets are not hidden under the sticky nav */
@@ -536,32 +565,6 @@ nav.nav-hidden {
   60%,
   100% {
     transform: rotate(0deg);
-  }
-}
-
-
-
-/* ==========================================================================
-   TYPING CURSOR
-   ========================================================================== */
-
-.typing-cursor {
-  display: inline-block;
-  color: #64FFDA;
-  font-weight: 100;
-  animation: blink 1s step-end infinite;
-  margin-left: 2px;
-}
-
-@keyframes blink {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0;
   }
 }
 
@@ -979,6 +982,9 @@ nav.nav-hidden {
   opacity: 1;
 }
 
+
+
+
 /* ==========================================================================
    PROJECTS
    ========================================================================== */
@@ -991,6 +997,11 @@ nav.nav-hidden {
 
 .projects-row {
   opacity: 0;
+}
+
+.projects-row.fade-in-visible {
+  animation: fadeInSmoothly 3s forwards;
+  opacity: 1;
 }
 
 
@@ -1026,12 +1037,15 @@ nav.nav-hidden {
   display: flex;
   flex-direction: column;
   flex: 0 0 auto;
+  /* Don't grow or shrink */
   width: 320px;
+  /* Fixed width for consistent sizing */
   min-width: 280px;
   max-width: 320px;
   text-align: center;
   background-color: #1E1E2D;
   border-radius: 8px;
+  /* Neon border styling */
   border: 2px solid #64FFDA;
   box-shadow: 0 0 15px rgba(100, 255, 218, 0.6);
   transition: all 0.3s ease-in-out;
@@ -1126,7 +1140,9 @@ nav.nav-hidden {
   margin: 0 auto;
   position: relative;
   padding: 0;
+  /* Padding moves to content-wrapper */
   border-radius: 12px;
+  /* NO background here - it goes on the content-wrapper instead */
   background: transparent;
   border: none;
   overflow: visible;
@@ -1238,8 +1254,8 @@ nav.nav-hidden {
   margin-right: auto;
 }
 
-/* Say Hello button wrapper with animated rainbow trail border */
-.say-hello-btn-wrapper {
+/* Contact button wrapper with animated rainbow trail border */
+.contact-btn-wrapper {
   display: inline-block;
   position: relative;
   padding: 2px;
@@ -1248,14 +1264,14 @@ nav.nav-hidden {
   margin-top: 1rem;
 }
 
-.say-hello-btn-wrapper::before {
+.contact-btn-wrapper::before {
   content: '';
   position: absolute;
   top: -2px;
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: conic-gradient(from var(--hello-angle, 0deg),
+  background: conic-gradient(from var(--contact-angle, 0deg),
       transparent 0deg,
       transparent 30deg,
       #00d4ff 60deg,
@@ -1267,11 +1283,11 @@ nav.nav-hidden {
       transparent 360deg);
   border-radius: 18px;
   z-index: -1;
-  animation: rotateHelloBorder 4s linear infinite;
+  animation: rotateContactBorder 4s linear infinite;
   filter: blur(2px);
 }
 
-.say-hello-btn-wrapper::after {
+.contact-btn-wrapper::after {
   content: '';
   position: absolute;
   top: 0;
@@ -1283,24 +1299,24 @@ nav.nav-hidden {
   z-index: -1;
 }
 
-@keyframes rotateHelloBorder {
+@keyframes rotateContactBorder {
   from {
-    --hello-angle: 0deg;
+    --contact-angle: 0deg;
   }
 
   to {
-    --hello-angle: 360deg;
+    --contact-angle: 360deg;
   }
 }
 
-@property --hello-angle {
+@property --contact-angle {
   syntax: '<angle>';
   initial-value: 0deg;
   inherits: false;
 }
 
-/* Say Hello button */
-.say-hello-btn {
+/* Contact button */
+.contact-btn {
   display: inline-block;
   padding: 1rem 3rem;
   font-size: 1.15rem;
@@ -1315,7 +1331,7 @@ nav.nav-hidden {
   z-index: 1;
 }
 
-.say-hello-btn:hover {
+.contact-btn:hover {
   color: #64FFDA;
 }
 
@@ -1368,30 +1384,24 @@ body.page-404 {
   font-family: "Inter", Arial, sans-serif;
 }
 
+.nav-404 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1rem 2rem;
+}
+
+.nav-404 .glowing-name {
+  text-decoration: none;
+}
+
 .board-404 {
   display: inline-block;
   padding: 2.4rem 5rem 3.4rem;
   border: 3px solid #64ffda;
   border-radius: 10px;
-  background: #1b1926;
-  box-shadow:
-    0 0 0.6rem #64ffda,
-    0 0 1.4rem rgba(100, 255, 218, 0.45);
-  animation: boardGlow 3.5s ease-in-out infinite alternate;
-}
-
-@keyframes boardGlow {
-  0% {
-    box-shadow:
-      0 0 0.4rem #64ffda,
-      0 0 1rem rgba(100, 255, 218, 0.35);
-  }
-
-  100% {
-    box-shadow:
-      0 0 1.2rem #64ffda,
-      0 0 2.8rem rgba(100, 255, 218, 0.7);
-  }
+  background: transparent;
+  box-shadow: 0 0 1rem #64ffda;
 }
 
 .numbers {
@@ -1404,35 +1414,19 @@ body.page-404 {
   font-family: "Liberty", cursive;
   font-size: clamp(4rem, 11vw, 7rem);
   font-weight: 200;
-  color: #ed4502;
+  color: #8678f9;
   text-shadow:
-    0 0 1.4rem #ed4502,
-    0 0 2.8rem rgba(237, 69, 2, 0.8);
-  animation:
-    numberGlow 3s ease-in-out infinite alternate,
-    numberFlicker 1.8s infinite;
+    0 0 1.4rem #8678f9,
+    0 0 2.8rem rgba(134, 120, 249, 0.8);
+  animation: numberFlicker 1.8s infinite;
 }
 
 .number:nth-child(2) {
-  animation-delay: 0.25s, 0.25s;
+  animation-delay: 0.25s;
 }
 
 .number:nth-child(3) {
-  animation-delay: 0.5s, 0.5s;
-}
-
-@keyframes numberGlow {
-  0% {
-    text-shadow:
-      0 0 0.9rem #ed4502,
-      0 0 1.9rem rgba(237, 69, 2, 0.55);
-  }
-
-  100% {
-    text-shadow:
-      0 0 1.8rem #ed4502,
-      0 0 3.6rem rgba(237, 69, 2, 0.85);
-  }
+  animation-delay: 0.5s;
 }
 
 @keyframes numberFlicker {
@@ -1496,7 +1490,7 @@ body.page-404 {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #ed4502;
+  color: #8678f9;
   font-size: 1.4rem;
   box-shadow: 0 0 1rem #64ffda;
   transition: transform 0.3s, box-shadow 0.3s;
@@ -1559,9 +1553,19 @@ body.page-404 {
 
   /* Make home section fill the full viewport on tablets - svh accounts for browser UI */
   .home {
-    height: calc(100vh - 60px);
-    height: calc(100svh - 60px);
-    min-height: auto;
+    height: auto;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding-bottom: 2rem;
+  }
+
+  /* Move scroll arrow to flow layout instead of absolute positioning */
+  .scroll-arrow-container {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-top: 1.5rem;
   }
 
 
@@ -1651,13 +1655,12 @@ body.page-404 {
 
 @media (max-width: 480px) {
 
-  /* Make home section fill the full viewport on mobile - svh accounts for browser UI */
+  /* Make home section fill the full viewport on mobile */
   .home {
-    height: calc(100vh - 60px);
-    /* Fallback for browsers without svh support */
-    height: calc(100svh - 60px);
-    /* Small viewport height - excludes browser UI */
-    min-height: auto;
+    height: auto;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding-bottom: 2rem;
   }
 
   .skills-row {
@@ -1722,9 +1725,10 @@ body.page-404 {
     border-radius: 14px;
   }
 
-  /* Hide the blurred glow layer */
+  /* Glow layer - keep visible but reduce blur for performance */
   .contact-container::after {
-    display: none;
+    display: block;
+    filter: blur(30px);
   }
 
   .contact-container .contact-content-wrapper {
@@ -1734,6 +1738,10 @@ body.page-404 {
 }
 
 @media (max-width: 380px) {
+  .home {
+    padding-top: 4rem;
+  }
+
   .board-404 {
     padding: 1.3rem 2.4rem 2.2rem;
   }

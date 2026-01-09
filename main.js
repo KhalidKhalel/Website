@@ -325,59 +325,45 @@ function initNetlifyForm() {
 }
 
 
-
 /* =========================================================
-   Circular Progress Bars for Languages
+   404 Page Typing Effect
    ========================================================= */
-function initCircularProgress() {
-  const progressBars = document.querySelectorAll(".circular-progress");
-  if (!progressBars.length) return;
+function init404Typing() {
+  const typingEl = document.getElementById('typingText');
+  if (!typingEl) return;
 
-  const circumference = 2 * Math.PI * 52; // radius = 52
+  const text = "Page not found. Let's get you back home.";
+  let i = 0;
+  let isDeleting = false;
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          const percentage = parseInt(el.dataset.percentage) || 0;
-          const circle = el.querySelector(".progress-ring-circle");
-          const textEl = el.querySelector(".percentage-text");
+  function typeWriter() {
+    const cursor = '<span class="type-cursor">&nbsp;</span>';
 
-          // Animate the ring
-          const offset = circumference - (percentage / 100) * circumference;
-          circle.style.strokeDashoffset = offset;
+    if (!isDeleting) {
+      if (i < text.length) {
+        typingEl.innerHTML = text.substring(0, i + 1) + cursor;
+        i++;
+        setTimeout(typeWriter, 50);
+      } else {
+        typingEl.innerHTML = text + cursor;
+        setTimeout(() => {
+          isDeleting = true;
+          typeWriter();
+        }, 6000);
+      }
+    } else {
+      if (i > 0) {
+        i--;
+        typingEl.innerHTML = text.substring(0, i) + cursor;
+        setTimeout(typeWriter, 30);
+      } else {
+        isDeleting = false;
+        setTimeout(typeWriter, 500);
+      }
+    }
+  }
 
-          // Animate the number counter with easing (slower at end)
-          const duration = 1500;
-          const startTime = performance.now();
-
-          function easeOutQuart(t) {
-            return 1 - Math.pow(1 - t, 4);
-          }
-
-          function countUp(currentTime) {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const easedProgress = easeOutQuart(progress);
-            const current = Math.round(easedProgress * percentage);
-
-            textEl.textContent = current + "%";
-
-            if (progress < 1) {
-              requestAnimationFrame(countUp);
-            }
-          }
-          requestAnimationFrame(countUp);
-
-          observer.unobserve(el);
-        }
-      });
-    },
-    { threshold: 0.5 }
-  );
-
-  progressBars.forEach((bar) => observer.observe(bar));
+  setTimeout(typeWriter, 500);
 }
 
 /* =========================================================
@@ -390,7 +376,7 @@ document.addEventListener("DOMContentLoaded", () => {
   handleDeepLinkOnLoad();
   initFadeIns();
   initNetlifyForm();
-  initCircularProgress();
+  init404Typing();
 });
 
 window.addEventListener("scroll", () => {
