@@ -1135,14 +1135,13 @@ nav.nav-hidden {
 }
 
 .contact-container {
+  --angle: 0deg;
   width: 90%;
   max-width: 450px;
   margin: 0 auto;
   position: relative;
   padding: 0;
-  /* Padding moves to content-wrapper */
   border-radius: 12px;
-  /* NO background here - it goes on the content-wrapper instead */
   background: transparent;
   border: none;
   overflow: visible;
@@ -1173,6 +1172,7 @@ nav.nav-hidden {
 /* ::after is the GLOW - behind the sharp border */
 .contact-container::after {
   z-index: -2;
+  -webkit-filter: blur(50px);
   filter: blur(50px);
 }
 
@@ -1728,6 +1728,7 @@ body.page-404 {
   /* Glow layer - keep visible but reduce blur for performance */
   .contact-container::after {
     display: block;
+    -webkit-filter: blur(30px);
     filter: blur(30px);
   }
 
