@@ -367,25 +367,22 @@ function init404Typing() {
 }
 
 /* =========================================================
-   Contact Border Animation (Safari/iOS fallback)
+   Contact Border/Glow Animation (JS-powered for iOS support)
    ========================================================= */
-function initContactBorderAnimation() {
-  const container = document.querySelector('.contact-container');
-  if (!container) return;
+function initContactAnimation() {
+  const border = document.querySelector('.contact-border');
+  const glow = document.querySelector('.contact-glow');
+  if (!border || !glow) return;
 
-  // Check if @property is supported (Chrome/Edge support it, Safari doesn't)
-  const supportsHoudini = CSS.registerProperty !== undefined;
-
-  if (!supportsHoudini) {
-    // Animate --angle via JavaScript for Safari/iOS
-    let angle = 0;
-    function animateAngle() {
-      angle = (angle + 0.5) % 360;
-      container.style.setProperty('--angle', angle + 'deg');
-      requestAnimationFrame(animateAngle);
-    }
-    animateAngle();
+  let angle = 0;
+  function animate() {
+    angle = (angle + 0.5) % 360;
+    const gradient = `conic-gradient(from ${angle}deg, #A855F7, #64FFDA, #ED4502, #2A83DB, #A855F7)`;
+    border.style.background = gradient;
+    glow.style.background = gradient;
+    requestAnimationFrame(animate);
   }
+  animate();
 }
 
 /* =========================================================
@@ -399,7 +396,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initFadeIns();
   initNetlifyForm();
   init404Typing();
-  initContactBorderAnimation();
+  initContactAnimation();
 });
 
 window.addEventListener("scroll", () => {
