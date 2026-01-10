@@ -66,9 +66,8 @@ function setNavHeightVar() {
 window.addEventListener("resize", setNavHeightVar);
 
 /* =========================================================
-   Sticky / auto-hide nav
+   Nav background toggle on scroll
    ========================================================= */
-let prevScrollY = window.pageYOffset || document.documentElement.scrollTop;
 
 function handleStickyNav() {
   if (!nav) return;
@@ -86,8 +85,6 @@ function handleStickyNav() {
   } else {
     nav.classList.remove("nav-solid");
   }
-
-  prevScrollY = currScrollY;
 }
 
 /* =========================================================
@@ -273,59 +270,6 @@ function initFadeIns() {
 }
 
 /* =========================================================
-   Contact form (Netlify)
-   ========================================================= */
-function initNetlifyForm() {
-  const form = $(".contact-form");
-  const statusEl = $("#form-status");
-
-  if (!form || !statusEl) return;
-
-  const encode = (data) =>
-    Object.keys(data)
-      .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
-      .join("&");
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    // honeypot (bots)
-    const hp = form.querySelector('[name="bot-field"]');
-    if (hp && hp.value) {
-      // quietly ignore
-      return;
-    }
-
-    // gather
-    const data = { "form-name": form.getAttribute("name") || "contact" };
-    form.querySelectorAll("input, textarea").forEach((el) => {
-      if (el.name && el.type !== "submit") data[el.name] = el.value;
-    });
-
-    // POST to Netlify
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encode(data),
-    })
-      .then(() => {
-        form.reset();
-        statusEl.textContent = "Thank you! Your message has been sent.";
-        statusEl.classList.remove("error");
-        statusEl.classList.add("success");
-      })
-      .catch((err) => {
-        console.error(err);
-        statusEl.textContent =
-          "Oops! Something went wrong. Please try again later.";
-        statusEl.classList.remove("success");
-        statusEl.classList.add("error");
-      });
-  });
-}
-
-
-/* =========================================================
    404 Page Typing Effect
    ========================================================= */
 function init404Typing() {
@@ -367,25 +311,6 @@ function init404Typing() {
 }
 
 /* =========================================================
-   Contact Border/Glow Animation (JS-powered for iOS support)
-   ========================================================= */
-function initContactAnimation() {
-  const border = document.querySelector('.contact-border');
-  const glow = document.querySelector('.contact-glow');
-  if (!border || !glow) return;
-
-  let angle = 0;
-  function animate() {
-    angle = (angle + 0.5) % 360;
-    const gradient = `conic-gradient(from ${angle}deg, #A855F7, #64FFDA, #ED4502, #2A83DB, #A855F7)`;
-    border.style.background = gradient;
-    glow.style.background = gradient;
-    requestAnimationFrame(animate);
-  }
-  animate();
-}
-
-/* =========================================================
    Boot
    ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
@@ -394,9 +319,7 @@ document.addEventListener("DOMContentLoaded", () => {
   observeSections();
   handleDeepLinkOnLoad();
   initFadeIns();
-  initNetlifyForm();
   init404Typing();
-  initContactAnimation();
 });
 
 window.addEventListener("scroll", () => {

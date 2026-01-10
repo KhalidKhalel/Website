@@ -1135,53 +1135,94 @@ nav.nav-hidden {
 }
 
 .contact-container {
-  --angle: 0deg;
   width: 90%;
   max-width: 450px;
   margin: 0 auto;
   position: relative;
   padding: 0;
+  /* Padding moves to content-wrapper */
   border-radius: 12px;
+  /* NO background here - it goes on the content-wrapper instead */
   background: transparent;
   border: none;
   overflow: visible;
   box-shadow: none;
 }
 
-/* Border and glow elements - real DOM elements for iOS compatibility */
-.contact-border,
-.contact-glow {
+
+/* Both ::before (sharp border) and ::after (glow) share the same ROTATING gradient */
+.contact-container::before,
+.contact-container::after {
+  content: '';
   position: absolute;
   left: -2px;
   top: -2px;
+  /* Conic gradient rotates from the center, creating the "moving around" effect */
+  background: conic-gradient(from var(--angle), #A855F7, #64FFDA, #ED4502, #2A83DB, #A855F7);
   width: calc(100% + 4px);
   height: calc(100% + 4px);
+  animation: rotateBorder 8s linear infinite;
   border-radius: 14px;
-  pointer-events: none;
 }
 
-/* Sharp rotating border */
-.contact-border {
-  z-index: 0;
-  background: conic-gradient(from var(--angle, 0deg), #A855F7, #64FFDA, #ED4502, #2A83DB, #A855F7);
-}
-
-/* Blurred glow behind the border */
-.contact-glow {
+/* ::before is the SHARP BORDER - in front of the glow */
+.contact-container::before {
   z-index: -1;
-  background: conic-gradient(from var(--angle, 0deg), #A855F7, #64FFDA, #ED4502, #2A83DB, #A855F7);
-  -webkit-filter: blur(50px);
+}
+
+/* ::after is the GLOW - behind the sharp border */
+.contact-container::after {
+  z-index: -2;
   filter: blur(50px);
 }
 
-/* Content wrapper - on top of border/glow */
+
+/* The content wrapper provides the SOLID DARK BACKGROUND */
 .contact-container .contact-content-wrapper {
   position: relative;
   z-index: 1;
+  /* This puts it ON TOP of the pseudo-elements */
   background: linear-gradient(0deg, #14111E, #1a1528);
   padding: 3rem;
   border-radius: 12px;
   opacity: 1;
+}
+
+/* Rotate the gradient angle from 0 to 360 degrees */
+/* Rotation animation for the contact border gradient */
+@keyframes rotateBorder {
+  0% {
+    --angle: 0deg;
+  }
+
+  100% {
+    --angle: 360deg;
+  }
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: true;
+}
+
+/* Fallback for browsers that don't support @property */
+@supports not (background: conic-gradient(from 0deg, red, blue)) {
+  .contact-container::before {
+    background: linear-gradient(90deg, #A855F7, #64FFDA, #ED4502, #2A83DB, #A855F7);
+    background-size: 300% 100%;
+    animation: borderSlide 4s linear infinite;
+  }
+
+  @keyframes borderSlide {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    100% {
+      background-position: 300% 50%;
+    }
+  }
 }
 
 .contact-heading {
@@ -1673,19 +1714,20 @@ body.page-404 {
     animation: none;
   }
 
-  /* Border element */
-  .contact-border {
+  /* Sharp rotating border only */
+  .contact-container::before {
+    display: block;
     left: -2px;
     top: -2px;
     width: calc(100% + 4px);
     height: calc(100% + 4px);
-    z-index: 0;
+    z-index: -1;
     border-radius: 14px;
   }
 
-  /* Glow layer - reduce blur for mobile performance */
-  .contact-glow {
-    -webkit-filter: blur(30px);
+  /* Glow layer - keep visible but reduce blur for performance */
+  .contact-container::after {
+    display: block;
     filter: blur(30px);
   }
 
