@@ -666,6 +666,15 @@ nav.nav-hidden {
   border-radius: 8px;
   text-decoration: none;
   box-shadow: 0 4px 20px rgba(100, 255, 218, 0.2);
+  transition: all 0.3s ease;
+}
+
+.projects-btn:hover {
+  background: rgba(100, 255, 218, 0.2);
+  box-shadow:
+    0 0 15px rgba(100, 255, 218, 0.5),
+    0 0 30px rgba(100, 255, 218, 0.3);
+  border-color: rgba(100, 255, 218, 0.8);
 }
 
 .social-icon {
@@ -1324,13 +1333,8 @@ nav.nav-hidden {
   border: none;
   border-radius: 16px;
   text-decoration: none;
-  transition: all 0.5s ease;
   position: relative;
   z-index: 1;
-}
-
-.contact-btn:hover {
-  color: #64FFDA;
 }
 
 #form-status {
