@@ -7,7 +7,7 @@
 
 <p align="center">
   <a href="https://www.khalidkhalel.com/" title="Live Website">
-    <img src="https://img.shields.io/badge/🌐%20Live%20Website-KhalidKhalel.com-01FFFF?style=flat-square&labelColor=1A1B27" alt="Live Website"/>
+    <img src="https://img.shields.io/badge/🌐%20LIVE%20WEBSITE-KhalidKhalel.com-01FFFF?style=for-the-badge&labelColor=1A1B27" alt="Live Website"/>
   </a>
 </p>
 
@@ -21,14 +21,13 @@
 
 ---
 
-## ✨ Features
+## 👋 About
 
-- **Modern Design** - Animated gradient background with floating particles and glowing effects
-- **Glass Morphism UI** - Frosted glass navigation with backdrop blur
-- **Interactive Elements** - Smooth hover effects, animated underlines, and profile image transitions
-- **Fully Responsive** - Optimized for desktop, tablet, and mobile
-- **Smooth Animations** - Fade-in effects on scroll with engaging transitions
-- **SEO Optimized** - Meta tags and Open Graph for social sharing
+Hey there! I'm **Khalid**, a Computer Science graduate from MTSU with a concentration in **Cybersecurity**. I'm passionate about building tools that protect people's privacy and make the digital world a safer place.
+
+This is my personal single-page portfolio website, a place to showcase my work and the projects I've been building. I've put a lot of time and effort into making it look clean, feel responsive, and work well on any device. Everything is built from scratch with just HTML, CSS, and JavaScript. No frameworks, no templates.
+
+Feel free to use this as a template for your own portfolio. Fork it, make it yours, and customize it however you like.
 
 ---
 
@@ -39,6 +38,22 @@
   <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer" title="CSS3"><img src="https://skillicons.dev/icons?i=css&theme=dark" alt="CSS3" width="40" height="40"/></a>
   <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer" title="JavaScript"><img src="https://skillicons.dev/icons?i=js&theme=dark" alt="JavaScript" width="40" height="40"/></a>
 </p>
+
+---
+
+## 🌐 Hosting & Domain
+
+This site is published and hosted using [**Netlify**](https://www.netlify.com/). Netlify offers free static site hosting with continuous deployment straight from GitHub, no server setup and no hosting costs.
+
+The custom domain was purchased through [**Squarespace Domains**](https://domains.squarespace.com/). One of the best things about Netlify is that it lets you **plug in any custom domain you want for free**. You don't have to buy your domain from Netlify to use it. You can purchase a domain from any registrar (like Squarespace, Namecheap, GoDaddy, etc.), point it to Netlify, and you're good to go.
+
+That said, Netlify also lets you [**register and buy a domain directly**](https://docs.netlify.com/manage/domains/configure-domains/register-and-buy-a-domain/) through their platform. If you'd rather have everything in one place (hosting, DNS, domain registration) you can do that too, so you don't have to manage things across multiple services. It's totally up to you.
+
+> **TL;DR:** You have two options for domains with Netlify:
+> 1. **Buy your domain elsewhere** (like [Squarespace](https://domains.squarespace.com/)) and connect it to Netlify for free.
+> 2. **Buy your domain directly from Netlify** to keep hosting and domain management all in one place.
+>
+> Either way, Netlify gives you a free `.netlify.app` subdomain by default, so a custom domain is completely optional.
 
 ---
 
@@ -54,30 +69,6 @@ Portfolio Website/
 ├── assets/             # Images and icons
 └── font/               # Custom Liberty font
 ```
-
----
-
-## 🎨 Color Palette
-
-| Color | Hex | Usage |
-|-------|-----|-------|
-| ![Cyan](https://img.shields.io/badge/-%2364FFDA-64FFDA?style=flat-square) Cyan | `#64FFDA` | Primary accent, links, neon effects |
-| ![Purple](https://img.shields.io/badge/-%23A855F7-A855F7?style=flat-square) Purple | `#A855F7` | Buttons, highlights |
-| ![Orange](https://img.shields.io/badge/-%23ED4502-ED4502?style=flat-square) Orange | `#ED4502` | Secondary accent |
-| ![Blue](https://img.shields.io/badge/-%232A83DB-2A83DB?style=flat-square) Blue | `#2A83DB` | Skills section |
-| ![Dark BG](https://img.shields.io/badge/-%2314111E-14111E?style=flat-square) Dark BG | `#14111E` | Background |
-
-
----
-
-## 🚀 Sections
-
-- **Home** - Avatar with neon ring, social links, and glass-style "View Projects" button
-- **About** - Personal introduction with profile image featuring teal hover effect, tech skills grid
-- **Projects** - VEX project showcase with neon-bordered cards
-- **Contact** - Animated rotating border with "Get In Touch" button
-
-
 
 <p align="center">
   <img src="https://readme-typing-svg.demolab.com/?lines=Made%20by%20Khalid%20Khalel&font=Fira%20Code&center=true&width=300&height=30&color=8B5CF6&vCenter=true&pause=100000&size=18&duration=1" />
