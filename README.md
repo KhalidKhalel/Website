@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/DenverCoder1/readme-typing-svg">
-    <img src="https://readme-typing-svg.demolab.com/?lines=Hi%20there%20%F0%9F%91%8B%20I'm%20Khalid;Computer%20Science%20%7C%20Cybersecurity;Personal%20Portfolio%20Website&font=Fira%20Code&center=true&width=600&height=50&color=8B5CF6&vCenter=true&pause=3000&size=30&background=1A1B27&duration=3000" /></a>
+    <img src="https://readme-typing-svg.demolab.com/?lines=Hi%20there%20%F0%9F%91%8B%20I'm%20Khalid;Computer%20Science%20%7C%20Cybersecurity;Privacy%20%26%20AI-Assisted%20Tools&font=Fira%20Code&center=true&width=600&height=50&color=8B5CF6&vCenter=true&pause=3000&size=30&background=1A1B27&duration=3000" /></a>
 </p>
 
 <br/>

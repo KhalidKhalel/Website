@@ -7,12 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Khalid Khalel | Computer Science & Cybersecurity</title>
   <meta name="description"
-    content="Portfolio of Khalid Khalel - Computer Science graduate with a Cybersecurity concentration." />
+    content="Portfolio of Khalid Khalel - Computer Science graduate building cybersecurity, privacy, and AI-assisted tools." />
 
   <!-- Open Graph / Social Sharing -->
   <meta property="og:title" content="Khalid Khalel | Portfolio" />
   <meta property="og:description"
-    content="Computer Science graduate specializing in Cybersecurity. View my projects and skills." />
+    content="Computer Science graduate specializing in Cybersecurity. View my privacy, security, and AI-assisted projects." />
   <meta property="og:type" content="website" />
 
   <!-- Stylesheets -->
@@ -67,19 +67,18 @@
       </li>
     </ul>
 
-    <!-- Hamburger (mobile) -->
-    <div class="hamburger-menu" id="hamburger-menu" aria-label="Menu" aria-expanded="false">
+    <!-- Mobile menu -->
+    <button class="hamburger-menu" id="hamburger-menu" type="button" aria-label="Menu" aria-expanded="false">
       <span class="hamburger-menu-line"></span>
       <span class="hamburger-menu-line"></span>
       <span class="hamburger-menu-line"></span>
-    </div>
+    </button>
   </nav>
 
   <main>
     <!-- === HOME === -->
     <section class="home" id="home" aria-label="Home">
 
-      <!-- headline + social -->
       <div class="home-content">
         <h1>Hi there <span class="wave">👋</span> I'm Khalid</h1>
 
@@ -93,25 +92,23 @@
         </div>
 
         <p class="hero-description">
-          A passionate Computer Science graduate specializing in Cybersecurity, building privacy-focused tools and web
-          applications that make a real-world impact.
+          A passionate Computer Science graduate specializing in Cybersecurity, building privacy-focused and
+          AI-assisted tools that make a real-world impact.
         </p>
 
         <a href="#projects" class="projects-btn">View Projects</a>
       </div>
 
-      <!-- scroll down arrow -->
       <div class="scroll-arrow-container">
-        <div class="scroll-arrow" id="scroll-arrow" aria-label="Scroll to About">
+        <button class="scroll-arrow" id="scroll-arrow" type="button" aria-label="Scroll to About">
           <i class="fas fa-arrow-down"></i>
-        </div>
+        </button>
       </div>
     </section>
 
     <!-- === ABOUT === -->
     <section class="about" id="about" aria-label="About">
-      <div class="about-wrapper" style="opacity: 0;">
-        <!-- Left side - Text content -->
+      <div class="about-wrapper">
         <div class="about-text-content">
           <h2>
             <span class="highlight">About Me</span>
@@ -131,8 +128,10 @@
           </p>
 
           <p>
-            Currently, I'm building a tool that helps users understand and manage their digital footprint.
-            See what the internet knows about you, learn how to remove your data, and protect your online privacy.
+            Currently, I'm building a tool that helps people apply for jobs faster.
+            It uses AI to generate tailored resumes and cover letters for each role. The repo is currently private
+            while it's in development, but the goal is to make it free, open source, accessible, and easier to use for
+            anyone trying to land their next opportunity.
             Check out my work on <a href="https://github.com/KhalidKhalel" target="_blank"
               class="inline-link">GitHub</a>.
           </p>
@@ -157,7 +156,6 @@
           </ul>
         </div>
 
-        <!-- Right side - Profile image with neon border -->
         <div class="about-image-container">
           <div class="about-image-wrapper">
             <img class="about-image" src="assets/profile.png" alt="Khalid Khalel" />
@@ -175,57 +173,32 @@
           <span class="highlight">Projects</span>
         </h2>
 
-        <div class="projects-row" style="opacity: 0;">
-          <!-- Personal Portfolio Website Project -->
+        <div class="projects-row">
+          <!-- OPTX Project -->
           <div class="projects-column">
             <div class="folder-icon left-align-folder">
               <i class="fas fa-folder" aria-hidden="true"></i>
             </div>
 
-            <h3 class="project-title">Personal Portfolio Website</h3>
+            <h3 class="project-title">Online Privacy Tool eXtractor</h3>
 
             <p class="project-description">
-              My personal portfolio website. Built with vanilla JavaScript and CSS,
-              featuring animated backgrounds, smooth scroll animations, and a modern design.
+              OPTX is a frontend-only OSINT assistant for reviewing your digital footprint. It builds local lookup and
+              opt-out links for public phone-search sites, includes reachability checks, and organizes removal guidance
+              without a backend, API keys, or stored searches.
             </p>
 
             <ul class="project-tech-list">
               <li>JavaScript</li>
               <li>HTML/CSS</li>
+              <li>Netlify</li>
             </ul>
 
             <div class="project-links">
-              <a href="https://github.com/KhalidKhalel/Website" target="_blank" title="View on GitHub"
+              <a href="https://github.com/KhalidKhalel/OPTX" target="_blank" title="View on GitHub"
                 aria-label="View on GitHub"><i class="fab fa-github"></i></a>
-              <a href="https://www.khalidkhalel.com/" target="_blank" title="Live Site" aria-label="Live Site"><i
+              <a href="https://optx-osint.netlify.app/" target="_blank" title="Live Site" aria-label="Live Site"><i
                   class="fas fa-external-link-alt"></i></a>
-            </div>
-          </div>
-
-          <!-- OSINT Toolkit Project -->
-          <div class="projects-column">
-            <div class="folder-icon left-align-folder">
-              <i class="fas fa-folder" aria-hidden="true"></i>
-            </div>
-
-            <h3 class="project-title">OSINT Toolkit - Public Data Removal</h3>
-
-            <p class="project-description">
-              A privacy-focused OSINT tool that scans 100+ people-search and data broker sites
-              to identify exposed personal information. Features automated opt-out removal flows
-              with CAPTCHA solving, stealth proxies, and temporary email verification.
-            </p>
-
-            <ul class="project-tech-list">
-              <li>Python</li>
-              <li>FastAPI</li>
-              <li>JavaScript</li>
-              <li>HTML/CSS</li>
-            </ul>
-
-            <div class="project-links">
-              <a href="https://github.com/KhalidKhalel/VEX" target="_blank" title="View on GitHub"
-                aria-label="View on GitHub"><i class="fab fa-github"></i></a>
             </div>
           </div>
 
@@ -264,7 +237,7 @@
 
     <!-- === CONTACT === -->
     <section class="contact" id="contact" aria-label="Contact">
-      <div class="contact-container" style="opacity: 1;">
+      <div class="contact-container">
         <div class="contact-content-wrapper">
           <h2 class="contact-heading">
             <span class="highlight">Contact</span>

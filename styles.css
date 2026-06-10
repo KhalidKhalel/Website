@@ -263,20 +263,6 @@ main>section {
   scroll-margin-top: calc(var(--nav-h) + 12px);
 }
 
-/* Screen-reader only (used for honeypot label) */
-.visually-hidden {
-  display: none !important;
-  position: absolute !important;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
 /* ==========================================================================
    NAVIGATION
    ========================================================================== */
@@ -302,21 +288,6 @@ nav.nav-solid {
   background: rgba(20, 17, 30, 0.95);
   backdrop-filter: blur(10px);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-}
-
-nav.fixed {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: rgba(20, 17, 30, 0.9);
-  backdrop-filter: blur(10px);
-  z-index: 1001;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-}
-
-nav.nav-hidden {
-  transform: translateY(-110%);
 }
 
 .logo {
@@ -406,6 +377,9 @@ nav.nav-hidden {
   cursor: pointer;
   justify-content: center;
   align-items: center;
+  background: transparent;
+  border: 0;
+  padding: 0;
   z-index: 1001;
 }
 
@@ -584,45 +558,6 @@ nav.nav-hidden {
   z-index: 1;
 }
 
-.avatar-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  width: 250px;
-  height: 250px;
-  min-width: 150px;
-  min-height: 150px;
-  margin: 2rem auto 1.5rem auto;
-  opacity: 0;
-  transition: opacity 2.5s ease-out;
-}
-
-.avatar {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 3px solid #64FFDA;
-  object-fit: cover;
-  object-position: center top;
-  display: block;
-}
-
-.neon-circle {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  box-shadow:
-    0 0 15px rgba(100, 255, 218, 0.6),
-    0 0 30px rgba(100, 255, 218, 0.4),
-    0 0 45px rgba(100, 255, 218, 0.3);
-  pointer-events: none;
-  z-index: -1;
-}
-
 .home-content {
   text-align: center;
   opacity: 0;
@@ -642,7 +577,6 @@ nav.nav-hidden {
   justify-content: center;
 }
 
-/* Hero description under social icons */
 .hero-description {
   font-size: 1.15rem;
   color: #c0c0c0;
@@ -652,7 +586,6 @@ nav.nav-hidden {
   padding: 0 1rem;
 }
 
-/* Projects button */
 .projects-btn {
   display: inline-block;
   padding: 1rem 2rem;
@@ -756,20 +689,6 @@ nav.nav-hidden {
 
 
 
-@keyframes arrow-bounce {
-  0% {
-    transform: translateY(0);
-  }
-
-  20% {
-    transform: translateY(5px);
-  }
-
-  40% {
-    transform: translateY(0);
-  }
-}
-
 /* ==========================================================================
    FADE IN HELPERS
    ========================================================================== */
@@ -784,19 +703,8 @@ nav.nav-hidden {
   }
 }
 
-.avatar-container.fade-in-visible {
-  animation: fadeInSmoothly 2.5s forwards;
-  opacity: 0.85;
-}
-
 .home-content.fade-in-visible {
   animation: fadeInSmoothly 3s forwards;
-  opacity: 1;
-}
-
-.education-timeline.fade-in-visible,
-.experience-timeline.fade-in-visible {
-  animation: fadeInSmoothly 2s forwards;
   opacity: 1;
 }
 
@@ -822,6 +730,7 @@ nav.nav-hidden {
   grid-template-columns: 3fr 2fr;
   gap: 4rem;
   align-items: start;
+  opacity: 0;
 }
 
 .about-text-content h2 {
@@ -842,7 +751,6 @@ nav.nav-hidden {
   color: #64FFDA;
 }
 
-/* Inline link with animated underline */
 .inline-link {
   color: #64FFDA;
   text-decoration: none;
@@ -864,7 +772,6 @@ nav.nav-hidden {
   width: 100%;
 }
 
-/* Tech list with arrow markers */
 .tech-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -889,7 +796,6 @@ nav.nav-hidden {
   font-size: 0.9rem;
 }
 
-/* Profile image with neon border */
 .about-image-container {
   display: flex;
   justify-content: center;
@@ -927,7 +833,6 @@ nav.nav-hidden {
   transition: all 0.3s ease;
 }
 
-/* On hover: image moves UP-LEFT, border moves DOWN-RIGHT */
 .about-image-wrapper:hover .about-image {
   transform: translate(-3px, -3px);
   filter: none;
@@ -938,7 +843,6 @@ nav.nav-hidden {
   left: 15px;
 }
 
-/* Responsive for mobile */
 @media (max-width: 768px) {
   .about-wrapper {
     grid-template-columns: 1fr;
@@ -981,17 +885,12 @@ nav.nav-hidden {
   }
 }
 
-/* Fade-in animations for scrolled elements */
 .about-wrapper.fade-in-visible,
 .projects-row.fade-in-visible,
 .contact-container.fade-in-visible {
   animation: fadeInSmoothly 3s forwards;
   opacity: 1;
 }
-
-
-
-
 /* ==========================================================================
    PROJECTS
    ========================================================================== */
@@ -1005,12 +904,6 @@ nav.nav-hidden {
 .projects-row {
   opacity: 0;
 }
-
-.projects-row.fade-in-visible {
-  animation: fadeInSmoothly 3s forwards;
-  opacity: 1;
-}
-
 
 .projects-container {
   width: 90%;
@@ -1043,16 +936,12 @@ nav.nav-hidden {
 .projects-column {
   display: flex;
   flex-direction: column;
-  flex: 0 0 auto;
-  /* Don't grow or shrink */
-  width: 320px;
-  /* Fixed width for consistent sizing */
-  min-width: 280px;
-  max-width: 320px;
+  flex: 1 1 320px;
+  width: min(100%, 360px);
+  max-width: 380px;
   text-align: center;
   background-color: #1E1E2D;
   border-radius: 8px;
-  /* Neon border styling */
   border: 2px solid #64FFDA;
   box-shadow: 0 0 15px rgba(100, 255, 218, 0.6);
   transition: all 0.3s ease-in-out;
@@ -1060,11 +949,6 @@ nav.nav-hidden {
   margin-bottom: 2rem;
 }
 
-
-.projects-column.fade-in-visible {
-  animation: fadeInSmoothly 1.2s forwards;
-  opacity: 1;
-}
 
 .left-align-folder {
   text-align: left;
@@ -1147,24 +1031,21 @@ nav.nav-hidden {
   margin: 0 auto;
   position: relative;
   padding: 0;
-  /* Padding moves to content-wrapper */
   border-radius: 12px;
-  /* NO background here - it goes on the content-wrapper instead */
   background: transparent;
   border: none;
   overflow: visible;
   box-shadow: none;
+  opacity: 0;
 }
 
 
-/* Both ::before (sharp border) and ::after (glow) share the same ROTATING gradient */
 .contact-container::before,
 .contact-container::after {
   content: '';
   position: absolute;
   left: -2px;
   top: -2px;
-  /* Conic gradient rotates from the center, creating the "moving around" effect */
   background: conic-gradient(from var(--angle), #A855F7, #64FFDA, #ED4502, #2A83DB, #A855F7);
   width: calc(100% + 4px);
   height: calc(100% + 4px);
@@ -1172,31 +1053,25 @@ nav.nav-hidden {
   border-radius: 14px;
 }
 
-/* ::before is the SHARP BORDER - in front of the glow */
 .contact-container::before {
   z-index: -1;
 }
 
-/* ::after is the GLOW - behind the sharp border */
 .contact-container::after {
   z-index: -2;
   filter: blur(50px);
 }
 
 
-/* The content wrapper provides the SOLID DARK BACKGROUND */
 .contact-container .contact-content-wrapper {
   position: relative;
   z-index: 1;
-  /* This puts it ON TOP of the pseudo-elements */
   background: linear-gradient(0deg, #14111E, #1a1528);
   padding: 3rem;
   border-radius: 12px;
   opacity: 1;
 }
 
-/* Rotate the gradient angle from 0 to 360 degrees */
-/* Rotation animation for the contact border gradient */
 @keyframes rotateBorder {
   0% {
     --angle: 0deg;
@@ -1213,7 +1088,6 @@ nav.nav-hidden {
   inherits: true;
 }
 
-/* Fallback for browsers that don't support @property */
 @supports not (background: conic-gradient(from 0deg, red, blue)) {
   .contact-container::before {
     background: linear-gradient(90deg, #A855F7, #64FFDA, #ED4502, #2A83DB, #A855F7);
@@ -1241,15 +1115,6 @@ nav.nav-hidden {
 }
 
 .contact-intro {
-  font-size: calc(1rem + 0.2vw);
-  margin-bottom: 2rem;
-  line-height: 1.5;
-  color: #FFFFFF;
-  opacity: 0.9;
-  text-align: center;
-}
-
-.contact-intro {
   font-size: 1.1rem;
   margin-bottom: 2rem;
   line-height: 1.7;
@@ -1261,7 +1126,6 @@ nav.nav-hidden {
   margin-right: auto;
 }
 
-/* Contact button wrapper with animated rainbow trail border */
 .contact-btn-wrapper {
   display: inline-block;
   position: relative;
@@ -1322,7 +1186,6 @@ nav.nav-hidden {
   inherits: false;
 }
 
-/* Contact button */
 .contact-btn {
   display: inline-block;
   padding: 1rem 3rem;
@@ -1336,38 +1199,6 @@ nav.nav-hidden {
   position: relative;
   z-index: 1;
 }
-
-#form-status {
-  margin-top: 1rem;
-  min-height: 1.2rem;
-  font-size: 0.95rem;
-  text-align: center;
-}
-
-#form-status.success {
-  color: #64FFDA;
-}
-
-#form-status.error {
-  color: #ED4502;
-}
-
-.direct-email {
-  margin-top: 1rem;
-  font-size: 0.95rem;
-  color: #FFFFFF;
-}
-
-.direct-email a {
-  color: #64FFDA;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.direct-email a:hover {
-  color: #b2a8fd;
-}
-
 
 /* ==========================================================================
    404 PAGE
@@ -1546,14 +1377,6 @@ body.page-404 {
     visibility: hidden;
   }
 
-  .avatar-container {
-    width: calc(25vw + 25px);
-    height: calc(25vw + 25px);
-    min-width: 150px;
-    min-height: 150px;
-  }
-
-  /* Make home section fill the full viewport on tablets - svh accounts for browser UI */
   .home {
     height: auto;
     min-height: 100vh;
@@ -1561,7 +1384,6 @@ body.page-404 {
     padding-bottom: 2rem;
   }
 
-  /* Move scroll arrow to flow layout instead of absolute positioning */
   .scroll-arrow-container {
     position: relative;
     bottom: auto;
@@ -1584,31 +1406,6 @@ body.page-404 {
     height: 40px;
   }
 
-  .scroll-arrow::before {
-    width: 13px;
-    height: 13px;
-    top: 11px;
-  }
-
-  .skills-heading {
-    text-align: center;
-  }
-
-  .skills-row {
-    flex-wrap: wrap;
-  }
-
-  .edu-exp-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .timeline {
-    width: 100%;
-    max-width: 700px;
-    margin-bottom: 2rem;
-  }
-
   .projects-heading {
     text-align: center;
   }
@@ -1622,16 +1419,6 @@ body.page-404 {
     justify-content: center;
   }
 
-  .form-group input,
-  .form-group textarea {
-    font-size: 0.95rem;
-    padding: 0.65rem 0.9rem;
-  }
-
-  .contact-button {
-    font-size: 0.95rem;
-    padding: 0.65rem 1.25rem;
-  }
 }
 
 @media (max-width: 600px) {
@@ -1657,31 +1444,11 @@ body.page-404 {
 
 @media (max-width: 480px) {
 
-  /* Make home section fill the full viewport on mobile */
   .home {
     height: auto;
     min-height: 100vh;
     min-height: 100svh;
     padding-bottom: 2rem;
-  }
-
-  .skills-row {
-    flex-direction: column;
-    align-items: center;
-  }
-
-
-  .skills-column {
-    max-width: 90%;
-    margin-bottom: 1.5rem;
-  }
-
-  .timeline-box {
-    margin-bottom: 1.5rem;
-  }
-
-  .timeline-description {
-    font-size: 0.85rem;
   }
 
   .project-title {
@@ -1696,18 +1463,6 @@ body.page-404 {
     max-width: 90%;
   }
 
-  .form-group input,
-  .form-group textarea {
-    font-size: 0.9rem;
-    padding: 0.5rem 0.75rem;
-  }
-
-  .contact-button {
-    font-size: 0.9rem;
-    padding: 0.5rem 1rem;
-  }
-
-  /* Contact Border - Same as desktop but remove glow for performance/clarity */
   .contact-container {
     width: 92%;
     max-width: 100%;
@@ -1716,7 +1471,6 @@ body.page-404 {
     animation: none;
   }
 
-  /* Sharp rotating border only */
   .contact-container::before {
     display: block;
     left: -2px;
@@ -1727,7 +1481,6 @@ body.page-404 {
     border-radius: 14px;
   }
 
-  /* Glow layer - keep visible but reduce blur for performance */
   .contact-container::after {
     display: block;
     filter: blur(30px);

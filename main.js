@@ -2,7 +2,6 @@
    BACKGROUND EFFECTS - Particles and Orbs
    ========================================================= */
 
-// Generate floating particles
 function generateParticles() {
   const container = document.getElementById('particlesContainer');
   if (!container) return;
@@ -19,7 +18,6 @@ function generateParticles() {
   }
 }
 
-// Mouse interaction for orbs
 function initOrbInteraction() {
   const orbs = document.querySelectorAll('.orb');
   if (!orbs.length) return;
@@ -39,12 +37,11 @@ function initOrbInteraction() {
         });
 
         mouseTimer = null;
-      }, 16); // ~60fps
+      }, 16);
     }
   });
 }
 
-// Initialize background effects
 generateParticles();
 initOrbInteraction();
 
@@ -58,6 +55,7 @@ const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
    Nav sizing → CSS var (for scroll offsets)
    ========================================================= */
 const nav = $("nav");
+const MOBILE_NAV_BREAKPOINT = 940;
 
 function setNavHeightVar() {
   const h = nav?.offsetHeight || 0;
@@ -75,11 +73,9 @@ function handleStickyNav() {
   const currScrollY =
     window.pageYOffset || document.documentElement.scrollTop;
 
-  // Get the home section height to determine when to change nav background
   const homeSection = document.getElementById('home');
   const homeHeight = homeSection ? homeSection.offsetHeight : window.innerHeight;
 
-  // Toggle solid background based on scroll position
   if (currScrollY > homeHeight - 100) {
     nav.classList.add("nav-solid");
   } else {
@@ -116,7 +112,7 @@ if (hamburgerMenu && navLinksUL) {
   hamburgerMenu.addEventListener("click", toggleMobileMenu);
 
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 880 && navLinksUL.classList.contains("nav-active")) {
+    if (window.innerWidth > MOBILE_NAV_BREAKPOINT && navLinksUL.classList.contains("nav-active")) {
       closeMobileMenu();
     }
   });
@@ -167,15 +163,12 @@ navItems.forEach((a) => {
 
     const id = a.getAttribute("href").slice(1);
 
-    // smooth scroll
     scrollToSection(id);
 
-    // update URL + active
     setURLForSection(id);
     setActiveLinkById(id);
 
-    // close mobile menu
-    if (window.innerWidth <= 880) closeMobileMenu();
+    if (window.innerWidth <= MOBILE_NAV_BREAKPOINT) closeMobileMenu();
   });
 });
 
@@ -198,7 +191,6 @@ function observeSections() {
       });
     },
     {
-      // push the top boundary down by nav height, and bottom up a bit
       rootMargin: `-${navH + 1}px 0px -55% 0px`,
       threshold: 0.1,
     }
@@ -212,9 +204,8 @@ function observeSections() {
    ========================================================= */
 function handleDeepLinkOnLoad() {
   const id = window.location.hash ? window.location.hash.slice(1) : "home";
-  // ensure correct active link immediately
   setActiveLinkById(id);
-  // scroll there (use instant jump if loading with a hash)
+
   if (id !== "home") {
     const navH = nav?.offsetHeight || 0;
     const target = document.getElementById(id);
@@ -260,7 +251,6 @@ function initFadeIns() {
   );
 
   [
-    ".avatar-container",
     ".home-content",
     ".scroll-arrow-container",
     ".about-wrapper",
